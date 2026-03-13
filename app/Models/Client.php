@@ -8,10 +8,20 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
+use Illuminate\Database\Eloquent\Relations\HasOne;
+
 class Client extends Authenticatable
 {
     /** @use HasFactory<UserFactory> */
     use HasFactory, Notifiable;
+
+    /**
+     * Get the profile associated with the client.
+     */
+    public function profile(): HasOne
+    {
+        return $this->hasOne(ClientProfile::class);
+    }
 
     /**
      * The attributes that are mass assignable.

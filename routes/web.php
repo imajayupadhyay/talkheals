@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ClientProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -18,6 +19,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard', function () {
         return Inertia::render('Dashboard/Index');
     })->name('dashboard');
+
+    // Clinical Profile Routes
+    Route::get('/profile', [ClientProfileController::class, 'edit'])->name('client.profile.edit');
+    Route::patch('/profile', [ClientProfileController::class, 'update'])->name('client.profile.update');
 });
 
 require __DIR__.'/auth.php';
