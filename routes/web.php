@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\AppointmentController;
+use App\Http\Controllers\BookingController;
 use App\Http\Controllers\ClientProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -23,6 +25,15 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // Clinical Profile Routes
     Route::get('/profile', [ClientProfileController::class, 'edit'])->name('client.profile.edit');
     Route::patch('/profile', [ClientProfileController::class, 'update'])->name('client.profile.update');
+
+    // Booking (free discovery call)
+    Route::get('/booking/calendar', [BookingController::class, 'getCalendar'])->name('booking.calendar');
+    Route::get('/booking/slots', [BookingController::class, 'getSlots'])->name('booking.slots');
+    Route::post('/booking', [BookingController::class, 'store'])->name('booking.store');
+
+    // My Appointments
+    Route::get('/appointments', [AppointmentController::class, 'index'])->name('client.appointments');
+    Route::patch('/appointments/{booking}/cancel', [AppointmentController::class, 'cancel'])->name('client.appointments.cancel');
 });
 
 require __DIR__.'/auth.php';

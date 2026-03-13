@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\Auth\LoginController;
 use App\Http\Controllers\Admin\AvailabilityController;
+use App\Http\Controllers\Admin\BookingController as AdminBookingController;
 use App\Http\Controllers\Admin\DashboardController;
 use Illuminate\Support\Facades\Route;
 
@@ -20,4 +21,8 @@ Route::middleware('auth:admin')->prefix('admin')->group(function () {
     Route::post('/availability/settings', [AvailabilityController::class, 'saveSettings'])->name('admin.availability.settings');
     Route::post('/availability/exceptions', [AvailabilityController::class, 'addException'])->name('admin.availability.exceptions.store');
     Route::delete('/availability/exceptions/{exception}', [AvailabilityController::class, 'removeException'])->name('admin.availability.exceptions.destroy');
+
+    // Bookings management
+    Route::get('/bookings', [AdminBookingController::class, 'index'])->name('admin.bookings');
+    Route::patch('/bookings/{booking}/status', [AdminBookingController::class, 'updateStatus'])->name('admin.bookings.status');
 });

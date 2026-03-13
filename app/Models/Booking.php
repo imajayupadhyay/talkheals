@@ -14,6 +14,7 @@ class Booking extends Model
         'start_time',
         'end_time',
         'status',
+        'type',
         'session_type',
         'client_notes',
         'admin_notes',

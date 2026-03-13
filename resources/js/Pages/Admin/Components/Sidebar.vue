@@ -4,6 +4,7 @@ import { Link } from '@inertiajs/vue3';
 const menuItems = [
     { name: 'Dashboard',    icon: '📊',  route: 'admin.dashboard'   },
     { name: 'Availability', icon: '🗓️',  route: 'admin.availability' },
+    { name: 'Bookings',     icon: '📋',  route: 'admin.bookings'    },
 ];
 </script>
 

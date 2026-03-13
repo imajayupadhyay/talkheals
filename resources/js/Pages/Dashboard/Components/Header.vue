@@ -90,9 +90,9 @@ onUnmounted(() => {
                         <Link :href="route('client.profile.edit')" class="flex items-center gap-2.5 p-2 rounded-lg text-[0.8rem] text-talkheals-deep hover:bg-talkheals-gold-p transition-colors duration-200">
                             <span>🧘</span> Clinical Profile
                         </Link>
-                        <a href="#" class="flex items-center gap-2.5 p-2 rounded-lg text-[0.8rem] text-talkheals-deep hover:bg-talkheals-gold-p transition-colors duration-200">
+                        <Link :href="route('client.appointments')" class="flex items-center gap-2.5 p-2 rounded-lg text-[0.8rem] text-talkheals-deep hover:bg-talkheals-gold-p transition-colors duration-200">
                             <span>📅</span> My Appointments
-                        </a>
+                        </Link>
                         <a href="#" class="flex items-center gap-2.5 p-2 rounded-lg text-[0.8rem] text-talkheals-deep hover:bg-talkheals-gold-p transition-colors duration-200">
                             <span>📒</span> Session Notes
                         </a>
