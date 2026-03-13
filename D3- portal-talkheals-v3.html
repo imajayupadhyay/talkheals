@@ -1,0 +1,903 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Talk Heals — Namrata Mohan, RP</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,200;0,9..144,300;1,9..144,200;1,9..144,300&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --gold:#c9a96e;--gold-l:#e8d5b0;--gold-p:#f7f0e3;
+  --rose:#c49a8a;--rose-l:#e8cfc6;--rose-p:#f8f0ed;
+  --sage:#7a9e8e;--sage-l:#b4d0c4;--sage-p:#e8f3ef;
+  --deep:#2a2420;--mid:#5c4a42;--muted:#9a8880;
+  --cream:#faf7f2;--sky:#8bb0c4;--sky-p:#dceaf3;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Jost',sans-serif;background:var(--cream);color:var(--deep);overflow-x:hidden;cursor:none}
+
+/* ── CURSOR ── */
+#cur{width:9px;height:9px;border-radius:50%;background:var(--rose);position:fixed;z-index:9999;pointer-events:none;transform:translate(-50%,-50%);mix-blend-mode:multiply;transition:width .3s,height .3s,background .3s}
+#cr{width:32px;height:32px;border-radius:50%;border:1.5px solid var(--rose);position:fixed;z-index:9998;pointer-events:none;transform:translate(-50%,-50%);opacity:.5;transition:width .4s,height .4s,border-color .3s}
+#cur.h{width:4px;height:4px;background:var(--gold)}
+#cr.h{width:46px;height:46px;border-color:var(--gold);opacity:.3}
+
+/* ── ORBS ── */
+.orbs{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.orb{position:absolute;border-radius:50%;filter:blur(85px);animation:orbDrift ease-in-out infinite}
+.o1{width:650px;height:650px;background:rgba(201,169,110,.1);top:-180px;left:-180px;animation-duration:26s}
+.o2{width:480px;height:480px;background:rgba(196,154,138,.11);top:38%;right:-80px;animation-duration:21s;animation-delay:-8s}
+.o3{width:560px;height:560px;background:rgba(122,158,142,.08);bottom:-80px;left:18%;animation-duration:30s;animation-delay:-14s}
+@keyframes orbDrift{0%,100%{transform:translate(0,0)}34%{transform:translate(30px,-40px)}67%{transform:translate(-18px,22px)}}
+
+/* ── PETALS ── */
+#petals{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
+.pt{position:absolute;border-radius:60% 0 60% 0;pointer-events:none;animation:ptFall linear forwards}
+@keyframes ptFall{0%{opacity:0;transform:translate(0,0) rotate(0deg) scale(1)}10%{opacity:.7}88%{opacity:.3}100%{opacity:0;transform:translate(var(--dx),108vh) rotate(var(--rot)) scale(.7)}}
+
+/* ── NAV ── */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:15px 48px;background:rgba(250,247,242,.85);backdrop-filter:blur(22px);border-bottom:1px solid rgba(201,169,110,.13);transition:all .4s}
+nav.scrolled{padding:11px 48px;background:rgba(250,247,242,.96)}
+.logo{text-decoration:none;display:flex;flex-direction:column}
+.logo-t{font-family:'Fraunces',serif;font-size:1.5rem;font-weight:300;color:var(--deep);line-height:1}
+.logo-t span{color:var(--gold);font-style:italic}
+.logo-s{font-size:.58rem;letter-spacing:.15em;color:var(--muted);text-transform:uppercase;margin-top:2px}
+.nav-links{display:flex;gap:24px;list-style:none}
+.nav-links a{text-decoration:none;color:var(--mid);font-size:.79rem;letter-spacing:.05em;transition:color .3s;position:relative}
+.nav-links a::after{content:'';position:absolute;bottom:-3px;left:0;right:0;height:1px;background:var(--gold);transform:scaleX(0);transition:transform .3s;transform-origin:left}
+.nav-links a:hover{color:var(--deep)}
+.nav-links a:hover::after{transform:scaleX(1)}
+.nav-r{display:flex;align-items:center;gap:10px}
+.nav-book{padding:9px 20px;background:var(--rose);color:white;border:none;border-radius:40px;font-family:'Jost',sans-serif;font-size:.79rem;cursor:pointer;transition:all .3s}
+.nav-book:hover{background:var(--deep);transform:translateY(-2px)}
+
+/* profile */
+.pw{position:relative}
+.pp{display:flex;align-items:center;gap:7px;padding:6px 13px 6px 6px;background:rgba(247,240,227,.7);border:1px solid var(--gold-l);border-radius:40px;cursor:pointer;transition:all .3s}
+.pp:hover{background:var(--gold-p)}
+.pav{width:27px;height:27px;border-radius:50%;background:linear-gradient(135deg,var(--rose),var(--gold));display:flex;align-items:center;justify-content:center;color:white;font-size:.7rem}
+.pn{font-size:.76rem;color:var(--deep)}
+.pd{position:absolute;top:calc(100% + 9px);right:0;width:232px;background:white;border-radius:15px;box-shadow:0 18px 52px rgba(42,36,32,.13);border:1px solid var(--gold-p);padding:14px;opacity:0;pointer-events:none;transform:translateY(-7px) scale(.97);transition:all .3s cubic-bezier(.34,1.56,.64,1)}
+.pd.open{opacity:1;pointer-events:all;transform:translateY(0) scale(1)}
+.pdh{display:flex;gap:10px;align-items:center;padding-bottom:11px;border-bottom:1px solid var(--gold-p);margin-bottom:9px}
+.pdbav{width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,var(--rose),var(--gold));display:flex;align-items:center;justify-content:center;color:white;font-size:.85rem}
+.pdn{font-weight:500;font-size:.86rem}
+.pdr{font-size:.68rem;color:var(--muted)}
+.pdi{display:flex;align-items:center;gap:8px;padding:7px 8px;border-radius:8px;font-size:.8rem;color:var(--deep);cursor:pointer;transition:background .2s}
+.pdi:hover{background:var(--gold-p)}
+
+/* ══════════════════════════════════════
+   BREATHE HERO SECTION
+══════════════════════════════════════ */
+.breathe-hero{
+  min-height:100vh;
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  text-align:center;
+  padding:100px 40px 60px;
+  position:relative;z-index:1;
+}
+
+/* The big breathe orb button */
+.breathe-btn{
+  position:relative;
+  width:200px;height:200px;
+  border-radius:50%;
+  background:none;border:none;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  flex-direction:column;
+  margin-bottom:48px;
+  opacity:0;animation:bAppear 1s .3s forwards;
+}
+.breathe-ring-1,.breathe-ring-2,.breathe-ring-3{
+  position:absolute;border-radius:50%;
+  animation:breatheRing ease-in-out infinite;
+}
+.breathe-ring-1{inset:0;background:rgba(196,154,138,.18);animation-duration:4s}
+.breathe-ring-2{inset:-20px;border:1.5px solid rgba(201,169,110,.22);animation-duration:4s;animation-delay:.5s}
+.breathe-ring-3{inset:-40px;border:1px solid rgba(196,154,138,.1);animation-duration:4s;animation-delay:1s}
+@keyframes breatheRing{0%,100%{transform:scale(1);opacity:.6}50%{transform:scale(1.1);opacity:1}}
+
+.breathe-core{
+  width:110px;height:110px;border-radius:50%;
+  background:linear-gradient(145deg,var(--rose-l),var(--gold-l));
+  display:flex;align-items:center;justify-content:center;
+  flex-direction:column;gap:4px;
+  box-shadow:0 12px 40px rgba(196,154,138,.35);
+  transition:transform .4s cubic-bezier(.34,1.56,.64,1),box-shadow .4s;
+  position:relative;z-index:1;
+}
+.breathe-btn:hover .breathe-core{transform:scale(1.08);box-shadow:0 18px 55px rgba(196,154,138,.45)}
+.breathe-icon{font-size:1.8rem;line-height:1}
+.breathe-label-sm{font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;color:var(--mid);font-weight:500}
+.breathe-btn.active .breathe-core{background:linear-gradient(145deg,var(--sage-l),var(--sky-p))}
+.breathe-btn.active .breathe-ring-1{background:rgba(122,158,142,.18)}
+.breathe-btn.active .breathe-ring-2{border-color:rgba(122,158,142,.25)}
+
+.breathe-tagline{
+  font-family:'Fraunces',serif;font-size:clamp(.7rem,.9rem,1rem);
+  font-weight:300;color:var(--muted);letter-spacing:.15em;text-transform:uppercase;
+  margin-bottom:6px;
+  opacity:0;animation:bAppear 1s .7s forwards;
+}
+.breathe-click-note{
+  font-size:.7rem;color:rgba(156,136,128,.6);letter-spacing:.08em;
+  margin-top:-4px;margin-bottom:48px;
+  opacity:0;animation:bAppear 1s .9s forwards;
+}
+
+.hero-heading{
+  font-family:'Fraunces',serif;
+  font-size:clamp(2.8rem,6vw,5.2rem);
+  font-weight:200;line-height:1.05;color:var(--deep);
+  margin-bottom:18px;
+  opacity:0;animation:bAppear 1s .5s forwards;
+}
+.hero-heading em{font-style:italic;color:var(--rose)}
+
+.hero-sub{
+  font-size:.95rem;color:var(--muted);font-weight:300;
+  max-width:420px;line-height:1.8;margin-bottom:0;
+  opacity:0;animation:bAppear 1s .75s forwards;
+}
+
+@keyframes bAppear{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+
+/* scroll hint */
+.scroll-hint{
+  position:absolute;bottom:32px;left:50%;transform:translateX(-50%);
+  display:flex;flex-direction:column;align-items:center;gap:8px;
+  opacity:0;animation:bAppear 1s 1.4s forwards;
+}
+.scroll-line{width:1px;height:48px;background:linear-gradient(to bottom,var(--gold),transparent);animation:scrollPulse 2s ease-in-out infinite}
+@keyframes scrollPulse{0%,100%{opacity:.4;transform:scaleY(1)}50%{opacity:1;transform:scaleY(1.15)}}
+.scroll-txt{font-size:.62rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+
+/* ══════════════════════════════════════
+   SESSION BOXES SIDE BY SIDE
+══════════════════════════════════════ */
+.sessions{padding:0 48px 100px;position:relative;z-index:1}
+.sess-inner{max-width:1100px;margin:0 auto}
+.sess-intro{text-align:center;margin-bottom:44px}
+.sess-intro-label{font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);margin-bottom:10px}
+.sess-intro-title{font-family:'Fraunces',serif;font-size:clamp(1.6rem,3vw,2.4rem);font-weight:300;color:var(--deep)}
+.sess-intro-title em{font-style:italic;color:var(--rose)}
+
+.sess-boxes{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+
+/* ── FREE BOX ── */
+.box-free{
+  background:linear-gradient(158deg,#2a2420 0%,#3a2d28 52%,#283428 100%);
+  border-radius:28px;padding:48px 42px;
+  position:relative;overflow:hidden;
+}
+.box-free::before{content:'';position:absolute;width:280px;height:280px;border-radius:50%;background:rgba(201,169,110,.09);top:-90px;right:-70px;animation:orbDrift 20s ease-in-out infinite}
+.box-free::after{content:'';position:absolute;width:160px;height:160px;border-radius:50%;background:rgba(122,158,142,.06);bottom:-40px;left:20%}
+
+.box-badge-free{display:inline-flex;align-items:center;gap:7px;padding:5px 14px;border-radius:40px;font-size:.67rem;letter-spacing:.12em;text-transform:uppercase;border:1px solid rgba(201,169,110,.3);color:var(--gold-l);background:rgba(201,169,110,.08);margin-bottom:20px;position:relative;z-index:1}
+.bdot{width:5px;height:5px;border-radius:50%;background:var(--gold-l);animation:pulse 2.2s infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(1.6)}}
+
+.box-title{font-family:'Fraunces',serif;font-size:2.4rem;font-weight:200;color:white;line-height:1.08;margin-bottom:14px;position:relative;z-index:1}
+.box-title em{font-style:italic;color:var(--gold-l)}
+.box-desc{font-size:.85rem;color:rgba(255,255,255,.48);line-height:1.8;font-weight:300;margin-bottom:30px;position:relative;z-index:1}
+
+.free-perks{list-style:none;margin-bottom:32px;position:relative;z-index:1;display:flex;flex-direction:column;gap:7px}
+.free-perks li{display:flex;align-items:center;gap:9px;color:rgba(255,255,255,.65);font-size:.82rem}
+.ck{width:16px;height:16px;border-radius:50%;background:rgba(201,169,110,.18);border:1px solid rgba(201,169,110,.32);display:flex;align-items:center;justify-content:center;font-size:.5rem;color:var(--gold-l);flex-shrink:0}
+
+.free-price-block{background:rgba(255,255,255,.055);border:1px solid rgba(255,255,255,.09);border-radius:16px;padding:24px 26px;position:relative;z-index:1;display:flex;flex-direction:column;gap:16px}
+.price-row{display:flex;align-items:baseline;justify-content:space-between}
+.price-label{font-size:.72rem;color:rgba(255,255,255,.38);letter-spacing:.06em}
+.price-big{font-family:'Fraunces',serif;font-size:2.2rem;font-weight:200;color:white}
+.price-big span{font-size:.8rem;font-family:'Jost',sans-serif;color:var(--gold-l);margin-left:5px}
+.btn-free{width:100%;padding:15px;background:var(--gold);color:white;border:none;border-radius:11px;font-family:'Jost',sans-serif;font-size:.88rem;cursor:pointer;font-weight:500;letter-spacing:.04em;transition:all .32s cubic-bezier(.34,1.56,.64,1)}
+.btn-free:hover{background:white;color:var(--deep);transform:translateY(-2px);box-shadow:0 10px 28px rgba(0,0,0,.18)}
+
+/* ── PAID BOX ── */
+.box-paid{
+  background:white;border-radius:28px;
+  padding:48px 42px;border:1.5px solid var(--gold-l);
+  position:relative;overflow:hidden;
+}
+.box-paid::before{content:'';position:absolute;width:260px;height:260px;border-radius:50%;background:rgba(201,169,110,.045);top:-80px;left:-80px}
+.box-badge-paid{display:inline-flex;align-items:center;gap:7px;padding:5px 14px;border-radius:40px;font-size:.67rem;letter-spacing:.12em;text-transform:uppercase;border:1px solid var(--rose-l);color:var(--rose);background:var(--rose-p);margin-bottom:20px;position:relative;z-index:1}
+
+.box-paid-title{font-family:'Fraunces',serif;font-size:2.4rem;font-weight:300;color:var(--deep);line-height:1.08;margin-bottom:14px;position:relative;z-index:1}
+.box-paid-title em{font-style:italic;color:var(--rose)}
+.box-paid-desc{font-size:.85rem;color:var(--muted);line-height:1.8;font-weight:300;margin-bottom:28px;position:relative;z-index:1}
+
+.sess-cards{display:flex;flex-direction:column;gap:10px;position:relative;z-index:1}
+.sc{
+  display:flex;align-items:center;gap:14px;
+  padding:15px 18px;
+  border:1.5px solid var(--gold-p);border-radius:14px;
+  background:var(--cream);cursor:pointer;
+  transition:all .32s cubic-bezier(.34,1.56,.64,1);
+}
+.sc:hover{border-color:var(--rose);background:var(--rose-p);transform:translateX(5px)}
+.sc-ico{font-size:1.45rem;flex-shrink:0}
+.sc-inf{flex:1}
+.sc-name{font-size:.9rem;font-weight:500;color:var(--deep);margin-bottom:2px}
+.sc-detail{font-size:.72rem;color:var(--muted)}
+.sc-price{text-align:right;flex-shrink:0}
+.sc-amt{font-family:'Fraunces',serif;font-size:1.28rem;font-weight:300;color:var(--deep)}
+.sc-unit{font-size:.66rem;color:var(--muted);display:block;margin-top:1px}
+
+.btn-paid{width:100%;margin-top:18px;padding:15px;background:var(--rose);color:white;border:none;border-radius:11px;font-family:'Jost',sans-serif;font-size:.88rem;cursor:pointer;font-weight:500;letter-spacing:.04em;transition:all .32s cubic-bezier(.34,1.56,.64,1);position:relative;z-index:1}
+.btn-paid:hover{background:var(--deep);transform:translateY(-2px);box-shadow:0 12px 30px rgba(196,154,138,.32)}
+.paid-note{font-size:.7rem;color:var(--muted);text-align:center;margin-top:10px;position:relative;z-index:1}
+
+/* wave */
+.wave{width:100%;height:52px;overflow:hidden;position:relative;z-index:1}
+.wave svg{display:block;width:100%;height:52px}
+
+/* ══════════════════════════════════════
+   SECTION COMMON
+══════════════════════════════════════ */
+.sec{padding:80px 48px;position:relative;z-index:1}
+.sec-inner{max-width:1100px;margin:0 auto}
+.slabel{font-size:.66rem;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);margin-bottom:10px}
+.stitle{font-family:'Fraunces',serif;font-size:clamp(1.7rem,3.2vw,2.6rem);font-weight:300;line-height:1.15;color:var(--deep);margin-bottom:10px}
+.stitle em{font-style:italic;color:var(--rose)}
+.ssub{font-size:.9rem;color:var(--muted);max-width:420px;line-height:1.78;font-weight:300}
+
+/* reveal */
+.rv{opacity:0;transform:translateY(28px);transition:opacity .75s,transform .75s}
+.rv-l{opacity:0;transform:translateX(-28px);transition:opacity .75s,transform .75s}
+.rv-r{opacity:0;transform:translateX(28px);transition:opacity .75s,transform .75s}
+.rv.in,.rv-l.in,.rv-r.in{opacity:1;transform:translate(0)}
+.d1{transition-delay:.05s}.d2{transition-delay:.1s}.d3{transition-delay:.15s}.d4{transition-delay:.2s}.d5{transition-delay:.25s}
+
+/* ══════════════════════════════════════
+   UPCOMING WORKSHOPS
+══════════════════════════════════════ */
+.upcoming{background:linear-gradient(155deg,var(--rose-p),var(--gold-p),var(--sage-p));padding:80px 0;position:relative;z-index:1}
+.uw-in{max-width:1100px;margin:0 auto;padding:0 48px}
+.uw-list{display:flex;flex-direction:column;gap:12px;margin-top:40px}
+.uw-card{
+  display:flex;align-items:center;gap:20px;
+  background:rgba(255,255,255,.78);backdrop-filter:blur(12px);
+  border:1px solid rgba(201,169,110,.18);border-radius:18px;
+  padding:20px 24px;transition:all .35s cubic-bezier(.34,1.56,.64,1);cursor:pointer;
+}
+.uw-card:hover{transform:translateX(7px) translateY(-2px);border-color:var(--rose-l);box-shadow:0 14px 42px rgba(196,154,138,.14)}
+.uw-date{flex-shrink:0;width:52px;text-align:center;background:var(--rose-p);border-radius:11px;padding:8px 5px;border:1px solid var(--rose-l)}
+.uw-mon{font-size:.58rem;text-transform:uppercase;letter-spacing:.1em;color:var(--rose)}
+.uw-day{font-family:'Fraunces',serif;font-size:1.75rem;color:var(--deep);line-height:1}
+.uw-info{flex:1}
+.uw-info h4{font-size:.92rem;font-weight:500;margin-bottom:4px}
+.uw-info p{font-size:.76rem;color:var(--muted)}
+.uw-tags{display:flex;gap:6px;margin-top:6px}
+.utag{padding:2px 10px;border-radius:20px;font-size:.65rem}
+.tf{background:var(--sage-p);color:var(--sage)}
+.tl{background:var(--sky-p);color:var(--sky)}
+.th{background:var(--rose-p);color:var(--rose)}
+.uw-btn{padding:8px 18px;border:1.5px solid var(--rose);border-radius:40px;background:none;font-family:'Jost',sans-serif;font-size:.76rem;color:var(--rose);cursor:pointer;transition:all .25s;font-weight:500;flex-shrink:0}
+.uw-btn:hover{background:var(--rose);color:white}
+
+/* ══════════════════════════════════════
+   PAST WORKSHOPS CAROUSEL
+══════════════════════════════════════ */
+.pw-sec{padding:80px 0;position:relative;z-index:1}
+.pw-in{max-width:1100px;margin:0 auto;padding:0 48px}
+.pw-hd{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:38px}
+.cbtns{display:flex;gap:8px}
+.cbtn{width:38px;height:38px;border-radius:50%;border:1.5px solid var(--gold-l);background:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:.92rem;color:var(--deep);transition:all .22s}
+.cbtn:hover{background:var(--rose);border-color:var(--rose);color:white}
+.pw-wrap{overflow:hidden;padding:10px 48px;margin:0 -48px}
+.pw-track{display:flex;gap:20px;transition:transform .52s cubic-bezier(.77,0,.175,1)}
+.pw-card{flex:0 0 288px;background:white;border-radius:18px;overflow:hidden;border:1px solid var(--gold-p);transition:all .32s;cursor:pointer}
+.pw-card:hover{transform:translateY(-7px);box-shadow:0 20px 48px rgba(42,36,32,.09)}
+.pw-th{height:165px;display:flex;align-items:center;justify-content:center;position:relative}
+.pt1{background:linear-gradient(135deg,#e8d5b0,#c9a96e)}.pt2{background:linear-gradient(135deg,#e8cfc6,#c49a8a)}.pt3{background:linear-gradient(135deg,#b4d0c4,#7a9e8e)}.pt4{background:linear-gradient(135deg,#dceaf3,#8bb0c4)}.pt5{background:linear-gradient(135deg,#f0eaf4,#b8a0b8)}.pt6{background:linear-gradient(135deg,#e8f3ef,#7a9e8e)}
+.play-btn{width:50px;height:50px;border-radius:50%;background:rgba(255,255,255,.92);border:none;display:flex;align-items:center;justify-content:center;font-size:.95rem;cursor:pointer;transition:all .3s;box-shadow:0 4px 16px rgba(42,36,32,.14)}
+.play-btn:hover{transform:scale(1.14);background:white}
+.pw-dur{position:absolute;bottom:9px;right:11px;background:rgba(42,36,32,.42);color:white;font-size:.65rem;padding:2px 9px;border-radius:20px}
+.pw-body{padding:16px 18px}
+.pw-cat{font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:5px}
+.pw-title{font-size:.9rem;font-weight:500;color:var(--deep);line-height:1.32;margin-bottom:10px}
+.pw-meta{display:flex;justify-content:space-between;align-items:center}
+.pw-views{font-size:.68rem;color:var(--muted)}
+.pw-watch{padding:4px 12px;border:1px solid var(--gold-l);border-radius:20px;font-size:.65rem;font-family:'Jost',sans-serif;color:var(--gold);cursor:pointer;background:none;transition:all .2s}
+.pw-watch:hover{background:var(--gold);color:white}
+
+/* ══════════════════════════════════════
+   REVIEWS CAROUSEL
+══════════════════════════════════════ */
+.rv-sec{background:var(--deep);padding:80px 0;position:relative;z-index:1;overflow:hidden}
+.rv-sec::before{content:'';position:absolute;width:480px;height:480px;border-radius:50%;background:rgba(201,169,110,.05);top:-140px;right:-60px}
+.rv-in{max-width:1100px;margin:0 auto;padding:0 48px}
+.rv-hd{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:42px}
+.rv-label{font-size:.66rem;letter-spacing:.18em;text-transform:uppercase;color:var(--gold)}
+.rv-title{font-family:'Fraunces',serif;font-size:clamp(1.7rem,3.2vw,2.6rem);font-weight:200;color:white;line-height:1.12}
+.rv-title em{font-style:italic;color:var(--rose-l)}
+.rv-wrap{overflow:hidden;padding:10px 48px;margin:0 -48px}
+.rv-track{display:flex;gap:20px;transition:transform .52s cubic-bezier(.77,0,.175,1)}
+.rv-card{flex:0 0 320px;background:rgba(255,255,255,.04);border:1px solid rgba(201,169,110,.12);border-radius:20px;padding:28px 24px;backdrop-filter:blur(10px);transition:all .3s}
+.rv-card:hover{background:rgba(255,255,255,.08);border-color:rgba(201,169,110,.28);transform:translateY(-5px)}
+.rv-stars{color:var(--gold);font-size:.8rem;margin-bottom:12px;letter-spacing:2px}
+.rv-text{font-size:.88rem;line-height:1.75;color:rgba(255,255,255,.6);font-weight:300;font-family:'Fraunces',serif;font-style:italic;margin-bottom:20px}
+.rv-author{display:flex;align-items:center;gap:10px}
+.rv-av{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.8rem;font-weight:500;color:white;flex-shrink:0}
+.rv-name{font-size:.82rem;color:white;font-weight:500}
+.rv-loc{font-size:.67rem;color:rgba(255,255,255,.32);margin-top:1px}
+.rv-tag{display:inline-block;margin-top:4px;padding:2px 10px;border-radius:20px;background:rgba(201,169,110,.09);color:var(--gold-l);font-size:.64rem}
+.rv-bot{text-align:center;margin-top:42px;position:relative;z-index:1;display:flex;gap:12px;justify-content:center}
+
+/* ══════════════════════════════════════
+   ABOUT NAMRATA
+══════════════════════════════════════ */
+.bio-sec{padding:80px 48px;position:relative;z-index:1}
+.bio-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1.3fr;gap:60px;align-items:center}
+.bio-card{background:linear-gradient(145deg,var(--gold-p),var(--rose-p));border-radius:24px;padding:40px 36px;position:relative;overflow:hidden}
+.bio-card::before{content:'';position:absolute;width:160px;height:160px;border-radius:50%;background:rgba(255,255,255,.4);top:-45px;right:-45px}
+.bio-ico{width:88px;height:88px;border-radius:50%;background:linear-gradient(135deg,var(--rose-l),var(--gold-l));display:flex;align-items:center;justify-content:center;font-size:2rem;margin-bottom:16px;border:3px solid white;box-shadow:0 6px 22px rgba(42,36,32,.1)}
+.bio-name{font-family:'Fraunces',serif;font-size:1.4rem;font-weight:300;color:var(--deep);margin-bottom:4px}
+.bio-role{font-size:.68rem;color:var(--muted);letter-spacing:.08em;margin-bottom:18px}
+.bio-creds{display:flex;flex-direction:column;gap:8px}
+.bio-cred{display:flex;align-items:center;gap:8px;font-size:.78rem;color:var(--mid);padding:8px 12px;background:rgba(255,255,255,.6);border-radius:9px}
+.bio-p{font-size:.9rem;color:var(--mid);line-height:1.88;font-weight:300;margin-bottom:16px}
+.bio-stats{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:24px}
+.bs{padding:14px 16px;background:white;border-radius:12px;border:1px solid var(--gold-p);transition:all .3s}
+.bs:hover{border-color:var(--gold);transform:translateY(-2px)}
+.bs-num{font-family:'Fraunces',serif;font-size:1.45rem;font-weight:300;color:var(--gold)}
+.bs-lbl{font-size:.7rem;color:var(--muted);margin-top:1px}
+.bio-btns{display:flex;gap:11px;flex-wrap:wrap}
+
+/* ══════════════════════════════════════
+   ARTICLES + NEWSLETTER
+══════════════════════════════════════ */
+.content-band{
+  background:var(--cream);
+  padding:80px 48px;position:relative;z-index:1;
+}
+.content-inner{max-width:1100px;margin:0 auto}
+.content-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:44px}
+
+/* Articles card */
+.art-card{
+  background:white;border-radius:24px;
+  padding:42px 38px;
+  border:1.5px solid var(--gold-l);
+  position:relative;overflow:hidden;
+  transition:all .35s;
+}
+.art-card:hover{transform:translateY(-4px);box-shadow:0 18px 52px rgba(42,36,32,.08)}
+.art-card::before{content:'';position:absolute;width:200px;height:200px;border-radius:50%;background:rgba(201,169,110,.06);top:-60px;right:-60px}
+.art-badge{display:inline-flex;align-items:center;gap:6px;padding:5px 13px;border-radius:40px;font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;border:1px solid var(--gold-l);color:var(--gold);background:var(--gold-p);margin-bottom:18px}
+.art-title{font-family:'Fraunces',serif;font-size:1.9rem;font-weight:300;color:var(--deep);line-height:1.15;margin-bottom:12px}
+.art-title em{font-style:italic;color:var(--gold)}
+.art-desc{font-size:.84rem;color:var(--muted);line-height:1.78;font-weight:300;margin-bottom:28px}
+.art-previews{display:flex;flex-direction:column;gap:10px;margin-bottom:28px}
+.art-prev{display:flex;align-items:center;gap:12px;padding:11px 14px;border-radius:11px;background:var(--cream);border:1px solid var(--gold-p);cursor:pointer;transition:all .28s}
+.art-prev:hover{border-color:var(--gold);background:var(--gold-p);transform:translateX(4px)}
+.art-prev-icon{font-size:1.1rem;flex-shrink:0}
+.art-prev-text{font-size:.8rem;color:var(--deep);font-weight:400;line-height:1.3}
+.art-prev-tag{font-size:.65rem;color:var(--muted);margin-top:2px}
+.art-prev-arr{margin-left:auto;font-size:.85rem;color:var(--gold);opacity:.6;flex-shrink:0}
+
+/* Newsletter card */
+.nl-card{
+  background:linear-gradient(155deg,#2a2420 0%,#3a2d28 55%,#283428 100%);
+  border-radius:24px;padding:42px 38px;
+  position:relative;overflow:hidden;
+}
+.nl-card::before{content:'';position:absolute;width:250px;height:250px;border-radius:50%;background:rgba(201,169,110,.09);top:-70px;right:-60px;animation:orbDrift 18s ease-in-out infinite}
+.nl-card::after{content:'';position:absolute;width:150px;height:150px;border-radius:50%;background:rgba(122,158,142,.06);bottom:-30px;left:20%}
+.nl-badge{display:inline-flex;align-items:center;gap:6px;padding:5px 13px;border-radius:40px;font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;border:1px solid rgba(201,169,110,.3);color:var(--gold-l);background:rgba(201,169,110,.08);margin-bottom:18px;position:relative;z-index:1}
+.nl-title{font-family:'Fraunces',serif;font-size:1.9rem;font-weight:200;color:white;line-height:1.15;margin-bottom:12px;position:relative;z-index:1}
+.nl-title em{font-style:italic;color:var(--gold-l)}
+.nl-desc{font-size:.84rem;color:rgba(255,255,255,.48);line-height:1.78;font-weight:300;margin-bottom:28px;position:relative;z-index:1}
+.nl-perks{list-style:none;margin-bottom:28px;position:relative;z-index:1;display:flex;flex-direction:column;gap:6px}
+.nl-perks li{display:flex;align-items:center;gap:8px;color:rgba(255,255,255,.62);font-size:.8rem}
+.nl-input-wrap{position:relative;z-index:1;margin-bottom:10px}
+.nl-input{width:100%;padding:13px 16px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:11px;color:white;font-family:'Jost',sans-serif;font-size:.86rem;outline:none;transition:border-color .3s,background .3s}
+.nl-input::placeholder{color:rgba(255,255,255,.28)}
+.nl-input:focus{border-color:var(--gold-l);background:rgba(255,255,255,.1)}
+.nl-btn{width:100%;padding:14px;background:var(--gold);color:white;border:none;border-radius:11px;font-family:'Jost',sans-serif;font-size:.88rem;cursor:pointer;font-weight:500;letter-spacing:.04em;transition:all .3s;position:relative;z-index:1}
+.nl-btn:hover{background:white;color:var(--deep);transform:translateY(-2px)}
+.nl-note{font-size:.67rem;color:rgba(255,255,255,.3);text-align:center;margin-top:9px;position:relative;z-index:1}
+
+/* ══════════════════════════════════════
+   CTA BAND
+══════════════════════════════════════ */
+.cta-band{background:linear-gradient(132deg,var(--gold),var(--rose));padding:65px 48px;text-align:center;position:relative;z-index:1;overflow:hidden}
+.cta-band::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='55' height='55' viewBox='0 0 55 55' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='27.5' cy='27.5' r='18' fill='none' stroke='white' stroke-opacity='.05' stroke-width='1'/%3E%3C/svg%3E")}
+.cta-inner{position:relative;z-index:1;max-width:580px;margin:0 auto}
+.cta-title{font-family:'Fraunces',serif;font-size:2.2rem;font-weight:200;color:white;line-height:1.18;margin-bottom:10px}
+.cta-title em{font-style:italic}
+.cta-sub{font-size:.88rem;color:rgba(255,255,255,.75);line-height:1.72;margin-bottom:28px;font-weight:300}
+.cta-btns{display:flex;gap:11px;justify-content:center;flex-wrap:wrap}
+.btn-w{padding:12px 28px;background:white;color:var(--rose);border:none;border-radius:40px;font-family:'Jost',sans-serif;font-size:.85rem;cursor:pointer;transition:all .32s cubic-bezier(.34,1.56,.64,1);font-weight:500}
+.btn-w:hover{transform:translateY(-3px) scale(1.03);box-shadow:0 12px 32px rgba(42,36,32,.18)}
+.btn-gh{padding:12px 28px;background:transparent;border:1.5px solid rgba(255,255,255,.32);color:rgba(255,255,255,.85);border-radius:40px;font-family:'Jost',sans-serif;font-size:.85rem;cursor:pointer;transition:all .3s}
+.btn-gh:hover{border-color:white;color:white}
+
+/* ── BUTTONS GLOBAL ── */
+.btn-rose{padding:12px 28px;background:var(--rose);color:white;border:none;border-radius:40px;font-family:'Jost',sans-serif;font-size:.84rem;cursor:pointer;transition:all .32s cubic-bezier(.34,1.56,.64,1);font-weight:500}
+.btn-rose:hover{background:var(--deep);transform:translateY(-3px);box-shadow:0 10px 28px rgba(196,154,138,.28)}
+.btn-out{padding:12px 28px;background:transparent;border:1.5px solid var(--rose-l);color:var(--rose);border-radius:40px;font-family:'Jost',sans-serif;font-size:.84rem;cursor:pointer;transition:all .3s}
+.btn-out:hover{background:var(--rose-p);border-color:var(--rose)}
+.btn-dark-out{padding:12px 28px;background:transparent;border:1.5px solid rgba(255,255,255,.2);color:rgba(255,255,255,.8);border-radius:40px;font-family:'Jost',sans-serif;font-size:.84rem;cursor:pointer;transition:all .3s}
+.btn-dark-out:hover{border-color:white;color:white}
+
+/* ── SOUND BTN ── */
+#snd{position:fixed;bottom:26px;left:26px;z-index:500;width:42px;height:42px;border-radius:50%;background:rgba(255,255,255,.9);border:1.5px solid var(--gold-l);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:.95rem;box-shadow:0 6px 22px rgba(42,36,32,.11);transition:all .3s;backdrop-filter:blur(12px)}
+#snd:hover{transform:scale(1.1);background:var(--gold-p)}
+
+/* FOOTER */
+footer{background:var(--deep);padding:60px 48px 26px;position:relative;z-index:1}
+.fg{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:34px;max-width:1100px;margin:0 auto;padding-bottom:40px;border-bottom:1px solid rgba(255,255,255,.07)}
+.fl{font-family:'Fraunces',serif;font-size:1.4rem;font-weight:300;color:white}
+.fl span{color:var(--gold);font-style:italic}
+.fl-s{font-size:.58rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.22);margin-bottom:12px;margin-top:3px}
+.fl-d{font-size:.79rem;color:rgba(255,255,255,.36);line-height:1.72;max-width:250px;font-weight:300;margin-bottom:16px}
+.fl-c{font-size:.76rem;color:rgba(255,255,255,.4);margin-bottom:7px;display:flex;align-items:center;gap:6px}
+.fl-c a{color:inherit;text-decoration:none}
+.fc h5{font-size:.65rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.28);margin-bottom:14px}
+.fc a{display:block;text-decoration:none;color:rgba(255,255,255,.36);font-size:.79rem;margin-bottom:8px;transition:color .2s}
+.fc a:hover{color:var(--gold-l)}
+.fb{max-width:1100px;margin:20px auto 0;display:flex;justify-content:space-between;font-size:.7rem;color:rgba(255,255,255,.17)}
+
+/* TOAST */
+.toast{position:fixed;bottom:26px;right:26px;background:var(--deep);color:white;padding:12px 18px;border-radius:12px;font-size:.81rem;z-index:400;transform:translateY(60px);opacity:0;transition:all .42s cubic-bezier(.34,1.56,.64,1);display:flex;align-items:center;gap:8px;box-shadow:0 16px 44px rgba(0,0,0,.22);border:1px solid rgba(201,169,110,.16);max-width:300px}
+.toast.show{transform:translateY(0);opacity:1}
+
+@media(max-width:900px){
+  nav{padding:13px 20px}.nav-links{display:none}
+  .breathe-hero{padding:90px 22px 55px}
+  .sessions{padding:0 20px 80px}
+  .sess-boxes{grid-template-columns:1fr}
+  .sec,.bio-sec,.content-band,.cta-band{padding-left:20px;padding-right:20px}
+  .bio-inner{grid-template-columns:1fr}
+  .content-grid{grid-template-columns:1fr}
+  .upcoming,.pw-sec,.rv-sec{padding-left:0;padding-right:0}
+  .uw-in,.pw-in,.rv-in{padding:0 20px}
+  .pw-wrap,.rv-wrap{padding:10px 20px;margin:0 -20px}
+  footer{padding:48px 20px 22px}.fg{grid-template-columns:1fr 1fr}
+}
+</style>
+</head>
+<body>
+
+<div id="cur"></div>
+<div id="cr"></div>
+<div id="petals"></div>
+<div class="orbs"><div class="orb o1"></div><div class="orb o2"></div><div class="orb o3"></div></div>
+<div id="snd">🔕</div>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="https://talkheals.ca" class="logo">
+    <div class="logo-t">Talk<span>Heals</span></div>
+    <div class="logo-s">Psychotherapy · Globally Accessible</div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#upcoming">Workshops</a></li>
+    <li><a href="#reviews">Stories</a></li>
+    <li><a href="#content">Articles</a></li>
+    <li><a href="#about">Namrata</a></li>
+    <li><a href="https://talkheals.ca/contact">Contact</a></li>
+  </ul>
+  <div class="nav-r">
+    <button class="nav-book" onclick="window.location='https://talkheals.ca/appointment-request'">Book Now</button>
+    <div class="pw">
+      <div class="pp" onclick="toggleDrop()">
+        <div class="pav">A</div>
+        <span class="pn">Account</span>
+        <span style="color:var(--muted);font-size:.65rem">▾</span>
+      </div>
+      <div class="pd" id="pdrop">
+        <div class="pdh">
+          <div class="pdbav">A</div>
+          <div><div class="pdn">Arjun S.</div><div class="pdr">Talk Heals Member</div></div>
+        </div>
+        <div class="pdi">📅 My Appointments</div>
+        <div class="pdi">📒 Session Notes</div>
+        <div class="pdi">🎓 My Workshops</div>
+        <div class="pdi">💳 Billing</div>
+        <div class="pdi" style="color:#b04040">🚪 Sign Out</div>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- ══ BREATHE HERO ══ -->
+<section class="breathe-hero">
+
+  <!-- THE BREATHE BUTTON -->
+  <button class="breathe-btn" id="breatheBtn" onclick="toggleSound()">
+    <div class="breathe-ring-3"></div>
+    <div class="breathe-ring-2"></div>
+    <div class="breathe-ring-1"></div>
+    <div class="breathe-core">
+      <div class="breathe-icon" id="breatheIcon">🌸</div>
+      <div class="breathe-label-sm" id="breatheLabel">Tap to begin</div>
+    </div>
+  </button>
+
+  <div class="breathe-tagline">Breathe &amp; Scroll</div>
+  <div class="breathe-click-note">Tap the bloom for ambient sound</div>
+
+  <h1 class="hero-heading">Your journey<br>starts <em>now</em></h1>
+  <p class="hero-sub">Namrata Mohan, RP — a safe, warm space for your healing, wherever you are in the world.</p>
+
+  <div class="scroll-hint">
+    <div class="scroll-txt">Scroll</div>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- ══ SESSION BOXES ══ -->
+<div class="sessions" id="sessions">
+  <div class="sess-inner">
+    <div class="sess-intro rv">
+      <div class="sess-intro-label">Choose Your Path</div>
+      <div class="sess-intro-title">Begin free. Go deeper. <em>Heal.</em></div>
+    </div>
+    <div class="sess-boxes">
+
+      <!-- FREE -->
+      <div class="box-free rv rv-l d1">
+        <div class="box-badge-free"><div class="bdot"></div>Zero Cost · No Card Needed</div>
+        <h2 class="box-title">Free<br><em>30-Min</em><br>Discovery Call</h2>
+        <p class="box-desc">Not sure? Just talk. 30 minutes with Namrata — completely free, no pressure, no commitments.</p>
+        <ul class="free-perks">
+          <li><div class="ck">✓</div> No credit card</li>
+          <li><div class="ck">✓</div> Video, phone or chat</li>
+          <li><div class="ck">✓</div> Any time zone, globally</li>
+          <li><div class="ck">✓</div> 100% confidential</li>
+        </ul>
+        <div class="free-price-block">
+          <div class="price-row">
+            <span class="price-label">Session Fee</span>
+            <div class="price-big">$0 <span>/ 30 min</span></div>
+          </div>
+          <button class="btn-free" onclick="window.location='https://talkheals.ca/appointment-request'">Claim My Free Call →</button>
+        </div>
+      </div>
+
+      <!-- PAID -->
+      <div class="box-paid rv rv-r d2">
+        <div class="box-badge-paid">✦ Individual · Couples · Family · Coaching</div>
+        <h2 class="box-paid-title">Book a Full<br><em>Therapy</em><br>Session</h2>
+        <p class="box-paid-desc">Evidence-based psychotherapy. Choose your session, schedule your time, begin your healing.</p>
+        <div class="sess-cards">
+          <div class="sc" onclick="window.location='https://talkheals.ca/appointment-request'">
+            <div class="sc-ico">💬</div>
+            <div class="sc-inf"><div class="sc-name">Individual Therapy</div><div class="sc-detail">Anxiety · Depression · Trauma · Grief · 50 min</div></div>
+            <div class="sc-price"><div class="sc-amt">$180</div><span class="sc-unit">CAD</span></div>
+          </div>
+          <div class="sc" onclick="window.location='https://talkheals.ca/appointment-request'">
+            <div class="sc-ico">💑</div>
+            <div class="sc-inf"><div class="sc-name">Couples Therapy</div><div class="sc-detail">Marriage · Communication · Conflict · 80 min</div></div>
+            <div class="sc-price"><div class="sc-amt">$220</div><span class="sc-unit">CAD</span></div>
+          </div>
+          <div class="sc" onclick="window.location='https://talkheals.ca/appointment-request'">
+            <div class="sc-ico">👨‍👩‍👧</div>
+            <div class="sc-inf"><div class="sc-name">Family Therapy</div><div class="sc-detail">Parenting · Dynamics · Conflict · 90 min</div></div>
+            <div class="sc-price"><div class="sc-amt">$250</div><span class="sc-unit">CAD</span></div>
+          </div>
+          <div class="sc" onclick="window.location='https://talkheals.ca/appointment-request'">
+            <div class="sc-ico">🌱</div>
+            <div class="sc-inf"><div class="sc-name">Coaching</div><div class="sc-detail">Pre-Marital · Parenting · Life · 60 min</div></div>
+            <div class="sc-price"><div class="sc-amt">$160</div><span class="sc-unit">CAD</span></div>
+          </div>
+        </div>
+        <button class="btn-paid" onclick="window.location='https://talkheals.ca/appointment-request'">Schedule My Session →</button>
+        <div class="paid-note">🔒 Secure · 📋 Insurance Receipts · 🕊️ Confidential</div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="wave"><svg viewBox="0 0 1440 52" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg"><path d="M0,26 C360,52 720,0 1080,26 C1260,40 1380,12 1440,26 L1440,52 L0,52 Z" fill="rgba(201,169,110,.07)"/></svg></div>
+
+<!-- ══ UPCOMING ══ -->
+<div class="upcoming" id="upcoming">
+  <div class="uw-in">
+    <div class="slabel rv">Live &amp; Free</div>
+    <h2 class="stitle rv">Upcoming <em>Workshops</em></h2>
+    <p class="ssub rv">Join Namrata live — always free, always open.</p>
+    <div class="uw-list">
+      <div class="uw-card rv d1">
+        <div class="uw-date"><div class="uw-mon">Mar</div><div class="uw-day">20</div></div>
+        <div class="uw-info"><h4>Anxiety &amp; the Immigrant Mind</h4><p>🕔 7:00 PM EST · 75 min · Zoom</p><div class="uw-tags"><span class="utag tf">Free</span><span class="utag tl">Live</span><span class="utag th">8 spots</span></div></div>
+        <button class="uw-btn" onclick="showToast('🎉 Registered! Zoom link on its way.')">Register →</button>
+      </div>
+      <div class="uw-card rv d2">
+        <div class="uw-date"><div class="uw-mon">Mar</div><div class="uw-day">27</div></div>
+        <div class="uw-info"><h4>Post-Partum: The Side No One Talks About</h4><p>🕔 6:30 PM EST · 60 min · Zoom</p><div class="uw-tags"><span class="utag tf">Free</span><span class="utag tl">Live</span></div></div>
+        <button class="uw-btn" onclick="showToast('🎉 Registered! Zoom link on its way.')">Register →</button>
+      </div>
+      <div class="uw-card rv d3">
+        <div class="uw-date"><div class="uw-mon">Apr</div><div class="uw-day">3</div></div>
+        <div class="uw-info"><h4>Understanding Depression</h4><p>🕔 5:00 PM EST · 60 min · Zoom</p><div class="uw-tags"><span class="utag tf">Free</span><span class="utag tl">Live</span></div></div>
+        <button class="uw-btn" onclick="showToast('🔔 We\'ll notify you when it opens!')">Notify Me</button>
+      </div>
+      <div class="uw-card rv d4">
+        <div class="uw-date"><div class="uw-mon">Apr</div><div class="uw-day">10</div></div>
+        <div class="uw-info"><h4>Navigating Divorce with Dignity</h4><p>🕔 7:30 PM EST · 90 min · Zoom</p><div class="uw-tags"><span class="utag tf">Free</span><span class="utag tl">Live</span></div></div>
+        <button class="uw-btn" onclick="showToast('🔔 We\'ll notify you when it opens!')">Notify Me</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ PAST WORKSHOPS ══ -->
+<div class="pw-sec" id="past">
+  <div class="pw-in">
+    <div class="pw-hd rv">
+      <div><div class="slabel">Free Recordings</div><h2 class="stitle">Past Workshop <em>Library</em></h2></div>
+      <div class="cbtns"><button class="cbtn" onclick="pwSlide(-1)">‹</button><button class="cbtn" onclick="pwSlide(1)">›</button></div>
+    </div>
+  </div>
+  <div class="pw-wrap">
+    <div class="pw-track" id="pwT">
+      <div class="pw-card"><div class="pw-th pt1"><button class="play-btn" onclick="showToast('▶ Opening...')">▶</button><span class="pw-dur">47:22</span></div><div class="pw-body"><div class="pw-cat">Anxiety</div><div class="pw-title">Breathwork for Anxiety: 5 Techniques That Actually Work</div><div class="pw-meta"><div class="pw-views">👁 2,341</div><button class="pw-watch" onclick="showToast('▶ Opening...')">Watch</button></div></div></div>
+      <div class="pw-card"><div class="pw-th pt2"><button class="play-btn" onclick="showToast('▶ Opening...')">▶</button><span class="pw-dur">1:02:10</span></div><div class="pw-body"><div class="pw-cat">Relationships</div><div class="pw-title">Communicating Without Conflict: Tools for Couples</div><div class="pw-meta"><div class="pw-views">👁 1,876</div><button class="pw-watch" onclick="showToast('▶ Opening...')">Watch</button></div></div></div>
+      <div class="pw-card"><div class="pw-th pt3"><button class="play-btn" onclick="showToast('▶ Opening...')">▶</button><span class="pw-dur">38:55</span></div><div class="pw-body"><div class="pw-cat">Mindfulness</div><div class="pw-title">Body Scan Meditation: Reconnect With Yourself</div><div class="pw-meta"><div class="pw-views">👁 3,108</div><button class="pw-watch" onclick="showToast('▶ Opening...')">Watch</button></div></div></div>
+      <div class="pw-card"><div class="pw-th pt4"><button class="play-btn" onclick="showToast('▶ Opening...')">▶</button><span class="pw-dur">55:04</span></div><div class="pw-body"><div class="pw-cat">Self-Esteem</div><div class="pw-title">Silencing the Inner Critic</div><div class="pw-meta"><div class="pw-views">👁 1,540</div><button class="pw-watch" onclick="showToast('▶ Opening...')">Watch</button></div></div></div>
+      <div class="pw-card"><div class="pw-th pt5"><button class="play-btn" onclick="showToast('▶ Opening...')">▶</button><span class="pw-dur">43:28</span></div><div class="pw-body"><div class="pw-cat">Grief</div><div class="pw-title">Holding Grief: The Many Faces of Loss</div><div class="pw-meta"><div class="pw-views">👁 992</div><button class="pw-watch" onclick="showToast('▶ Opening...')">Watch</button></div></div></div>
+      <div class="pw-card"><div class="pw-th pt6"><button class="play-btn" onclick="showToast('▶ Opening...')">▶</button><span class="pw-dur">50:15</span></div><div class="pw-body"><div class="pw-cat">Post-Partum</div><div class="pw-title">You Are Not Alone: Post-Partum Healing</div><div class="pw-meta"><div class="pw-views">👁 2,215</div><button class="pw-watch" onclick="showToast('▶ Opening...')">Watch</button></div></div></div>
+    </div>
+  </div>
+  <div style="text-align:center;margin-top:28px;padding:0 48px">
+    <button class="btn-rose" onclick="window.open('https://talkheals.ca/events','_blank')">View All Workshops →</button>
+  </div>
+</div>
+
+<!-- ══ CTA BAND ══ -->
+<div class="cta-band">
+  <div class="cta-inner">
+    <h2 class="cta-title">You deserve to feel <em>whole</em></h2>
+    <p class="cta-sub">Hundreds of people — from Canada and across the globe — have found their footing here.</p>
+    <div class="cta-btns">
+      <button class="btn-w" onclick="window.location='https://talkheals.ca/appointment-request'">Book Free Call</button>
+      <button class="btn-w" style="color:var(--mid)" onclick="window.location='https://talkheals.ca/appointment-request'">Schedule Session</button>
+      <button class="btn-gh" onclick="window.location='mailto:talkhealspsychotherapy@gmail.com'">Email Namrata</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ REVIEWS ══ -->
+<div class="rv-sec" id="reviews">
+  <div class="rv-in">
+    <div class="rv-hd">
+      <div><div class="rv-label">Healing Stories</div><h2 class="rv-title">What clients say about <em>Namrata</em></h2></div>
+      <div class="cbtns">
+        <button class="cbtn" style="border-color:rgba(201,169,110,.22);color:rgba(255,255,255,.45)" onclick="rvSlide(-1)">‹</button>
+        <button class="cbtn" style="border-color:rgba(201,169,110,.22);color:rgba(255,255,255,.45)" onclick="rvSlide(1)">›</button>
+      </div>
+    </div>
+  </div>
+  <div class="rv-wrap">
+    <div class="rv-track" id="rvT">
+      <div class="rv-card"><div class="rv-stars">★★★★★</div><div class="rv-text">"Namrata has this rare gift of making you feel seen without judgment. After three sessions I understood my anxiety in a way years of suppression never allowed."</div><div class="rv-author"><div class="rv-av" style="background:linear-gradient(135deg,#c49a8a,#c9a96e)">P</div><div><div class="rv-name">Priya R.</div><div class="rv-loc">Toronto, ON</div><div class="rv-tag">Anxiety</div></div></div></div>
+      <div class="rv-card"><div class="rv-stars">★★★★★</div><div class="rv-text">"As a new immigrant I felt completely lost. Namrata understood without me having to explain everything. She helped me rebuild my identity with such grace."</div><div class="rv-author"><div class="rv-av" style="background:linear-gradient(135deg,#7a9e8e,#8bb0c4)">S</div><div><div class="rv-name">Supriya K.</div><div class="rv-loc">Vancouver, BC</div><div class="rv-tag">Immigration & Identity</div></div></div></div>
+      <div class="rv-card"><div class="rv-stars">★★★★★</div><div class="rv-text">"Post-partum depression nearly broke me. Namrata created a space where I could finally say that out loud. Her compassion guided me back to my baby."</div><div class="rv-author"><div class="rv-av" style="background:linear-gradient(135deg,#b8a0b8,#c49a8a)">M</div><div><div class="rv-name">Meera T.</div><div class="rv-loc">Brampton, ON</div><div class="rv-tag">Post-Partum</div></div></div></div>
+      <div class="rv-card"><div class="rv-stars">★★★★★</div><div class="rv-text">"My husband and I were at a breaking point. Namrata's couples therapy gave us a language for each other again — a truly rare skill."</div><div class="rv-author"><div class="rv-av" style="background:linear-gradient(135deg,#c9a96e,#7a9e8e)">A</div><div><div class="rv-name">Anjali & Raj V.</div><div class="rv-loc">Mississauga, ON</div><div class="rv-tag">Couples Therapy</div></div></div></div>
+      <div class="rv-card"><div class="rv-stars">★★★★★</div><div class="rv-text">"Within two sessions I was having breakthroughs I hadn't thought possible. The free first call convinced me — best decision I ever made."</div><div class="rv-author"><div class="rv-av" style="background:linear-gradient(135deg,#8bb0c4,#b8a0b8)">D</div><div><div class="rv-name">David O.</div><div class="rv-loc">Ottawa, ON</div><div class="rv-tag">Depression</div></div></div></div>
+      <div class="rv-card"><div class="rv-stars">★★★★★</div><div class="rv-text">"Going through divorce felt like the end. Namrata helped me see it as a beginning. Her empathy transformed the most painful chapter of my life."</div><div class="rv-author"><div class="rv-av" style="background:linear-gradient(135deg,#e8cfc6,#c49a8a)">R</div><div><div class="rv-name">Rekha N.</div><div class="rv-loc">Calgary, AB</div><div class="rv-tag">Divorce Recovery</div></div></div></div>
+    </div>
+  </div>
+  <div class="rv-bot">
+    <button class="btn-rose" onclick="window.location='https://talkheals.ca/appointment-request'">Begin Your Story</button>
+    <button class="btn-dark-out" onclick="showToast('📖 Loading reviews...')">Read All →</button>
+  </div>
+</div>
+
+<!-- ══ ARTICLES + NEWSLETTER ══ -->
+<div class="content-band" id="content">
+  <div class="content-inner">
+    <div class="sess-intro rv" style="margin-bottom:0">
+      <div class="sess-intro-label">From Namrata's Desk</div>
+      <div class="sess-intro-title">Read. Learn. <em>Feel less alone.</em></div>
+    </div>
+    <div class="content-grid">
+
+      <!-- ARTICLES -->
+      <div class="art-card rv rv-l d1">
+        <div class="art-badge">✦ Articles &amp; Blog</div>
+        <h3 class="art-title">Words that <em>heal</em></h3>
+        <p class="art-desc">Namrata writes openly about mental health — no jargon, just honesty. Topics you've wondered about, finally spoken aloud.</p>
+        <div class="art-previews">
+          <div class="art-prev" onclick="window.open('https://talkheals.ca/blog','_blank')">
+            <div class="art-prev-icon">🌿</div>
+            <div><div class="art-prev-text">Why Therapy Isn't Weakness — It's Courage</div><div class="art-prev-tag">Mental Health · 5 min read</div></div>
+            <div class="art-prev-arr">→</div>
+          </div>
+          <div class="art-prev" onclick="window.open('https://talkheals.ca/blog','_blank')">
+            <div class="art-prev-icon">🌸</div>
+            <div><div class="art-prev-text">The Invisible Weight of the Immigrant Experience</div><div class="art-prev-tag">Identity · 7 min read</div></div>
+            <div class="art-prev-arr">→</div>
+          </div>
+          <div class="art-prev" onclick="window.open('https://talkheals.ca/articles','_blank')">
+            <div class="art-prev-icon">💛</div>
+            <div><div class="art-prev-text">What No One Tells You About Post-Partum Anxiety</div><div class="art-prev-tag">Post-Partum · 6 min read</div></div>
+            <div class="art-prev-arr">→</div>
+          </div>
+        </div>
+        <button class="btn-rose" onclick="window.open('https://talkheals.ca/blog','_blank')">Read All Articles →</button>
+      </div>
+
+      <!-- NEWSLETTER -->
+      <div class="nl-card rv rv-r d2">
+        <div class="nl-badge">✦ Free · Weekly</div>
+        <h3 class="nl-title">Your weekly<br><em>moment of calm</em></h3>
+        <p class="nl-desc">Namrata's newsletter — one gentle insight, one breathing prompt, one reminder that you're doing better than you think. Every week, free.</p>
+        <ul class="nl-perks">
+          <li><div class="ck">✓</div> Mental health insights</li>
+          <li><div class="ck">✓</div> Workshop announcements first</li>
+          <li><div class="ck">✓</div> Early access to free calls</li>
+          <li><div class="ck">✓</div> No spam. Unsubscribe anytime.</li>
+        </ul>
+        <div class="nl-input-wrap">
+          <input type="email" class="nl-input" placeholder="your@email.com" id="nlEmail" />
+        </div>
+        <button class="nl-btn" onclick="subscribeNl()">Subscribe Free →</button>
+        <div class="nl-note">Joined by 2,400+ readers · 100% free forever</div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ══ ABOUT NAMRATA ══ -->
+<section class="bio-sec" id="about">
+  <div class="bio-inner">
+    <div class="bio-card rv-l">
+      <div class="bio-ico">🌸</div>
+      <div class="bio-name">Namrata Mohan</div>
+      <div class="bio-role">RP · Founding Director, Talk Heals Psychotherapy</div>
+      <div class="bio-creds">
+        <div class="bio-cred">🎓 Registered Psychotherapist (RP)</div>
+        <div class="bio-cred">🏛️ CRPO — Registered Psychotherapists of Ontario</div>
+        <div class="bio-cred">🤝 OAMHP Member in Good Standing</div>
+        <div class="bio-cred">✅ Verified — Psychology Today &amp; GoodTherapy</div>
+        <div class="bio-cred">🌍 Anti-Racism &amp; Anti-Oppression Framework</div>
+        <div class="bio-cred">💻 Telehealth · Online · Globally</div>
+      </div>
+    </div>
+    <div class="rv-r">
+      <div class="slabel">About</div>
+      <h2 class="stitle" style="margin-bottom:18px">A therapist who <em>truly</em> gets it</h2>
+      <p class="bio-p">I'm Namrata. I believe healing is possible for everyone — and this is your space to begin.</p>
+      <p class="bio-p">My practice is grounded in cultural sensitivity, anti-racism, and a deep understanding of immigration, trauma, and the stigma so many carry silently. Whatever brings you here, I'm here to listen.</p>
+      <div class="bio-stats">
+        <div class="bs"><div class="bs-num">1,400+</div><div class="bs-lbl">Sessions</div></div>
+        <div class="bs"><div class="bs-num">4.97★</div><div class="bs-lbl">Client Rating</div></div>
+        <div class="bs"><div class="bs-num">8+</div><div class="bs-lbl">Specialties</div></div>
+        <div class="bs"><div class="bs-num">Global</div><div class="bs-lbl">Online Access</div></div>
+      </div>
+      <div class="bio-btns">
+        <button class="btn-rose" onclick="window.location='https://talkheals.ca/appointment-request'">Book with Namrata</button>
+        <button class="btn-out" onclick="window.open('https://talkheals.ca/about','_blank')">Full Profile →</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="fg">
+    <div>
+      <div class="fl">Talk<span>Heals</span></div>
+      <div class="fl-s">Psychotherapy · Accessible Globally</div>
+      <div class="fl-d">A safe, affirming, culturally sensitive space for your mental wellness. Founded by Namrata Mohan, RP.</div>
+      <div class="fl-c">📞 <a href="tel:+16477053013">+1 647-705-3013</a></div>
+      <div class="fl-c">✉️ <a href="mailto:talkhealspsychotherapy@gmail.com">talkhealspsychotherapy@gmail.com</a></div>
+    </div>
+    <div class="fc"><h5>Services</h5><a href="https://talkheals.ca/counseling-for-anxiety">Anxiety</a><a href="https://talkheals.ca/therapy-for-depression">Depression</a><a href="https://talkheals.ca/couples-therapy">Couples</a><a href="https://talkheals.ca/family-therapy">Family</a><a href="https://talkheals.ca/counseling-for-new-mothers-post-partum">Post-Partum</a><a href="https://talkheals.ca/pre-marital-counseling">Pre-Marital</a><a href="https://talkheals.ca/clinical-supervision">Supervision</a></div>
+    <div class="fc"><h5>Explore</h5><a href="https://talkheals.ca/blog">Blog</a><a href="https://talkheals.ca/articles">Articles</a><a href="https://talkheals.ca/events">Events</a><a href="https://talkheals.ca/faqs">FAQs</a><a href="https://talkheals.ca/fees-insurance">Fees &amp; Insurance</a><a href="https://talkheals.ca/contact">Contact</a></div>
+    <div class="fc"><h5>Connect</h5><a href="https://www.psychologytoday.com/ca/therapists/namrta-mohan-brampton-on/767045">Psychology Today</a><a href="https://www.goodtherapy.org/therapists/profile/namrta-mohan-20201010">GoodTherapy</a><a href="https://www.therapytribe.com/listing/namrta-mohan-registered-psychotherapist-brampton-ontario-canada-l6p-0b7/">TherapyTribe</a></div>
+  </div>
+  <div class="fb">
+    <span>© 2026 Talk Heals Psychotherapy · Namrata Mohan, RP · CRPO</span>
+    <span>⚠️ Not a crisis line. Crisis? Call 911 or Helpline 988</span>
+  </div>
+</footer>
+
+<div class="toast" id="toast"><span id="tmsg"></span></div>
+
+<script>
+// ── CURSOR ──
+const cur=document.getElementById('cur'),cr=document.getElementById('cr');
+let mx=window.innerWidth/2,my=window.innerHeight/2,rx=mx,ry=my;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px'});
+(function loop(){rx+=(mx-rx)*.1;ry+=(my-ry)*.1;cr.style.left=rx+'px';cr.style.top=ry+'px';requestAnimationFrame(loop)})();
+document.querySelectorAll('button,a,.sc,.uw-card,.pw-card,.rv-card,.pp,.art-prev,.bio-stat').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{cur.classList.add('h');cr.classList.add('h')});
+  el.addEventListener('mouseleave',()=>{cur.classList.remove('h');cr.classList.remove('h')});
+});
+
+// ── PETALS ──
+const pcols=['rgba(201,169,110,.48)','rgba(196,154,138,.42)','rgba(184,160,184,.38)','rgba(122,158,142,.35)','rgba(255,255,255,.3)'];
+let pN=0;
+function mkPetal(){
+  if(pN>16)return;
+  const p=document.createElement('div');p.className='pt';
+  const sz=Math.random()*9+6,dur=Math.random()*10+12;
+  p.style.cssText=`left:${Math.random()*100}vw;top:-18px;width:${sz}px;height:${sz*1.4}px;background:${pcols[Math.floor(Math.random()*pcols.length)]};--dx:${(Math.random()-.5)*170}px;--rot:${Math.random()*700-350}deg;animation-duration:${dur}s`;
+  document.getElementById('petals').appendChild(p);pN++;
+  setTimeout(()=>{p.remove();pN--;},dur*1000);
+}
+setInterval(mkPetal,1700);
+let lastSc=0;
+window.addEventListener('scroll',()=>{const n=Date.now();if(n-lastSc>300){lastSc=n;for(let i=0;i<4;i++)setTimeout(mkPetal,i*150)}});
+
+// ── SOUND (Web Audio) ──
+let actx=null,soundOn=false;
+const pentatonic=[261.6,293.7,329.6,392,440,523.3,587.3,659.3];
+function chime(f,d=0,vol=0.032){
+  if(!actx||!soundOn)return;
+  const o=actx.createOscillator(),g=actx.createGain();
+  o.connect(g);g.connect(actx.destination);
+  o.type='sine';o.frequency.value=f;
+  const t=actx.currentTime+d;
+  g.gain.setValueAtTime(0,t);
+  g.gain.linearRampToValueAtTime(vol,t+.06);
+  g.gain.exponentialRampToValueAtTime(.0001,t+2.4);
+  o.start(t);o.stop(t+2.6);
+}
+function ambientLoop(){
+  if(!soundOn)return;
+  const notes=[...pentatonic].sort(()=>Math.random()-.5).slice(0,3);
+  notes.forEach((f,i)=>chime(f,i*.7));
+  setTimeout(ambientLoop,9000+Math.random()*6000);
+}
+function toggleSound(){
+  if(!actx){actx=new(window.AudioContext||window.webkitAudioContext)();}
+  soundOn=!soundOn;
+  const btn=document.getElementById('breatheBtn');
+  const icon=document.getElementById('breatheIcon');
+  const lbl=document.getElementById('breatheLabel');
+  const snd=document.getElementById('snd');
+  btn.classList.toggle('active',soundOn);
+  icon.textContent=soundOn?'🎵':'🌸';
+  lbl.textContent=soundOn?'Sound on':'Tap to begin';
+  snd.textContent=soundOn?'🔔':'🔕';
+  if(soundOn){chime(392,0,.05);chime(523.3,.4,.04);chime(659.3,.8,.03);ambientLoop();}
+}
+document.getElementById('snd').addEventListener('click',toggleSound);
+
+// scroll chimes
+let scT;
+window.addEventListener('scroll',()=>{
+  clearTimeout(scT);
+  scT=setTimeout(()=>{if(soundOn&&actx)chime(pentatonic[Math.floor(Math.random()*pentatonic.length)],0,.025)},160);
+});
+
+// ── NAV SCROLL ──
+window.addEventListener('scroll',()=>document.getElementById('nav').classList.toggle('scrolled',scrollY>50));
+
+// ── PROFILE ──
+function toggleDrop(){document.getElementById('pdrop').classList.toggle('open')}
+document.addEventListener('click',e=>{if(!document.querySelector('.pw').contains(e.target))document.getElementById('pdrop').classList.remove('open')});
+
+// ── CAROUSELS ──
+let pwP=0,rvP=0;
+function pwSlide(d){const t=document.getElementById('pwT'),mx=t.children.length-3;pwP=Math.max(0,Math.min(pwP+d,mx));t.style.transform=`translateX(-${pwP*308}px)`}
+function rvSlide(d){const t=document.getElementById('rvT'),mx=t.children.length-3;rvP=Math.max(0,Math.min(rvP+d,mx));t.style.transform=`translateX(-${rvP*340}px)`}
+
+// ── NEWSLETTER ──
+function subscribeNl(){
+  const v=document.getElementById('nlEmail').value.trim();
+  if(!v||!v.includes('@')){showToast('📧 Please enter a valid email.');return;}
+  document.getElementById('nlEmail').value='';
+  showToast('🌿 Welcome! Your first newsletter is on its way.');
+}
+
+// ── TOAST ──
+let tT;
+function showToast(m){const t=document.getElementById('toast');document.getElementById('tmsg').textContent=m;t.classList.add('show');clearTimeout(tT);tT=setTimeout(()=>t.classList.remove('show'),4000)}
+
+// ── SCROLL REVEAL ──
+const obs=new IntersectionObserver(e=>e.forEach((en,i)=>{if(en.isIntersecting)setTimeout(()=>en.target.classList.add('in'),i*70)}),{threshold:.09});
+document.querySelectorAll('.rv,.rv-l,.rv-r').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>

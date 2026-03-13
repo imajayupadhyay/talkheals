@@ -1,0 +1,72 @@
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,200;0,9..144,300;1,9..144,200;1,9..144,300&family=Jost:wght@300;400;500&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    body {
+        @apply font-sans bg-talkheals-cream text-talkheals-deep selection:bg-talkheals-gold selection:text-white;
+    }
+    
+    h1, h2, h3, h4, h5, h6 {
+        @apply font-serif;
+    }
+}
+
+/* ── ORBS ── */
+.orbs {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(85px);
+    animation: orbDrift ease-in-out infinite;
+}
+
+.o1 {
+    width: 650px;
+    height: 650px;
+    background: rgba(201, 169, 110, .1);
+    top: -180px;
+    left: -180px;
+    animation-duration: 26s;
+}
+
+.o2 {
+    width: 480px;
+    height: 480px;
+    background: rgba(196, 154, 138, .11);
+    top: 38%;
+    right: -80px;
+    animation-duration: 21s;
+    animation-delay: -8s;
+}
+
+.o3 {
+    width: 560px;
+    height: 560px;
+    background: rgba(122, 158, 142, .08);
+    bottom: -80px;
+    left: 18%;
+    animation-duration: 30s;
+    animation-delay: -14s;
+}
+
+@keyframes orbDrift {
+    0%, 100% {
+        transform: translate(0, 0)
+    }
+    34% {
+        transform: translate(30px, -40px)
+    }
+    67% {
+        transform: translate(-18px, 22px)
+    }
+}
