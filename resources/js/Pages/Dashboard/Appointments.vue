@@ -1,5 +1,5 @@
 <script setup>
-import { Head, useForm, usePage } from '@inertiajs/vue3';
+import { Head, Link, useForm, usePage } from '@inertiajs/vue3';
 import { ref, computed, onMounted } from 'vue';
 import Header from './Components/Header.vue';
 import Footer from './Components/Footer.vue';
@@ -184,13 +184,12 @@ onMounted(() => {
                             ? 'Ready to take the first step? Book your free 30-minute discovery call today.'
                             : 'Your booking history will appear here once you start scheduling sessions.' }}
                     </p>
-                    <a
-                        href="#sessions"
-                        @click="$router?.back()"
+                    <Link
+                        :href="route('dashboard')"
                         class="inline-flex items-center gap-2 px-7 py-3 bg-talkheals-gold text-white font-medium rounded-2xl hover:bg-talkheals-deep transition-all duration-300 hover:-translate-y-0.5 shadow-lg shadow-talkheals-gold/20 text-sm"
                     >
                         Book a Free Call →
-                    </a>
+                    </Link>
                 </div>
 
                 <!-- ── Bookings list ── -->

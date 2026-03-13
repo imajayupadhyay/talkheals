@@ -93,16 +93,7 @@ onUnmounted(() => {
                         <Link :href="route('client.appointments')" class="flex items-center gap-2.5 p-2 rounded-lg text-[0.8rem] text-talkheals-deep hover:bg-talkheals-gold-p transition-colors duration-200">
                             <span>📅</span> My Appointments
                         </Link>
-                        <a href="#" class="flex items-center gap-2.5 p-2 rounded-lg text-[0.8rem] text-talkheals-deep hover:bg-talkheals-gold-p transition-colors duration-200">
-                            <span>📒</span> Session Notes
-                        </a>
-                        <a href="#" class="flex items-center gap-2.5 p-2 rounded-lg text-[0.8rem] text-talkheals-deep hover:bg-talkheals-gold-p transition-colors duration-200">
-                            <span>🎓</span> My Workshops
-                        </a>
-                        <a href="#" class="flex items-center gap-2.5 p-2 rounded-lg text-[0.8rem] text-talkheals-deep hover:bg-talkheals-gold-p transition-colors duration-200">
-                            <span>💳</span> Billing
-                        </a>
-                        <Link 
+                        <Link
                             :href="route('logout')" 
                             method="post" 
                             as="button"

@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\Auth\LoginController;
 use App\Http\Controllers\Admin\AvailabilityController;
 use App\Http\Controllers\Admin\BookingController as AdminBookingController;
+use App\Http\Controllers\Admin\ClientController;
 use App\Http\Controllers\Admin\DashboardController;
 use Illuminate\Support\Facades\Route;
 
@@ -25,4 +26,11 @@ Route::middleware('auth:admin')->prefix('admin')->group(function () {
     // Bookings management
     Route::get('/bookings', [AdminBookingController::class, 'index'])->name('admin.bookings');
     Route::patch('/bookings/{booking}/status', [AdminBookingController::class, 'updateStatus'])->name('admin.bookings.status');
+
+    // Clients CRUD
+    Route::get('/clients', [ClientController::class, 'index'])->name('admin.clients');
+    Route::post('/clients', [ClientController::class, 'store'])->name('admin.clients.store');
+    Route::get('/clients/{client}', [ClientController::class, 'show'])->name('admin.clients.show');
+    Route::patch('/clients/{client}', [ClientController::class, 'update'])->name('admin.clients.update');
+    Route::delete('/clients/{client}', [ClientController::class, 'destroy'])->name('admin.clients.destroy');
 });
