@@ -2,11 +2,8 @@
 import { Link } from '@inertiajs/vue3';
 
 const menuItems = [
-    { name: 'Dashboard', icon: '📊', route: 'admin.dashboard' },
-    { name: 'Clients', icon: '👥', route: '#' },
-    { name: 'Appointments', icon: '📅', route: '#' },
-    { name: 'Workshops', icon: '🎓', route: '#' },
-    { name: 'Resources', icon: '📄', route: '#' },
+    { name: 'Dashboard',    icon: '📊',  route: 'admin.dashboard'   },
+    { name: 'Availability', icon: '🗓️',  route: 'admin.availability' },
 ];
 </script>
 
