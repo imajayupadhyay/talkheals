@@ -16,7 +16,7 @@ Route::get('/', function () {
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard', function () {
-        return Inertia::render('Clients/Portal');
+        return Inertia::render('Dashboard/Index');
     })->name('dashboard');
 });
 
