@@ -38,14 +38,9 @@ onUnmounted(() => {
             isScrolled ? 'py-[11px] px-6 lg:px-12 bg-talkheals-cream/95 shadow-sm' : 'py-[15px] px-6 lg:px-12 bg-talkheals-cream/85 backdrop-blur-[22px] border-b border-talkheals-gold/10'
         ]"
     >
-        <!-- Logo -->
-        <Link :href="route('dashboard')" class="flex flex-col no-underline group">
-            <div class="font-serif text-[1.5rem] font-light text-talkheals-deep leading-none">
-                Talk<span class="text-talkheals-gold italic group-hover:text-talkheals-rose transition-colors duration-300">Heals</span>
-            </div>
-            <div class="text-[0.58rem] tracking-[0.15em] text-talkheals-muted uppercase mt-0.5">
-                Psychotherapy · Globally Accessible
-            </div>
+        <!-- Logo Only -->
+        <Link :href="route('dashboard')" class="flex items-center no-underline group">
+            <img src="/talkhealslogo.webp" alt="TalkHeals Logo" class="h-12 w-auto transition-transform duration-300 group-hover:scale-105">
         </Link>
 
         <!-- Nav Links -->

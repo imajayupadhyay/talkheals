@@ -15,6 +15,9 @@ const props = defineProps({
 });
 
 const mode = ref('login'); // 'login' or 'signup'
+const showLoginPassword = ref(false);
+const showRegPassword = ref(false);
+const showRegConfirmPassword = ref(false);
 
 const loginForm = useForm({
     email: '',
@@ -49,7 +52,7 @@ const toggleMode = () => {
 <template>
     <Head title="TalkHeals - Welcome" />
 
-    <div class="relative min-h-screen flex items-center justify-center overflow-hidden p-6 lg:p-12">
+    <div class="relative min-h-screen flex items-center justify-center overflow-hidden p-6 lg:p-12 bg-talkheals-cream">
         <!-- Background Elements -->
         <div class="orbs">
             <div class="orb o1"></div>
@@ -60,13 +63,8 @@ const toggleMode = () => {
         <div class="relative z-10 w-full max-w-6xl grid lg:grid-cols-2 gap-12 items-center">
             <!-- Left Side: Hero Branding -->
             <div class="text-left">
-                <div class="mb-8">
-                    <div class="font-serif text-4xl lg:text-5xl font-light text-talkheals-deep leading-tight">
-                        Talk<span class="text-talkheals-gold italic">Heals</span>
-                    </div>
-                    <div class="text-xs tracking-[0.2em] uppercase text-talkheals-muted mt-2 font-medium">
-                        Psychotherapy · Globally Accessible
-                    </div>
+                <div class="mb-12">
+                    <img src="/talkhealslogo.webp" alt="TalkHeals Logo" class="h-24 w-auto self-start transition-transform duration-500 hover:scale-105">
                 </div>
 
                 <h1 class="font-serif text-5xl lg:text-7xl font-extralight text-talkheals-deep mb-6 leading-[1.1]">
@@ -142,15 +140,30 @@ const toggleMode = () => {
 
                             <div>
                                 <label for="login-password" class="block text-xs uppercase tracking-wider text-talkheals-muted font-medium mb-1.5 ml-1">Password</label>
-                                <input 
-                                    id="login-password"
-                                    type="password" 
-                                    v-model="loginForm.password"
-                                    class="w-full bg-talkheals-cream/50 border-talkheals-gold-p rounded-xl px-4 py-3 text-talkheals-deep placeholder:text-talkheals-muted/50 focus:ring-talkheals-gold focus:border-talkheals-gold transition"
-                                    placeholder="••••••••"
-                                    required
-                                    autocomplete="current-password"
-                                />
+                                <div class="relative">
+                                    <input 
+                                        id="login-password"
+                                        :type="showLoginPassword ? 'text' : 'password'" 
+                                        v-model="loginForm.password"
+                                        class="w-full bg-talkheals-cream/50 border-talkheals-gold-p rounded-xl px-4 py-3 pr-12 text-talkheals-deep placeholder:text-talkheals-muted/50 focus:ring-talkheals-gold focus:border-talkheals-gold transition"
+                                        placeholder="••••••••"
+                                        required
+                                        autocomplete="current-password"
+                                    />
+                                    <button 
+                                        type="button"
+                                        @click="showLoginPassword = !showLoginPassword"
+                                        class="absolute right-4 top-1/2 -translate-y-1/2 text-talkheals-muted hover:text-talkheals-gold transition-colors focus:outline-none"
+                                    >
+                                        <svg v-if="!showLoginPassword" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 0 1 0-.644C3.399 8.049 7.21 5 12 5c3.79 0 7.113 2.046 9.036 5.322a1.012 1.012 0 0 1 0 .644C19.601 15.951 15.79 19 12 19c-3.79 0-7.113-2.046-9.036-5.322Z" />
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                                        </svg>
+                                        <svg v-else xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M3.98 8.223A10.477 10.477 0 0 0 1.934 12C3.226 16.338 7.244 19.5 12 19.5c.993 0 1.953-.138 2.863-.395M6.228 6.228A10.451 10.451 0 0 1 12 4.5c4.756 0 8.773 3.162 10.065 7.498a10.522 10.522 0 0 1-4.293 5.774M6.228 6.228 3 3m3.228 3.228 3.65 3.65m7.894 7.894L21 21m-3.228-3.228-3.65-3.65m0 0a3 3 0 1 0-4.243-4.243m4.242 4.242L9.88 9.88" />
+                                        </svg>
+                                    </button>
+                                </div>
                                 <InputError class="mt-2" :message="loginForm.errors.password" />
                             </div>
 
@@ -217,28 +230,58 @@ const toggleMode = () => {
                             <div class="grid grid-cols-2 gap-4">
                                 <div>
                                     <label for="reg-password" class="block text-xs uppercase tracking-wider text-talkheals-muted font-medium mb-1.5 ml-1">Password</label>
-                                    <input 
-                                        id="reg-password"
-                                        type="password" 
-                                        v-model="registerForm.password"
-                                        class="w-full bg-talkheals-cream/50 border-talkheals-gold-p rounded-xl px-4 py-3 text-talkheals-deep placeholder:text-talkheals-muted/50 focus:ring-talkheals-gold focus:border-talkheals-gold transition"
-                                        placeholder="••••••••"
-                                        required
-                                        autocomplete="new-password"
-                                    />
+                                    <div class="relative">
+                                        <input 
+                                            id="reg-password"
+                                            :type="showRegPassword ? 'text' : 'password'" 
+                                            v-model="registerForm.password"
+                                            class="w-full bg-talkheals-cream/50 border-talkheals-gold-p rounded-xl px-4 py-3 pr-10 text-talkheals-deep placeholder:text-talkheals-muted/50 focus:ring-talkheals-gold focus:border-talkheals-gold transition"
+                                            placeholder="••••••••"
+                                            required
+                                            autocomplete="new-password"
+                                        />
+                                        <button 
+                                            type="button"
+                                            @click="showRegPassword = !showRegPassword"
+                                            class="absolute right-3 top-1/2 -translate-y-1/2 text-talkheals-muted hover:text-talkheals-gold transition-colors focus:outline-none"
+                                        >
+                                            <svg v-if="!showRegPassword" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 0 1 0-.644C3.399 8.049 7.21 5 12 5c3.79 0 7.113 2.046 9.036 5.322a1.012 1.012 0 0 1 0 .644C19.601 15.951 15.79 19 12 19c-3.79 0-7.113-2.052-9.036-5.322Z" />
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                                            </svg>
+                                            <svg v-else xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="M3.98 8.223A10.477 10.477 0 0 0 1.934 12C3.226 16.338 7.244 19.5 12 19.5c.993 0 1.953-.138 2.863-.395M6.228 6.228A10.451 10.451 0 0 1 12 4.5c4.756 0 8.773 3.162 10.065 7.498a10.522 10.522 0 0 1-4.293 5.774M6.228 6.228 3 3m3.228 3.228 3.65 3.65m7.894 7.894L21 21m-3.228-3.228-3.65-3.65m0 0a3 3 0 1 0-4.243-4.243m4.242 4.242L9.88 9.88" />
+                                            </svg>
+                                        </button>
+                                    </div>
                                     <InputError class="mt-2" :message="registerForm.errors.password" />
                                 </div>
                                 <div>
                                     <label for="reg-password-confirm" class="block text-xs uppercase tracking-wider text-talkheals-muted font-medium mb-1.5 ml-1">Confirm</label>
-                                    <input 
-                                        id="reg-password-confirm"
-                                        type="password" 
-                                        v-model="registerForm.password_confirmation"
-                                        class="w-full bg-talkheals-cream/50 border-talkheals-gold-p rounded-xl px-4 py-3 text-talkheals-deep placeholder:text-talkheals-muted/50 focus:ring-talkheals-gold focus:border-talkheals-gold transition"
-                                        placeholder="••••••••"
-                                        required
-                                        autocomplete="new-password"
-                                    />
+                                    <div class="relative">
+                                        <input 
+                                            id="reg-password-confirm"
+                                            :type="showRegConfirmPassword ? 'text' : 'password'" 
+                                            v-model="registerForm.password_confirmation"
+                                            class="w-full bg-talkheals-cream/50 border-talkheals-gold-p rounded-xl px-4 py-3 pr-10 text-talkheals-deep placeholder:text-talkheals-muted/50 focus:ring-talkheals-gold focus:border-talkheals-gold transition"
+                                            placeholder="••••••••"
+                                            required
+                                            autocomplete="new-password"
+                                        />
+                                        <button 
+                                            type="button"
+                                            @click="showRegConfirmPassword = !showRegConfirmPassword"
+                                            class="absolute right-3 top-1/2 -translate-y-1/2 text-talkheals-muted hover:text-talkheals-gold transition-colors focus:outline-none"
+                                        >
+                                            <svg v-if="!showRegConfirmPassword" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 0 1 0-.644C3.399 8.049 7.21 5 12 5c3.79 0 7.113 2.046 9.036 5.322a1.012 1.012 0 0 1 0 .644C19.601 15.951 15.79 19 12 19c-3.79 0-7.113-2.052-9.036-5.322Z" />
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                                            </svg>
+                                            <svg v-else xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="M3.98 8.223A10.477 10.477 0 0 0 1.934 12C3.226 16.338 7.244 19.5 12 19.5c.993 0 1.953-.138 2.863-.395M6.228 6.228A10.451 10.451 0 0 1 12 4.5c4.756 0 8.773 3.162 10.065 7.498a10.522 10.522 0 0 1-4.293 5.774M6.228 6.228 3 3m3.228 3.228 3.65 3.65m7.894 7.894L21 21m-3.228-3.228-3.65-3.65m0 0a3 3 0 1 0-4.243-4.243m4.242 4.242L9.88 9.88" />
+                                            </svg>
+                                        </button>
+                                    </div>
                                     <InputError class="mt-2" :message="registerForm.errors.password_confirmation" />
                                 </div>
                             </div>
