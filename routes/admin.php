@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\Admin\AdminUserController;
 use App\Http\Controllers\Admin\Auth\LoginController;
+use App\Http\Controllers\Admin\WorkshopController;
 use App\Http\Controllers\Admin\AvailabilityController;
 use App\Http\Controllers\Admin\BookingController as AdminBookingController;
 use App\Http\Controllers\Admin\ClientController;
@@ -27,6 +29,18 @@ Route::middleware('auth:admin')->prefix('admin')->group(function () {
     // Bookings management
     Route::get('/bookings', [AdminBookingController::class, 'index'])->name('admin.bookings');
     Route::patch('/bookings/{booking}/status', [AdminBookingController::class, 'updateStatus'])->name('admin.bookings.status');
+
+    // Workshops management
+    Route::get('/workshops', [WorkshopController::class, 'index'])->name('admin.workshops');
+    Route::post('/workshops', [WorkshopController::class, 'store'])->name('admin.workshops.store');
+    Route::patch('/workshops/{workshop}', [WorkshopController::class, 'update'])->name('admin.workshops.update');
+    Route::delete('/workshops/{workshop}', [WorkshopController::class, 'destroy'])->name('admin.workshops.destroy');
+
+    // Admin users management
+    Route::get('/admins', [AdminUserController::class, 'index'])->name('admin.admins');
+    Route::post('/admins', [AdminUserController::class, 'store'])->name('admin.admins.store');
+    Route::patch('/admins/{admin}', [AdminUserController::class, 'update'])->name('admin.admins.update');
+    Route::delete('/admins/{admin}', [AdminUserController::class, 'destroy'])->name('admin.admins.destroy');
 
     // Google Calendar integration
     Route::get('/google/connect', [GoogleController::class, 'redirect'])->name('admin.google.connect');

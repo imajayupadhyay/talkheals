@@ -9,6 +9,13 @@ import Reviews from './Components/Reviews.vue';
 import Articles from './Components/Articles.vue';
 import About from './Components/About.vue';
 import Footer from './Components/Footer.vue';
+
+const props = defineProps({
+    workshops: {
+        type: Array,
+        default: () => [],
+    },
+});
 </script>
 
 <template>
@@ -29,7 +36,7 @@ import Footer from './Components/Footer.vue';
         <main>
             <Hero />
             <Sessions />
-            <Workshops />
+            <Workshops :workshops="workshops" />
             <Library />
             <Reviews />
             <Articles />
