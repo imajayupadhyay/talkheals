@@ -1,5 +1,18 @@
 <script setup>
-import { ref, onMounted } from 'vue';
+import { ref, computed, onMounted } from 'vue';
+
+const props = defineProps({
+    testimonials: { type: Array, default: () => [] },
+    content:      { type: Object, default: () => ({}) },
+});
+
+const DEFAULTS = {
+    label:           'Healing Stories',
+    title:           'What clients say about',
+    title_highlight: 'Namrata',
+};
+
+const c = computed(() => ({ ...DEFAULTS, ...props.content }));
 
 const rvP = ref(0);
 const rvT = ref(null);
@@ -11,9 +24,11 @@ const rvSlide = (d) => {
     rvT.value.style.transform = `translateX(-${rvP.value * 340}px)`;
 };
 
-const showToast = (m) => {
-    alert(m);
-};
+// Derive avatar initial from name
+const initial = (name) => name ? name.charAt(0).toUpperCase() : '?';
+
+// Repeat stars string
+const stars = (count) => '★'.repeat(Math.max(1, Math.min(5, count ?? 5)));
 
 onMounted(() => {
     const obs = new IntersectionObserver(e => e.forEach((en, i) => {
@@ -27,7 +42,7 @@ onMounted(() => {
     <div class="rv-sec" id="reviews">
         <div class="rv-in">
             <div class="rv-hd">
-                <div><div class="rv-label">Healing Stories</div><h2 class="rv-title">What clients say about <em>Namrata</em></h2></div>
+                <div><div class="rv-label">{{ c.label }}</div><h2 class="rv-title">{{ c.title }} <em>{{ c.title_highlight }}</em></h2></div>
                 <div class="cbtns">
                     <button class="cbtn" style="border-color:rgba(201,169,110,.22);color:rgba(255,255,255,.45)" @click="rvSlide(-1)">‹</button>
                     <button class="cbtn" style="border-color:rgba(201,169,110,.22);color:rgba(255,255,255,.45)" @click="rvSlide(1)">›</button>
@@ -36,52 +51,16 @@ onMounted(() => {
         </div>
         <div class="rv-wrap">
             <div class="rv-track" ref="rvT">
-                <div class="rv-card">
-                    <div class="rv-stars">★★★★★</div>
-                    <div class="rv-text">"Namrata has this rare gift of making you feel seen without judgment. After three sessions I understood my anxiety in a way years of suppression never allowed."</div>
+                <div v-for="t in testimonials" :key="t.id" class="rv-card">
+                    <div class="rv-stars">{{ stars(t.stars) }}</div>
+                    <div class="rv-text">"{{ t.quote }}"</div>
                     <div class="rv-author">
-                        <div class="rv-av" style="background:linear-gradient(135deg,#c49a8a,#c9a96e)">P</div>
-                        <div><div class="rv-name">Priya R.</div><div class="rv-loc">Toronto, ON</div><div class="rv-tag">Anxiety</div></div>
-                    </div>
-                </div>
-                <div class="rv-card">
-                    <div class="rv-stars">★★★★★</div>
-                    <div class="rv-text">"As a new immigrant I felt completely lost. Namrata understood without me having to explain everything. She helped me rebuild my identity with such grace."</div>
-                    <div class="rv-author">
-                        <div class="rv-av" style="background:linear-gradient(135deg,#7a9e8e,#8bb0c4)">S</div>
-                        <div><div class="rv-name">Supriya K.</div><div class="rv-loc">Vancouver, BC</div><div class="rv-tag">Immigration & Identity</div></div>
-                    </div>
-                </div>
-                <div class="rv-card">
-                    <div class="rv-stars">★★★★★</div>
-                    <div class="rv-text">"Post-partum depression nearly broke me. Namrata created a space where I could finally say that out loud. Her compassion guided me back to my baby."</div>
-                    <div class="rv-author">
-                        <div class="rv-av" style="background:linear-gradient(135deg,#b8a0b8,#c49a8a)">M</div>
-                        <div><div class="rv-name">Meera T.</div><div class="rv-loc">Brampton, ON</div><div class="rv-tag">Post-Partum</div></div>
-                    </div>
-                </div>
-                <div class="rv-card">
-                    <div class="rv-stars">★★★★★</div>
-                    <div class="rv-text">"My husband and I were at a breaking point. Namrata's couples therapy gave us a language for each other again — a truly rare skill."</div>
-                    <div class="rv-author">
-                        <div class="rv-av" style="background:linear-gradient(135deg,#c9a96e,#7a9e8e)">A</div>
-                        <div><div class="rv-name">Anjali & Raj V.</div><div class="rv-loc">Mississauga, ON</div><div class="rv-tag">Couples Therapy</div></div>
-                    </div>
-                </div>
-                <div class="rv-card">
-                    <div class="rv-stars">★★★★★</div>
-                    <div class="rv-text">"Within two sessions I was having breakthroughs I hadn't thought possible. The free first call convinced me — best decision I ever made."</div>
-                    <div class="rv-author">
-                        <div class="rv-av" style="background:linear-gradient(135deg,#8bb0c4,#b8a0b8)">D</div>
-                        <div><div class="rv-name">David O.</div><div class="rv-loc">Ottawa, ON</div><div class="rv-tag">Depression</div></div>
-                    </div>
-                </div>
-                <div class="rv-card">
-                    <div class="rv-stars">★★★★★</div>
-                    <div class="rv-text">"Going through divorce felt like the end. Namrata helped me see it as a beginning. Her empathy transformed the most painful chapter of my life."</div>
-                    <div class="rv-author">
-                        <div class="rv-av" style="background:linear-gradient(135deg,#e8cfc6,#c49a8a)">R</div>
-                        <div><div class="rv-name">Rekha N.</div><div class="rv-loc">Calgary, AB</div><div class="rv-tag">Divorce Recovery</div></div>
+                        <div class="rv-av" :style="{ background: t.avatar_gradient || 'linear-gradient(135deg,#c49a8a,#c9a96e)' }">{{ initial(t.name) }}</div>
+                        <div>
+                            <div class="rv-name">{{ t.name }}</div>
+                            <div v-if="t.location" class="rv-loc">{{ t.location }}</div>
+                            <div v-if="t.tag" class="rv-tag">{{ t.tag }}</div>
+                        </div>
                     </div>
                 </div>
             </div>

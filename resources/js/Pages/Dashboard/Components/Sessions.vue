@@ -1,6 +1,57 @@
 <script setup>
-import { ref, onMounted } from 'vue';
+import { ref, computed, onMounted } from 'vue';
 import BookingModal from './BookingModal.vue';
+
+const props = defineProps({
+    content: { type: Object, default: () => ({}) },
+});
+
+const DEFAULTS = {
+    intro_label:           'Choose Your Path',
+    intro_title:           'Begin free. Go deeper.',
+    intro_title_highlight: 'Heal.',
+    free_badge:            'Zero Cost · No Card Needed',
+    free_title_top:        'Free',
+    free_title_highlight:  '30-Min',
+    free_title_bottom:     'Discovery Call',
+    free_desc:             'Not sure? Just talk. 30 minutes with Namrata — completely free, no pressure, no commitments.',
+    free_perk_1:           'No credit card',
+    free_perk_2:           'Video, phone or chat',
+    free_perk_3:           'Any time zone, globally',
+    free_perk_4:           '100% confidential',
+    free_price_label:      'Session Fee',
+    free_price:            '$0',
+    free_price_unit:       '/ 30 min',
+    free_btn:              'Claim My Free Call →',
+    paid_badge:            '✦ Individual · Couples · Family · Coaching',
+    paid_title_top:        'Book a Full',
+    paid_title_highlight:  'Therapy',
+    paid_title_bottom:     'Session',
+    paid_desc:             'Evidence-based psychotherapy. Choose your session, schedule your time, begin your healing.',
+    paid_note:             '🔒 Secure · 📋 Insurance Receipts · 🕊️ Confidential',
+    card_1_icon:           '💬',
+    card_1_name:           'Individual Therapy',
+    card_1_detail:         'Anxiety · Depression · Trauma · Grief · 50 min',
+    card_1_price:          '$180',
+    card_1_currency:       'CAD',
+    card_2_icon:           '💑',
+    card_2_name:           'Couples Therapy',
+    card_2_detail:         'Marriage · Communication · Conflict · 80 min',
+    card_2_price:          '$220',
+    card_2_currency:       'CAD',
+    card_3_icon:           '👨‍👩‍👧',
+    card_3_name:           'Family Therapy',
+    card_3_detail:         'Parenting · Dynamics · Conflict · 90 min',
+    card_3_price:          '$250',
+    card_3_currency:       'CAD',
+    card_4_icon:           '🌱',
+    card_4_name:           'Coaching',
+    card_4_detail:         'Pre-Marital · Parenting · Life · 60 min',
+    card_4_price:          '$160',
+    card_4_currency:       'CAD',
+};
+
+const c = computed(() => ({ ...DEFAULTS, ...props.content }));
 
 const showBookingModal = ref(false);
 
@@ -23,60 +74,60 @@ onMounted(() => {
     <div class="sessions" id="sessions">
         <div class="sess-inner">
             <div class="sess-intro rv">
-                <div class="sess-intro-label">Choose Your Path</div>
-                <div class="sess-intro-title">Begin free. Go deeper. <em>Heal.</em></div>
+                <div class="sess-intro-label">{{ c.intro_label }}</div>
+                <div class="sess-intro-title">{{ c.intro_title }} <em>{{ c.intro_title_highlight }}</em></div>
             </div>
             <div class="sess-boxes">
 
                 <!-- FREE -->
                 <div class="box-free rv rv-l d1">
-                    <div class="box-badge-free"><div class="bdot"></div>Zero Cost · No Card Needed</div>
-                    <h2 class="box-title">Free<br><em>30-Min</em><br>Discovery Call</h2>
-                    <p class="box-desc">Not sure? Just talk. 30 minutes with Namrata — completely free, no pressure, no commitments.</p>
+                    <div class="box-badge-free"><div class="bdot"></div>{{ c.free_badge }}</div>
+                    <h2 class="box-title">{{ c.free_title_top }}<br><em>{{ c.free_title_highlight }}</em><br>{{ c.free_title_bottom }}</h2>
+                    <p class="box-desc">{{ c.free_desc }}</p>
                     <ul class="free-perks">
-                        <li><div class="ck">✓</div> No credit card</li>
-                        <li><div class="ck">✓</div> Video, phone or chat</li>
-                        <li><div class="ck">✓</div> Any time zone, globally</li>
-                        <li><div class="ck">✓</div> 100% confidential</li>
+                        <li><div class="ck">✓</div> {{ c.free_perk_1 }}</li>
+                        <li><div class="ck">✓</div> {{ c.free_perk_2 }}</li>
+                        <li><div class="ck">✓</div> {{ c.free_perk_3 }}</li>
+                        <li><div class="ck">✓</div> {{ c.free_perk_4 }}</li>
                     </ul>
                     <div class="free-price-block">
                         <div class="price-row">
-                            <span class="price-label">Session Fee</span>
-                            <div class="price-big">$0 <span>/ 30 min</span></div>
+                            <span class="price-label">{{ c.free_price_label }}</span>
+                            <div class="price-big">{{ c.free_price }} <span>{{ c.free_price_unit }}</span></div>
                         </div>
-                        <button class="btn-free" @click="showBookingModal = true">Claim My Free Call →</button>
+                        <button class="btn-free" @click="showBookingModal = true">{{ c.free_btn }}</button>
                     </div>
                 </div>
 
                 <!-- PAID -->
                 <div class="box-paid rv rv-r d2">
-                    <div class="box-badge-paid">✦ Individual · Couples · Family · Coaching</div>
-                    <h2 class="box-paid-title">Book a Full<br><em>Therapy</em><br>Session</h2>
-                    <p class="box-paid-desc">Evidence-based psychotherapy. Choose your session, schedule your time, begin your healing.</p>
+                    <div class="box-badge-paid">{{ c.paid_badge }}</div>
+                    <h2 class="box-paid-title">{{ c.paid_title_top }}<br><em>{{ c.paid_title_highlight }}</em><br>{{ c.paid_title_bottom }}</h2>
+                    <p class="box-paid-desc">{{ c.paid_desc }}</p>
                     <div class="sess-cards">
-                        <div class="sc" @click="window.location='https://talkheals.ca/appointment-request'">
-                            <div class="sc-ico">💬</div>
-                            <div class="sc-inf"><div class="sc-name">Individual Therapy</div><div class="sc-detail">Anxiety · Depression · Trauma · Grief · 50 min</div></div>
-                            <div class="sc-price"><div class="sc-amt">$180</div><span class="sc-unit">CAD</span></div>
+                        <div class="sc" @click="showBookingModal = true">
+                            <div class="sc-ico">{{ c.card_1_icon }}</div>
+                            <div class="sc-inf"><div class="sc-name">{{ c.card_1_name }}</div><div class="sc-detail">{{ c.card_1_detail }}</div></div>
+                            <div class="sc-price"><div class="sc-amt">{{ c.card_1_price }}</div><span class="sc-unit">{{ c.card_1_currency }}</span></div>
                         </div>
-                        <div class="sc" @click="window.location='https://talkheals.ca/appointment-request'">
-                            <div class="sc-ico">💑</div>
-                            <div class="sc-inf"><div class="sc-name">Couples Therapy</div><div class="sc-detail">Marriage · Communication · Conflict · 80 min</div></div>
-                            <div class="sc-price"><div class="sc-amt">$220</div><span class="sc-unit">CAD</span></div>
+                        <div class="sc" @click="showBookingModal = true">
+                            <div class="sc-ico">{{ c.card_2_icon }}</div>
+                            <div class="sc-inf"><div class="sc-name">{{ c.card_2_name }}</div><div class="sc-detail">{{ c.card_2_detail }}</div></div>
+                            <div class="sc-price"><div class="sc-amt">{{ c.card_2_price }}</div><span class="sc-unit">{{ c.card_2_currency }}</span></div>
                         </div>
-                        <div class="sc" @click="window.location='https://talkheals.ca/appointment-request'">
-                            <div class="sc-ico">👨‍👩‍👧</div>
-                            <div class="sc-inf"><div class="sc-name">Family Therapy</div><div class="sc-detail">Parenting · Dynamics · Conflict · 90 min</div></div>
-                            <div class="sc-price"><div class="sc-amt">$250</div><span class="sc-unit">CAD</span></div>
+                        <div class="sc" @click="showBookingModal = true">
+                            <div class="sc-ico">{{ c.card_3_icon }}</div>
+                            <div class="sc-inf"><div class="sc-name">{{ c.card_3_name }}</div><div class="sc-detail">{{ c.card_3_detail }}</div></div>
+                            <div class="sc-price"><div class="sc-amt">{{ c.card_3_price }}</div><span class="sc-unit">{{ c.card_3_currency }}</span></div>
                         </div>
-                        <div class="sc" @click="window.location='https://talkheals.ca/appointment-request'">
-                            <div class="sc-ico">🌱</div>
-                            <div class="sc-inf"><div class="sc-name">Coaching</div><div class="sc-detail">Pre-Marital · Parenting · Life · 60 min</div></div>
-                            <div class="sc-price"><div class="sc-amt">$160</div><span class="sc-unit">CAD</span></div>
+                        <div class="sc" @click="showBookingModal = true">
+                            <div class="sc-ico">{{ c.card_4_icon }}</div>
+                            <div class="sc-inf"><div class="sc-name">{{ c.card_4_name }}</div><div class="sc-detail">{{ c.card_4_detail }}</div></div>
+                            <div class="sc-price"><div class="sc-amt">{{ c.card_4_price }}</div><span class="sc-unit">{{ c.card_4_currency }}</span></div>
                         </div>
                     </div>
-                    <button class="btn-paid" @click="window.location='https://talkheals.ca/appointment-request'">Schedule My Session →</button>
-                    <div class="paid-note">🔒 Secure · 📋 Insurance Receipts · 🕊️ Confidential</div>
+                    <button class="btn-paid" @click="showBookingModal = true">Schedule My Session →</button>
+                    <div class="paid-note">{{ c.paid_note }}</div>
                 </div>
 
             </div>

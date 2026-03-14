@@ -1,5 +1,23 @@
 <script setup>
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
+
+const props = defineProps({
+    content: {
+        type: Object,
+        default: () => ({}),
+    },
+});
+
+const DEFAULTS = {
+    tagline:           'Breathe & Scroll',
+    click_note:        'Tap the bloom for ambient sound',
+    heading_line1:     'Your journey',
+    heading_line2:     'starts',
+    heading_highlight: 'now',
+    sub:               'Namrata Mohan, RP — a safe, warm space for your healing, wherever you are in the world.',
+};
+
+const c = computed(() => ({ ...DEFAULTS, ...props.content }));
 
 const isPlaying = ref(false);
 const breatheLabel = ref('Tap to begin');
@@ -72,18 +90,18 @@ const toggleSound = () => {
         </button>
 
         <div class="breathe-tagline font-serif text-[clamp(0.7rem,0.9rem,1rem)] font-light text-talkheals-muted tracking-[0.15em] uppercase mb-1.5 opacity-0 fill-mode-forwards">
-            Breathe &amp; Scroll
+            {{ c.tagline }}
         </div>
         <div class="breathe-click-note text-[0.7rem] text-talkheals-muted/60 tracking-[0.08em] mt-[-4px] mb-12 opacity-0 fill-mode-forwards">
-            Tap the bloom for ambient sound
+            {{ c.click_note }}
         </div>
 
         <h1 class="hero-heading font-serif text-[clamp(2.8rem,6vw,5.2rem)] font-extralight leading-[1.05] text-talkheals-deep mb-[18px] opacity-0 fill-mode-forwards">
-            Your journey<br>starts <em class="italic text-talkheals-rose not-italic">now</em>
+            {{ c.heading_line1 }}<br>{{ c.heading_line2 }} <em class="italic text-talkheals-rose not-italic">{{ c.heading_highlight }}</em>
         </h1>
-        
+
         <p class="hero-sub text-[0.95rem] text-talkheals-muted font-light max-w-[420px] leading-[1.8] opacity-0 fill-mode-forwards">
-            Namrata Mohan, RP — a safe, warm space for your healing, wherever you are in the world.
+            {{ c.sub }}
         </p>
 
         <!-- Scroll Hint -->

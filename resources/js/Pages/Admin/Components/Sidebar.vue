@@ -8,6 +8,8 @@ const menuItems = [
     { name: 'Availability', icon: '🗓️',  route: 'admin.availability' },
     { name: 'Workshops',    icon: '🎙️',  route: 'admin.workshops'   },
     { name: 'Admins',       icon: '🛡️',  route: 'admin.admins'      },
+    { name: 'Testimonials', icon: '💬',  route: 'admin.testimonials' },
+    { name: 'Content',      icon: '✏️',  route: 'admin.content'     },
 ];
 </script>
 

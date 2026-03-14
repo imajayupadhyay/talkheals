@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\Admin\AdminUserController;
+use App\Http\Controllers\Admin\PageContentController;
+use App\Http\Controllers\Admin\TestimonialController;
 use App\Http\Controllers\Admin\Auth\LoginController;
 use App\Http\Controllers\Admin\WorkshopController;
 use App\Http\Controllers\Admin\AvailabilityController;
@@ -41,6 +43,19 @@ Route::middleware('auth:admin')->prefix('admin')->group(function () {
     Route::post('/admins', [AdminUserController::class, 'store'])->name('admin.admins.store');
     Route::patch('/admins/{admin}', [AdminUserController::class, 'update'])->name('admin.admins.update');
     Route::delete('/admins/{admin}', [AdminUserController::class, 'destroy'])->name('admin.admins.destroy');
+
+    // Testimonials CRUD
+    Route::get('/testimonials', [TestimonialController::class, 'index'])->name('admin.testimonials');
+    Route::post('/testimonials', [TestimonialController::class, 'store'])->name('admin.testimonials.store');
+    Route::patch('/testimonials/{testimonial}', [TestimonialController::class, 'update'])->name('admin.testimonials.update');
+    Route::delete('/testimonials/{testimonial}', [TestimonialController::class, 'destroy'])->name('admin.testimonials.destroy');
+    Route::patch('/testimonials/{testimonial}/toggle', [TestimonialController::class, 'toggleActive'])->name('admin.testimonials.toggle');
+
+    // Page Content (CMS)
+    Route::get('/content', [PageContentController::class, 'index'])->name('admin.content');
+    Route::post('/content/hero', [PageContentController::class, 'updateHero'])->name('admin.content.hero');
+    Route::post('/content/sessions', [PageContentController::class, 'updateSessions'])->name('admin.content.sessions');
+    Route::post('/content/reviews', [PageContentController::class, 'updateReviews'])->name('admin.content.reviews');
 
     // Google Calendar integration
     Route::get('/google/connect', [GoogleController::class, 'redirect'])->name('admin.google.connect');

@@ -15,6 +15,22 @@ const props = defineProps({
         type: Array,
         default: () => [],
     },
+    hero: {
+        type: Object,
+        default: () => ({}),
+    },
+    sessions: {
+        type: Object,
+        default: () => ({}),
+    },
+    testimonials: {
+        type: Array,
+        default: () => [],
+    },
+    reviews: {
+        type: Object,
+        default: () => ({}),
+    },
 });
 </script>
 
@@ -34,11 +50,11 @@ const props = defineProps({
 
         <!-- Main Content -->
         <main>
-            <Hero />
-            <Sessions />
+            <Hero :content="hero" />
+            <Sessions :content="sessions" />
             <Workshops :workshops="workshops" />
             <Library />
-            <Reviews />
+            <Reviews :testimonials="testimonials" :content="reviews" />
             <Articles />
             <About />
         </main>
