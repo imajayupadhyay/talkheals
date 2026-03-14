@@ -20,6 +20,11 @@ class Booking extends Model
         'admin_notes',
         'cancelled_at',
         'cancellation_reason',
+        'reminder_24h_sent',
+        'reminder_12h_sent',
+        'reminder_30min_sent',
+        'google_meet_link',
+        'google_event_id',
     ];
 
     protected function casts(): array
@@ -27,6 +32,9 @@ class Booking extends Model
         return [
             'booking_date' => 'date',
             'cancelled_at' => 'datetime',
+            'reminder_24h_sent' => 'boolean',
+            'reminder_12h_sent' => 'boolean',
+            'reminder_30min_sent' => 'boolean',
         ];
     }
 

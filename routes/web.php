@@ -36,5 +36,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::patch('/appointments/{booking}/cancel', [AppointmentController::class, 'cancel'])->name('client.appointments.cancel');
 });
 
+// Google OAuth callback (must be outside admin auth middleware)
+Route::get('/google/callback', [\App\Http\Controllers\Admin\GoogleController::class, 'callback'])
+    ->middleware('auth:admin')
+    ->name('google.callback');
+
 require __DIR__.'/auth.php';
 require __DIR__.'/admin.php';

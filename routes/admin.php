@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\AvailabilityController;
 use App\Http\Controllers\Admin\BookingController as AdminBookingController;
 use App\Http\Controllers\Admin\ClientController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\GoogleController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('talkheals-secure-login')->group(function () {
@@ -26,6 +27,10 @@ Route::middleware('auth:admin')->prefix('admin')->group(function () {
     // Bookings management
     Route::get('/bookings', [AdminBookingController::class, 'index'])->name('admin.bookings');
     Route::patch('/bookings/{booking}/status', [AdminBookingController::class, 'updateStatus'])->name('admin.bookings.status');
+
+    // Google Calendar integration
+    Route::get('/google/connect', [GoogleController::class, 'redirect'])->name('admin.google.connect');
+    Route::delete('/google/disconnect', [GoogleController::class, 'disconnect'])->name('admin.google.disconnect');
 
     // Clients CRUD
     Route::get('/clients', [ClientController::class, 'index'])->name('admin.clients');
