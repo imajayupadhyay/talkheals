@@ -33,7 +33,7 @@ class GoogleAuthController extends Controller
     public function callback(Request $request): RedirectResponse
     {
         if ($request->has('error')) {
-            return redirect()->route('home')
+            return redirect()->route('login')
                 ->with('status', 'Google sign-in was cancelled.');
         }
 
@@ -41,7 +41,7 @@ class GoogleAuthController extends Controller
         $token = $googleClient->fetchAccessTokenWithAuthCode($request->get('code'));
 
         if (isset($token['error'])) {
-            return redirect()->route('home')
+            return redirect()->route('login')
                 ->with('status', 'Google authentication failed. Please try again.');
         }
 

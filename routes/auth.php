@@ -10,6 +10,7 @@ use App\Http\Controllers\Auth\PasswordController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\VerifyEmailController;
+use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 
 // Google OAuth for clients
@@ -18,13 +19,19 @@ Route::get('auth/google/callback', [GoogleAuthController::class, 'callback'])->n
 
 Route::middleware('guest')->group(function () {
     Route::get('register', function () {
-        return redirect()->route('home');
+        return redirect()->route('login');
     })->name('register');
 
     Route::post('register', [RegisteredUserController::class, 'store']);
 
     Route::get('login', function () {
-        return redirect()->route('home');
+        return Inertia\Inertia::render('Clients/Auth', [
+            'canLogin' => Route::has('login'),
+            'canRegister' => Route::has('register'),
+            'laravelVersion' => Application::VERSION,
+            'phpVersion' => PHP_VERSION,
+            'status' => session('status'),
+        ]);
     })->name('login');
 
     Route::post('login', [AuthenticatedSessionController::class, 'store']);

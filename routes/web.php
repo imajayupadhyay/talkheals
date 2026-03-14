@@ -5,30 +5,10 @@ use App\Http\Controllers\BookingController;
 use App\Http\Controllers\ClientProfileController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\NewsletterController;
-use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
-
-Route::get('/', function () {
-    if (auth()->check()) {
-        return redirect()->route('dashboard');
-    }
-
-    if (auth('admin')->check()) {
-        return redirect()->route('admin.dashboard');
-    }
-
-    return Inertia::render('Clients/Auth', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
-        'status' => session('status'),
-    ]);
-})->name('home');
 
 Route::middleware(['auth', 'verified'])->group(function () {
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 
     // Clinical Profile Routes
     Route::get('/profile', [ClientProfileController::class, 'edit'])->name('client.profile.edit');
