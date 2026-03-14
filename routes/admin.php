@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\AdminUserController;
+use App\Http\Controllers\Admin\NewsletterController as AdminNewsletterController;
 use App\Http\Controllers\Admin\PageContentController;
 use App\Http\Controllers\Admin\TestimonialController;
 use App\Http\Controllers\Admin\Auth\LoginController;
@@ -44,6 +45,11 @@ Route::middleware('auth:admin')->prefix('admin')->group(function () {
     Route::patch('/admins/{admin}', [AdminUserController::class, 'update'])->name('admin.admins.update');
     Route::delete('/admins/{admin}', [AdminUserController::class, 'destroy'])->name('admin.admins.destroy');
 
+    // Newsletter subscribers
+    Route::get('/newsletter', [AdminNewsletterController::class, 'index'])->name('admin.newsletter');
+    Route::patch('/newsletter/{subscriber}/toggle', [AdminNewsletterController::class, 'toggleActive'])->name('admin.newsletter.toggle');
+    Route::delete('/newsletter/{subscriber}', [AdminNewsletterController::class, 'destroy'])->name('admin.newsletter.destroy');
+
     // Testimonials CRUD
     Route::get('/testimonials', [TestimonialController::class, 'index'])->name('admin.testimonials');
     Route::post('/testimonials', [TestimonialController::class, 'store'])->name('admin.testimonials.store');
@@ -56,6 +62,8 @@ Route::middleware('auth:admin')->prefix('admin')->group(function () {
     Route::post('/content/hero', [PageContentController::class, 'updateHero'])->name('admin.content.hero');
     Route::post('/content/sessions', [PageContentController::class, 'updateSessions'])->name('admin.content.sessions');
     Route::post('/content/reviews', [PageContentController::class, 'updateReviews'])->name('admin.content.reviews');
+    Route::post('/content/articles', [PageContentController::class, 'updateArticles'])->name('admin.content.articles');
+    Route::post('/content/about', [PageContentController::class, 'updateAbout'])->name('admin.content.about');
 
     // Google Calendar integration
     Route::get('/google/connect', [GoogleController::class, 'redirect'])->name('admin.google.connect');

@@ -1,5 +1,42 @@
 <script setup>
-import { onMounted } from 'vue';
+import { computed, onMounted } from 'vue';
+
+const props = defineProps({
+    content: { type: Object, default: () => ({}) },
+});
+
+const DEFAULTS = {
+    image_url:       'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=1000&auto=format&fit=crop',
+    badge_icon:      '🌸',
+    badge_name:      'Namrata Mohan',
+    badge_role:      'Registered Psychotherapist',
+    label:           'About the practice',
+    title:           'A therapist who',
+    title_highlight: 'truly',
+    title_suffix:    'gets it',
+    bio_p1:          "I'm Namrata. I believe healing is possible for everyone — and this is your space to begin. My practice is grounded in cultural sensitivity, anti-racism, and a deep understanding of the unique challenges many face today.",
+    bio_p2:          "Whether navigating immigration, trauma, or the stigma so many carry silently, I am here to provide a safe, affirming space where your voice is heard and your journey is honored with professional guidance.",
+    stat_1_value:    '1,400+',
+    stat_1_label:    'Sessions',
+    stat_2_value:    '4.97★',
+    stat_2_label:    'Client Rating',
+    stat_3_value:    '8+',
+    stat_3_label:    'Specialties',
+    stat_4_value:    'Global',
+    stat_4_label:    'Online Access',
+    btn1_text:       'Book with Namrata',
+    btn1_link:       'https://talkheals.ca/appointment-request',
+    btn2_text:       'Full Profile →',
+    btn2_link:       'https://talkheals.ca/about',
+};
+
+const c = computed(() => ({ ...DEFAULTS, ...props.content }));
+
+const navigate = (link, newTab = false) => {
+    if (!link) return;
+    if (newTab) window.open(link, '_blank');
+    else window.location = link;
+};
 
 onMounted(() => {
     const obs = new IntersectionObserver(e => e.forEach((en, i) => {
@@ -15,14 +52,14 @@ onMounted(() => {
             <!-- PHOTO LEFT -->
             <div class="bio-photo-wrap rv-l">
                 <div class="bio-image-card">
-                    <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=1000&auto=format&fit=crop" alt="Namrata Mohan" class="bio-img">
+                    <img :src="c.image_url" alt="Namrata Mohan" class="bio-img">
                     <div class="bio-img-overlay"></div>
                     <!-- Credentials Badge -->
                     <div class="bio-creds-badge">
-                        <div class="bio-ico">🌸</div>
+                        <div class="bio-ico">{{ c.badge_icon }}</div>
                         <div>
-                            <div class="bio-badge-name">Namrata Mohan</div>
-                            <div class="bio-badge-role">Registered Psychotherapist</div>
+                            <div class="bio-badge-name">{{ c.badge_name }}</div>
+                            <div class="bio-badge-role">{{ c.badge_role }}</div>
                         </div>
                     </div>
                 </div>
@@ -33,36 +70,36 @@ onMounted(() => {
 
             <!-- CONTENT RIGHT -->
             <div class="bio-content rv-r">
-                <div class="slabel">About the practice</div>
-                <h2 class="stitle">A therapist who <em>truly</em> gets it</h2>
-                
+                <div class="slabel">{{ c.label }}</div>
+                <h2 class="stitle">{{ c.title }} <em>{{ c.title_highlight }}</em> {{ c.title_suffix }}</h2>
+
                 <div class="bio-text-group">
-                    <p class="bio-p">I'm Namrata. I believe healing is possible for everyone — and this is your space to begin. My practice is grounded in cultural sensitivity, anti-racism, and a deep understanding of the unique challenges many face today.</p>
-                    <p class="bio-p">Whether navigating immigration, trauma, or the stigma so many carry silently, I am here to provide a safe, affirming space where your voice is heard and your journey is honored with professional guidance.</p>
+                    <p class="bio-p">{{ c.bio_p1 }}</p>
+                    <p class="bio-p">{{ c.bio_p2 }}</p>
                 </div>
 
                 <div class="bio-stats">
                     <div class="bs">
-                        <div class="bs-num">1,400+</div>
-                        <div class="bs-lbl">Sessions</div>
+                        <div class="bs-num">{{ c.stat_1_value }}</div>
+                        <div class="bs-lbl">{{ c.stat_1_label }}</div>
                     </div>
                     <div class="bs">
-                        <div class="bs-num">4.97★</div>
-                        <div class="bs-lbl">Client Rating</div>
+                        <div class="bs-num">{{ c.stat_2_value }}</div>
+                        <div class="bs-lbl">{{ c.stat_2_label }}</div>
                     </div>
                     <div class="bs">
-                        <div class="bs-num">8+</div>
-                        <div class="bs-lbl">Specialties</div>
+                        <div class="bs-num">{{ c.stat_3_value }}</div>
+                        <div class="bs-lbl">{{ c.stat_3_label }}</div>
                     </div>
                     <div class="bs">
-                        <div class="bs-num">Global</div>
-                        <div class="bs-lbl">Online Access</div>
+                        <div class="bs-num">{{ c.stat_4_value }}</div>
+                        <div class="bs-lbl">{{ c.stat_4_label }}</div>
                     </div>
                 </div>
 
                 <div class="bio-btns">
-                    <button class="btn-rose" @click="window.location='https://talkheals.ca/appointment-request'">Book with Namrata</button>
-                    <button class="btn-out" @click="window.open('https://talkheals.ca/about','_blank')">Full Profile →</button>
+                    <button class="btn-rose" @click="navigate(c.btn1_link)">{{ c.btn1_text }}</button>
+                    <button class="btn-out" @click="navigate(c.btn2_link, true)">{{ c.btn2_text }}</button>
                 </div>
             </div>
         </div>

@@ -31,6 +31,14 @@ const props = defineProps({
         type: Object,
         default: () => ({}),
     },
+    articles: {
+        type: Object,
+        default: () => ({}),
+    },
+    about: {
+        type: Object,
+        default: () => ({}),
+    },
 });
 </script>
 
@@ -55,8 +63,8 @@ const props = defineProps({
             <Workshops :workshops="workshops" />
             <Library />
             <Reviews :testimonials="testimonials" :content="reviews" />
-            <Articles />
-            <About />
+            <Articles :content="articles" />
+            <About :content="about" />
         </main>
 
         <!-- Footer -->

@@ -4,6 +4,7 @@ use App\Http\Controllers\AppointmentController;
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\ClientProfileController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\NewsletterController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -34,6 +35,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/appointments', [AppointmentController::class, 'index'])->name('client.appointments');
     Route::patch('/appointments/{booking}/cancel', [AppointmentController::class, 'cancel'])->name('client.appointments.cancel');
 });
+
+// Newsletter subscription (accessible to authenticated clients)
+Route::post('/newsletter/subscribe', [NewsletterController::class, 'subscribe'])
+    ->middleware(['auth', 'verified'])
+    ->name('newsletter.subscribe');
 
 // Google OAuth callback (must be outside admin auth middleware)
 Route::get('/google/callback', [\App\Http\Controllers\Admin\GoogleController::class, 'callback'])

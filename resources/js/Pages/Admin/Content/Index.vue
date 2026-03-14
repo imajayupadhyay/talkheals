@@ -7,6 +7,8 @@ const props = defineProps({
     hero:     { type: Object, required: true },
     sessions: { type: Object, required: true },
     reviews:  { type: Object, required: true },
+    articles: { type: Object, required: true },
+    about:    { type: Object, required: true },
 });
 
 // Flash message
@@ -26,6 +28,95 @@ const submitHero = () => {
     heroForm.post(route('admin.content.hero'), {
         preserveScroll: true,
     });
+};
+
+// ── About Form ────────────────────────────────────────────────────────────────
+const aboutImageMode    = ref(props.about.image_url?.startsWith('/storage/') ? 'upload' : 'url');
+const aboutImagePreview = ref(props.about.image_url ?? '');
+const aboutFileRef      = ref(null);
+
+const aboutForm = useForm({
+    image_file:      null,
+    image_url:       props.about.image_url?.startsWith('/storage/') ? '' : (props.about.image_url ?? ''),
+    badge_icon:      props.about.badge_icon      ?? '',
+    badge_name:      props.about.badge_name      ?? '',
+    badge_role:      props.about.badge_role      ?? '',
+    label:           props.about.label           ?? '',
+    title:           props.about.title           ?? '',
+    title_highlight: props.about.title_highlight ?? '',
+    title_suffix:    props.about.title_suffix    ?? '',
+    bio_p1:          props.about.bio_p1          ?? '',
+    bio_p2:          props.about.bio_p2          ?? '',
+    stat_1_value:    props.about.stat_1_value    ?? '',
+    stat_1_label:    props.about.stat_1_label    ?? '',
+    stat_2_value:    props.about.stat_2_value    ?? '',
+    stat_2_label:    props.about.stat_2_label    ?? '',
+    stat_3_value:    props.about.stat_3_value    ?? '',
+    stat_3_label:    props.about.stat_3_label    ?? '',
+    stat_4_value:    props.about.stat_4_value    ?? '',
+    stat_4_label:    props.about.stat_4_label    ?? '',
+    btn1_text:       props.about.btn1_text       ?? '',
+    btn1_link:       props.about.btn1_link       ?? '',
+    btn2_text:       props.about.btn2_text       ?? '',
+    btn2_link:       props.about.btn2_link       ?? '',
+});
+
+const onAboutFileChange = (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    aboutForm.image_file = file;
+    aboutForm.image_url  = '';
+    aboutImagePreview.value = URL.createObjectURL(file);
+};
+
+const clearAboutImage = () => {
+    aboutForm.image_file    = null;
+    aboutForm.image_url     = '';
+    aboutImagePreview.value = props.about.image_url ?? '';
+    if (aboutFileRef.value) aboutFileRef.value.value = '';
+};
+
+const submitAbout = () => {
+    aboutForm.post(route('admin.content.about'), {
+        preserveScroll: true,
+        forceFormData:  true,
+    });
+};
+
+// ── Articles Form ─────────────────────────────────────────────────────────────
+const articlesForm = useForm({
+    intro_label:           props.articles.intro_label           ?? '',
+    intro_title:           props.articles.intro_title           ?? '',
+    intro_title_highlight: props.articles.intro_title_highlight ?? '',
+    art_badge:             props.articles.art_badge             ?? '',
+    art_title:             props.articles.art_title             ?? '',
+    art_title_highlight:   props.articles.art_title_highlight   ?? '',
+    art_desc:              props.articles.art_desc              ?? '',
+    art_p1_icon:           props.articles.art_p1_icon           ?? '',
+    art_p1_text:           props.articles.art_p1_text           ?? '',
+    art_p1_tag:            props.articles.art_p1_tag            ?? '',
+    art_p2_icon:           props.articles.art_p2_icon           ?? '',
+    art_p2_text:           props.articles.art_p2_text           ?? '',
+    art_p2_tag:            props.articles.art_p2_tag            ?? '',
+    art_p3_icon:           props.articles.art_p3_icon           ?? '',
+    art_p3_text:           props.articles.art_p3_text           ?? '',
+    art_p3_tag:            props.articles.art_p3_tag            ?? '',
+    art_btn:               props.articles.art_btn               ?? '',
+    nl_badge:              props.articles.nl_badge              ?? '',
+    nl_title:              props.articles.nl_title              ?? '',
+    nl_title_highlight:    props.articles.nl_title_highlight    ?? '',
+    nl_desc:               props.articles.nl_desc               ?? '',
+    nl_perk_1:             props.articles.nl_perk_1             ?? '',
+    nl_perk_2:             props.articles.nl_perk_2             ?? '',
+    nl_perk_3:             props.articles.nl_perk_3             ?? '',
+    nl_perk_4:             props.articles.nl_perk_4             ?? '',
+    nl_placeholder:        props.articles.nl_placeholder        ?? '',
+    nl_btn:                props.articles.nl_btn                ?? '',
+    nl_note:               props.articles.nl_note               ?? '',
+});
+
+const submitArticles = () => {
+    articlesForm.post(route('admin.content.articles'), { preserveScroll: true });
 };
 
 // ── Sessions Form ─────────────────────────────────────────────────────────────
@@ -136,7 +227,8 @@ const showPreview = ref(false);
                     <span class="px-4 py-1.5 rounded-full bg-talkheals-gold text-white text-xs font-bold tracking-wide">Hero</span>
                     <span class="px-4 py-1.5 rounded-full bg-talkheals-gold text-white text-xs font-bold tracking-wide">Sessions</span>
                     <span class="px-4 py-1.5 rounded-full bg-talkheals-gold text-white text-xs font-bold tracking-wide">Reviews</span>
-                    <span class="px-4 py-1.5 rounded-full bg-talkheals-cream border border-talkheals-gold/30 text-talkheals-muted text-xs font-medium tracking-wide cursor-not-allowed opacity-50">About (coming soon)</span>
+                    <span class="px-4 py-1.5 rounded-full bg-talkheals-gold text-white text-xs font-bold tracking-wide">Articles & Newsletter</span>
+                    <span class="px-4 py-1.5 rounded-full bg-talkheals-gold text-white text-xs font-bold tracking-wide">About</span>
                     <span class="px-4 py-1.5 rounded-full bg-talkheals-cream border border-talkheals-gold/30 text-talkheals-muted text-xs font-medium tracking-wide cursor-not-allowed opacity-50">Library (coming soon)</span>
                 </div>
 
@@ -322,6 +414,163 @@ const showPreview = ref(false);
                     </form>
                 </div>
 
+                <!-- ── Articles & Newsletter Section Card ─────────────────── -->
+                <div class="bg-white rounded-3xl shadow-sm border border-talkheals-gold-p overflow-hidden">
+                    <div class="flex items-center gap-4 px-8 py-6 border-b border-talkheals-gold-p bg-gradient-to-r from-talkheals-cream to-white">
+                        <div class="w-12 h-12 rounded-2xl bg-talkheals-gold/10 flex items-center justify-center text-2xl shrink-0">📰</div>
+                        <div>
+                            <h2 class="text-lg font-bold text-talkheals-deep">Articles & Newsletter Section</h2>
+                            <p class="text-sm text-talkheals-muted">Section intro, articles card (left), and newsletter card (right).</p>
+                        </div>
+                        <div class="ml-auto"><span class="px-3 py-1 rounded-full bg-green-100 text-green-700 text-xs font-semibold">Active</span></div>
+                    </div>
+
+                    <form @submit.prevent="submitArticles" class="p-8 space-y-8">
+
+                        <!-- Section Intro -->
+                        <div class="flex items-center gap-4">
+                            <div class="flex-1 h-px bg-talkheals-gold/10"></div>
+                            <span class="text-xs text-talkheals-muted font-semibold uppercase tracking-widest">Section Intro</span>
+                            <div class="flex-1 h-px bg-talkheals-gold/10"></div>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <div>
+                                <label class="block text-xs font-bold text-talkheals-deep uppercase tracking-widest mb-2">Label</label>
+                                <input v-model="articlesForm.intro_label" type="text" maxlength="100"
+                                    class="w-full px-4 py-3 rounded-xl border border-talkheals-gold/30 bg-talkheals-cream/50 text-talkheals-deep text-sm focus:outline-none focus:ring-2 focus:ring-talkheals-gold/40 transition">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-talkheals-deep uppercase tracking-widest mb-2">Title</label>
+                                <input v-model="articlesForm.intro_title" type="text" maxlength="150"
+                                    class="w-full px-4 py-3 rounded-xl border border-talkheals-gold/30 bg-talkheals-cream/50 text-talkheals-deep text-sm focus:outline-none focus:ring-2 focus:ring-talkheals-gold/40 transition">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-talkheals-deep uppercase tracking-widest mb-2">Highlight <span class="text-talkheals-rose font-normal normal-case">— italic rose</span></label>
+                                <input v-model="articlesForm.intro_title_highlight" type="text" maxlength="100"
+                                    class="w-full px-4 py-3 rounded-xl border border-talkheals-rose/30 bg-talkheals-cream/50 text-talkheals-rose text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-talkheals-rose/30 transition">
+                            </div>
+                        </div>
+
+                        <!-- Articles Card -->
+                        <div class="flex items-center gap-4">
+                            <div class="flex-1 h-px bg-talkheals-gold/10"></div>
+                            <span class="text-xs text-talkheals-muted font-semibold uppercase tracking-widest px-3 py-1 bg-white border border-talkheals-gold/30 text-talkheals-gold rounded-full">Articles Card (left)</span>
+                            <div class="flex-1 h-px bg-talkheals-gold/10"></div>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-xs font-bold text-talkheals-deep uppercase tracking-widest mb-2">Badge</label>
+                                <input v-model="articlesForm.art_badge" type="text" maxlength="120"
+                                    class="w-full px-4 py-3 rounded-xl border border-talkheals-gold/30 bg-talkheals-cream/50 text-talkheals-deep text-sm focus:outline-none focus:ring-2 focus:ring-talkheals-gold/40 transition">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-talkheals-deep uppercase tracking-widest mb-2">Title</label>
+                                <div class="flex gap-2">
+                                    <input v-model="articlesForm.art_title" type="text" maxlength="80" placeholder="Words that"
+                                        class="flex-1 px-3 py-3 rounded-xl border border-talkheals-gold/30 bg-talkheals-cream/50 text-talkheals-deep text-sm focus:outline-none focus:ring-2 focus:ring-talkheals-gold/40 transition">
+                                    <input v-model="articlesForm.art_title_highlight" type="text" maxlength="50" placeholder="heal"
+                                        class="w-28 px-3 py-3 rounded-xl border border-talkheals-gold/30 bg-talkheals-gold/10 text-talkheals-gold text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-talkheals-gold/30 transition">
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-talkheals-deep uppercase tracking-widest mb-2">Description</label>
+                            <textarea v-model="articlesForm.art_desc" rows="2" maxlength="400"
+                                class="w-full px-4 py-3 rounded-xl border border-talkheals-gold/30 bg-talkheals-cream/50 text-talkheals-deep text-sm focus:outline-none focus:ring-2 focus:ring-talkheals-gold/40 transition resize-none"></textarea>
+                        </div>
+                        <!-- Article Previews -->
+                        <div class="space-y-3">
+                            <div v-for="n in 3" :key="n" class="bg-talkheals-cream/50 border border-talkheals-gold/20 rounded-2xl p-4">
+                                <div class="text-xs font-bold text-talkheals-deep uppercase tracking-widest mb-3">Article Preview {{ n }}</div>
+                                <div class="grid grid-cols-12 gap-3">
+                                    <div class="col-span-1">
+                                        <label class="block text-xs text-talkheals-muted mb-1.5">Icon</label>
+                                        <input v-model="articlesForm[`art_p${n}_icon`]" type="text" maxlength="10"
+                                            class="w-full px-2 py-2.5 rounded-xl border border-talkheals-gold/30 bg-white text-center text-lg focus:outline-none focus:ring-2 focus:ring-talkheals-gold/40 transition">
+                                    </div>
+                                    <div class="col-span-7">
+                                        <label class="block text-xs text-talkheals-muted mb-1.5">Article Title</label>
+                                        <input v-model="articlesForm[`art_p${n}_text`]" type="text" maxlength="150"
+                                            class="w-full px-3 py-2.5 rounded-xl border border-talkheals-gold/30 bg-white text-talkheals-deep text-sm focus:outline-none focus:ring-2 focus:ring-talkheals-gold/40 transition">
+                                    </div>
+                                    <div class="col-span-4">
+                                        <label class="block text-xs text-talkheals-muted mb-1.5">Tag / Read time</label>
+                                        <input v-model="articlesForm[`art_p${n}_tag`]" type="text" maxlength="80"
+                                            class="w-full px-3 py-2.5 rounded-xl border border-talkheals-gold/30 bg-white text-talkheals-deep text-sm focus:outline-none focus:ring-2 focus:ring-talkheals-gold/40 transition">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-talkheals-deep uppercase tracking-widest mb-2">Button Text</label>
+                            <input v-model="articlesForm.art_btn" type="text" maxlength="80"
+                                class="w-full px-4 py-3 rounded-xl border border-talkheals-gold/30 bg-talkheals-cream/50 text-talkheals-deep text-sm focus:outline-none focus:ring-2 focus:ring-talkheals-gold/40 transition">
+                        </div>
+
+                        <!-- Newsletter Card -->
+                        <div class="flex items-center gap-4">
+                            <div class="flex-1 h-px bg-talkheals-gold/10"></div>
+                            <span class="text-xs font-semibold uppercase tracking-widest px-3 py-1 bg-[#2a2420] text-[#c9a96e] rounded-full">Newsletter Card (right, dark)</span>
+                            <div class="flex-1 h-px bg-talkheals-gold/10"></div>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-xs font-bold text-talkheals-deep uppercase tracking-widest mb-2">Badge</label>
+                                <input v-model="articlesForm.nl_badge" type="text" maxlength="120"
+                                    class="w-full px-4 py-3 rounded-xl border border-talkheals-gold/30 bg-talkheals-cream/50 text-talkheals-deep text-sm focus:outline-none focus:ring-2 focus:ring-talkheals-gold/40 transition">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-talkheals-deep uppercase tracking-widest mb-2">Title</label>
+                                <div class="flex gap-2">
+                                    <input v-model="articlesForm.nl_title" type="text" maxlength="80" placeholder="Your weekly"
+                                        class="flex-1 px-3 py-3 rounded-xl border border-talkheals-gold/30 bg-talkheals-cream/50 text-talkheals-deep text-sm focus:outline-none focus:ring-2 focus:ring-talkheals-gold/40 transition">
+                                    <input v-model="articlesForm.nl_title_highlight" type="text" maxlength="80" placeholder="moment of calm"
+                                        class="flex-1 px-3 py-3 rounded-xl border border-talkheals-gold/40 bg-talkheals-gold/10 text-talkheals-gold text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-talkheals-gold/30 transition">
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-talkheals-deep uppercase tracking-widest mb-2">Description</label>
+                            <textarea v-model="articlesForm.nl_desc" rows="2" maxlength="400"
+                                class="w-full px-4 py-3 rounded-xl border border-talkheals-gold/30 bg-talkheals-cream/50 text-talkheals-deep text-sm focus:outline-none focus:ring-2 focus:ring-talkheals-gold/40 transition resize-none"></textarea>
+                        </div>
+                        <div class="grid grid-cols-2 gap-3">
+                            <div v-for="n in 4" :key="n">
+                                <label class="block text-xs font-bold text-talkheals-deep uppercase tracking-widest mb-2">Perk {{ n }}</label>
+                                <input v-model="articlesForm[`nl_perk_${n}`]" type="text" maxlength="100"
+                                    class="w-full px-3 py-3 rounded-xl border border-talkheals-gold/30 bg-talkheals-cream/50 text-talkheals-deep text-sm focus:outline-none focus:ring-2 focus:ring-talkheals-gold/40 transition">
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <div>
+                                <label class="block text-xs font-bold text-talkheals-deep uppercase tracking-widest mb-2">Input Placeholder</label>
+                                <input v-model="articlesForm.nl_placeholder" type="text" maxlength="60"
+                                    class="w-full px-4 py-3 rounded-xl border border-talkheals-gold/30 bg-talkheals-cream/50 text-talkheals-deep text-sm focus:outline-none focus:ring-2 focus:ring-talkheals-gold/40 transition">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-talkheals-deep uppercase tracking-widest mb-2">Button Text</label>
+                                <input v-model="articlesForm.nl_btn" type="text" maxlength="80"
+                                    class="w-full px-4 py-3 rounded-xl border border-talkheals-gold/30 bg-talkheals-cream/50 text-talkheals-deep text-sm focus:outline-none focus:ring-2 focus:ring-talkheals-gold/40 transition">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-talkheals-deep uppercase tracking-widest mb-2">Footer Note</label>
+                                <input v-model="articlesForm.nl_note" type="text" maxlength="150"
+                                    class="w-full px-4 py-3 rounded-xl border border-talkheals-gold/30 bg-talkheals-cream/50 text-talkheals-deep text-sm focus:outline-none focus:ring-2 focus:ring-talkheals-gold/40 transition">
+                            </div>
+                        </div>
+
+                        <!-- Submit -->
+                        <div class="flex items-center justify-between pt-2 border-t border-talkheals-gold/10">
+                            <p class="text-xs text-talkheals-muted">Changes go live immediately after saving.</p>
+                            <button type="submit" :disabled="articlesForm.processing"
+                                class="px-8 py-3 rounded-2xl bg-talkheals-gold text-white font-bold text-sm shadow-lg shadow-talkheals-gold/20 hover:bg-talkheals-gold/90 disabled:opacity-60 transition-all duration-200 flex items-center gap-2">
+                                <svg v-if="articlesForm.processing" class="w-4 h-4 animate-spin" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"/><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z"/></svg>
+                                {{ articlesForm.processing ? 'Saving...' : 'Save Articles & Newsletter' }}
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
                 <!-- ── Reviews Section Card ───────────────────────────────── -->
                 <div class="bg-white rounded-3xl shadow-sm border border-talkheals-gold-p overflow-hidden">
                     <div class="flex items-center gap-4 px-8 py-6 border-b border-talkheals-gold-p bg-gradient-to-r from-talkheals-cream to-white">
@@ -406,6 +655,232 @@ const showPreview = ref(false);
                                 class="px-8 py-3 rounded-2xl bg-talkheals-gold text-white font-bold text-sm shadow-lg shadow-talkheals-gold/20 hover:bg-talkheals-gold/90 disabled:opacity-60 transition-all duration-200 flex items-center gap-2">
                                 <svg v-if="reviewsForm.processing" class="w-4 h-4 animate-spin" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"/><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z"/></svg>
                                 {{ reviewsForm.processing ? 'Saving...' : 'Save Reviews Header' }}
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- ── About Section Card ────────────────────────────────── -->
+                <div class="bg-white rounded-3xl shadow-sm border border-talkheals-gold-p overflow-hidden">
+                    <div class="flex items-center gap-4 px-8 py-6 border-b border-talkheals-gold-p bg-gradient-to-r from-talkheals-cream to-white">
+                        <div class="w-12 h-12 rounded-2xl bg-talkheals-rose/10 flex items-center justify-center text-2xl shrink-0">🌸</div>
+                        <div>
+                            <h2 class="text-lg font-bold text-talkheals-deep">About Section</h2>
+                            <p class="text-sm text-talkheals-muted">Photo, credentials badge, bio, stats and action buttons.</p>
+                        </div>
+                        <div class="ml-auto"><span class="px-3 py-1 rounded-full bg-green-100 text-green-700 text-xs font-semibold">Active</span></div>
+                    </div>
+
+                    <form @submit.prevent="submitAbout" class="p-8 space-y-8">
+
+                        <!-- ── Image ── -->
+                        <div class="flex items-center gap-4">
+                            <div class="flex-1 h-px bg-talkheals-gold/10"></div>
+                            <span class="text-xs text-talkheals-muted font-semibold uppercase tracking-widest">Photo</span>
+                            <div class="flex-1 h-px bg-talkheals-gold/10"></div>
+                        </div>
+
+                        <!-- Mode toggle -->
+                        <div class="flex gap-2">
+                            <button type="button" @click="aboutImageMode = 'upload'"
+                                class="px-4 py-2 rounded-xl text-sm font-semibold transition"
+                                :class="aboutImageMode === 'upload' ? 'bg-talkheals-gold text-white' : 'bg-talkheals-cream text-talkheals-muted hover:bg-talkheals-gold/10'">
+                                Upload File
+                            </button>
+                            <button type="button" @click="aboutImageMode = 'url'"
+                                class="px-4 py-2 rounded-xl text-sm font-semibold transition"
+                                :class="aboutImageMode === 'url' ? 'bg-talkheals-gold text-white' : 'bg-talkheals-cream text-talkheals-muted hover:bg-talkheals-gold/10'">
+                                Image URL
+                            </button>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
+                            <!-- Upload zone -->
+                            <div v-if="aboutImageMode === 'upload'">
+                                <div class="border-2 border-dashed border-talkheals-gold/30 rounded-2xl p-6 text-center cursor-pointer hover:border-talkheals-gold/60 hover:bg-talkheals-gold/5 transition"
+                                    @click="aboutFileRef?.click()">
+                                    <div class="text-3xl mb-2">📷</div>
+                                    <p class="text-sm text-talkheals-muted">Click to upload · JPG, PNG, WebP · max 4 MB</p>
+                                    <input ref="aboutFileRef" type="file" accept="image/*" class="hidden" @change="onAboutFileChange">
+                                </div>
+                                <button v-if="aboutForm.image_file" type="button" @click="clearAboutImage"
+                                    class="mt-2 text-xs text-red-400 hover:text-red-600 transition">
+                                    ✕ Remove selected file
+                                </button>
+                            </div>
+
+                            <!-- URL input -->
+                            <div v-else>
+                                <label class="block text-xs font-bold text-talkheals-deep uppercase tracking-widest mb-2">Image URL</label>
+                                <input v-model="aboutForm.image_url" type="url" placeholder="https://…"
+                                    class="w-full px-4 py-3 rounded-xl border border-talkheals-gold/30 bg-talkheals-cream/50 text-talkheals-deep text-sm focus:outline-none focus:ring-2 focus:ring-talkheals-gold/40 transition">
+                                <p v-if="aboutForm.errors.image_url" class="text-red-500 text-xs mt-1">{{ aboutForm.errors.image_url }}</p>
+                            </div>
+
+                            <!-- Preview -->
+                            <div v-if="aboutImagePreview || aboutForm.image_url" class="relative">
+                                <img :src="aboutImageMode === 'url' ? aboutForm.image_url : aboutImagePreview"
+                                    alt="Preview" class="w-full aspect-[4/5] object-cover rounded-2xl border border-talkheals-gold/20">
+                                <div class="absolute bottom-3 left-3 right-3 bg-white/90 backdrop-blur-sm rounded-xl p-3 flex items-center gap-2">
+                                    <div class="w-8 h-8 rounded-full bg-talkheals-rose/20 flex items-center justify-center text-lg shrink-0">{{ aboutForm.badge_icon || '🌸' }}</div>
+                                    <div>
+                                        <div class="text-xs font-semibold text-talkheals-deep">{{ aboutForm.badge_name || 'Namrata Mohan' }}</div>
+                                        <div class="text-[0.6rem] text-talkheals-muted uppercase tracking-wide">{{ aboutForm.badge_role || 'Registered Psychotherapist' }}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Badge fields -->
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <div>
+                                <label class="block text-xs font-bold text-talkheals-deep uppercase tracking-widest mb-2">Badge Icon (emoji)</label>
+                                <input v-model="aboutForm.badge_icon" type="text" maxlength="10"
+                                    class="w-full px-4 py-3 rounded-xl border border-talkheals-gold/30 bg-talkheals-cream/50 text-talkheals-deep text-2xl text-center focus:outline-none focus:ring-2 focus:ring-talkheals-gold/40 transition">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-talkheals-deep uppercase tracking-widest mb-2">Badge Name</label>
+                                <input v-model="aboutForm.badge_name" type="text" maxlength="100"
+                                    class="w-full px-4 py-3 rounded-xl border border-talkheals-gold/30 bg-talkheals-cream/50 text-talkheals-deep text-sm focus:outline-none focus:ring-2 focus:ring-talkheals-gold/40 transition">
+                                <p v-if="aboutForm.errors.badge_name" class="text-red-500 text-xs mt-1">{{ aboutForm.errors.badge_name }}</p>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-talkheals-deep uppercase tracking-widest mb-2">Badge Role / Title</label>
+                                <input v-model="aboutForm.badge_role" type="text" maxlength="100"
+                                    class="w-full px-4 py-3 rounded-xl border border-talkheals-gold/30 bg-talkheals-cream/50 text-talkheals-deep text-sm focus:outline-none focus:ring-2 focus:ring-talkheals-gold/40 transition">
+                                <p v-if="aboutForm.errors.badge_role" class="text-red-500 text-xs mt-1">{{ aboutForm.errors.badge_role }}</p>
+                            </div>
+                        </div>
+
+                        <!-- ── Text Content ── -->
+                        <div class="flex items-center gap-4">
+                            <div class="flex-1 h-px bg-talkheals-gold/10"></div>
+                            <span class="text-xs text-talkheals-muted font-semibold uppercase tracking-widest">Text Content</span>
+                            <div class="flex-1 h-px bg-talkheals-gold/10"></div>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-xs font-bold text-talkheals-deep uppercase tracking-widest mb-2">Label <span class="font-normal normal-case tracking-normal text-talkheals-muted">— gold small caps</span></label>
+                                <input v-model="aboutForm.label" type="text" maxlength="100"
+                                    class="w-full px-4 py-3 rounded-xl border border-talkheals-gold/30 bg-talkheals-cream/50 text-talkheals-deep text-sm focus:outline-none focus:ring-2 focus:ring-talkheals-gold/40 transition">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-talkheals-deep uppercase tracking-widest mb-2">Heading <span class="font-normal normal-case tracking-normal text-talkheals-muted">— title + <span class="text-talkheals-rose">italic rose</span> + suffix</span></label>
+                                <div class="flex gap-2">
+                                    <input v-model="aboutForm.title" type="text" maxlength="100" placeholder="A therapist who"
+                                        class="flex-1 px-3 py-3 rounded-xl border border-talkheals-gold/30 bg-talkheals-cream/50 text-talkheals-deep text-sm focus:outline-none focus:ring-2 focus:ring-talkheals-gold/40 transition">
+                                    <input v-model="aboutForm.title_highlight" type="text" maxlength="50" placeholder="truly"
+                                        class="w-24 px-3 py-3 rounded-xl border border-talkheals-rose/30 bg-talkheals-cream/50 text-talkheals-rose text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-talkheals-rose/30 transition">
+                                    <input v-model="aboutForm.title_suffix" type="text" maxlength="100" placeholder="gets it"
+                                        class="flex-1 px-3 py-3 rounded-xl border border-talkheals-gold/30 bg-talkheals-cream/50 text-talkheals-deep text-sm focus:outline-none focus:ring-2 focus:ring-talkheals-gold/40 transition">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-bold text-talkheals-deep uppercase tracking-widest mb-2">Bio Paragraph 1</label>
+                            <textarea v-model="aboutForm.bio_p1" rows="3" maxlength="600"
+                                class="w-full px-4 py-3 rounded-xl border border-talkheals-gold/30 bg-talkheals-cream/50 text-talkheals-deep text-sm focus:outline-none focus:ring-2 focus:ring-talkheals-gold/40 transition resize-none"></textarea>
+                            <div class="flex justify-between mt-1">
+                                <p v-if="aboutForm.errors.bio_p1" class="text-red-500 text-xs">{{ aboutForm.errors.bio_p1 }}</p>
+                                <span class="text-xs text-talkheals-muted ml-auto">{{ aboutForm.bio_p1.length }}/600</span>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-bold text-talkheals-deep uppercase tracking-widest mb-2">Bio Paragraph 2</label>
+                            <textarea v-model="aboutForm.bio_p2" rows="3" maxlength="600"
+                                class="w-full px-4 py-3 rounded-xl border border-talkheals-gold/30 bg-talkheals-cream/50 text-talkheals-deep text-sm focus:outline-none focus:ring-2 focus:ring-talkheals-gold/40 transition resize-none"></textarea>
+                            <div class="flex justify-between mt-1">
+                                <p v-if="aboutForm.errors.bio_p2" class="text-red-500 text-xs">{{ aboutForm.errors.bio_p2 }}</p>
+                                <span class="text-xs text-talkheals-muted ml-auto">{{ aboutForm.bio_p2.length }}/600</span>
+                            </div>
+                        </div>
+
+                        <!-- ── Stats ── -->
+                        <div class="flex items-center gap-4">
+                            <div class="flex-1 h-px bg-talkheals-gold/10"></div>
+                            <span class="text-xs text-talkheals-muted font-semibold uppercase tracking-widest">Stats</span>
+                            <div class="flex-1 h-px bg-talkheals-gold/10"></div>
+                        </div>
+
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                            <div v-for="n in 4" :key="n" class="bg-talkheals-cream/50 border border-talkheals-gold/20 rounded-2xl p-4">
+                                <div class="text-xs font-bold text-talkheals-deep uppercase tracking-widest mb-3">Stat {{ n }}</div>
+                                <div class="space-y-2">
+                                    <div>
+                                        <label class="block text-xs text-talkheals-muted mb-1">Value</label>
+                                        <input v-model="aboutForm[`stat_${n}_value`]" type="text" maxlength="30"
+                                            class="w-full px-3 py-2.5 rounded-xl border border-talkheals-gold/30 bg-white text-talkheals-gold font-bold text-sm focus:outline-none focus:ring-2 focus:ring-talkheals-gold/40 transition">
+                                    </div>
+                                    <div>
+                                        <label class="block text-xs text-talkheals-muted mb-1">Label</label>
+                                        <input v-model="aboutForm[`stat_${n}_label`]" type="text" maxlength="50"
+                                            class="w-full px-3 py-2.5 rounded-xl border border-talkheals-gold/30 bg-white text-talkheals-deep text-sm focus:outline-none focus:ring-2 focus:ring-talkheals-gold/40 transition">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- ── Buttons ── -->
+                        <div class="flex items-center gap-4">
+                            <div class="flex-1 h-px bg-talkheals-gold/10"></div>
+                            <span class="text-xs text-talkheals-muted font-semibold uppercase tracking-widest">Action Buttons</span>
+                            <div class="flex-1 h-px bg-talkheals-gold/10"></div>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <!-- Button 1 -->
+                            <div class="bg-talkheals-cream/50 border border-talkheals-rose/20 rounded-2xl p-5 space-y-3">
+                                <div class="text-xs font-bold text-talkheals-deep uppercase tracking-widest flex items-center gap-2">
+                                    <span class="w-5 h-5 rounded-full bg-talkheals-rose flex items-center justify-center text-white text-[0.6rem] font-bold">1</span>
+                                    Primary Button <span class="text-talkheals-rose font-normal normal-case tracking-normal">(rose)</span>
+                                </div>
+                                <div>
+                                    <label class="block text-xs text-talkheals-muted mb-1.5">Button Text</label>
+                                    <input v-model="aboutForm.btn1_text" type="text" maxlength="80"
+                                        class="w-full px-3 py-2.5 rounded-xl border border-talkheals-gold/30 bg-white text-talkheals-deep text-sm focus:outline-none focus:ring-2 focus:ring-talkheals-gold/40 transition">
+                                    <p v-if="aboutForm.errors.btn1_text" class="text-red-500 text-xs mt-1">{{ aboutForm.errors.btn1_text }}</p>
+                                </div>
+                                <div>
+                                    <label class="block text-xs text-talkheals-muted mb-1.5">Link URL</label>
+                                    <input v-model="aboutForm.btn1_link" type="url" placeholder="https://…"
+                                        class="w-full px-3 py-2.5 rounded-xl border border-talkheals-gold/30 bg-white text-talkheals-deep text-sm focus:outline-none focus:ring-2 focus:ring-talkheals-gold/40 transition">
+                                    <p v-if="aboutForm.errors.btn1_link" class="text-red-500 text-xs mt-1">{{ aboutForm.errors.btn1_link }}</p>
+                                    <p class="text-xs text-talkheals-muted mt-1">Opens in same tab.</p>
+                                </div>
+                            </div>
+
+                            <!-- Button 2 -->
+                            <div class="bg-talkheals-cream/50 border border-talkheals-gold/20 rounded-2xl p-5 space-y-3">
+                                <div class="text-xs font-bold text-talkheals-deep uppercase tracking-widest flex items-center gap-2">
+                                    <span class="w-5 h-5 rounded-full border border-talkheals-rose flex items-center justify-center text-talkheals-rose text-[0.6rem] font-bold">2</span>
+                                    Secondary Button <span class="text-talkheals-muted font-normal normal-case tracking-normal">(outline)</span>
+                                </div>
+                                <div>
+                                    <label class="block text-xs text-talkheals-muted mb-1.5">Button Text</label>
+                                    <input v-model="aboutForm.btn2_text" type="text" maxlength="80"
+                                        class="w-full px-3 py-2.5 rounded-xl border border-talkheals-gold/30 bg-white text-talkheals-deep text-sm focus:outline-none focus:ring-2 focus:ring-talkheals-gold/40 transition">
+                                    <p v-if="aboutForm.errors.btn2_text" class="text-red-500 text-xs mt-1">{{ aboutForm.errors.btn2_text }}</p>
+                                </div>
+                                <div>
+                                    <label class="block text-xs text-talkheals-muted mb-1.5">Link URL</label>
+                                    <input v-model="aboutForm.btn2_link" type="url" placeholder="https://…"
+                                        class="w-full px-3 py-2.5 rounded-xl border border-talkheals-gold/30 bg-white text-talkheals-deep text-sm focus:outline-none focus:ring-2 focus:ring-talkheals-gold/40 transition">
+                                    <p v-if="aboutForm.errors.btn2_link" class="text-red-500 text-xs mt-1">{{ aboutForm.errors.btn2_link }}</p>
+                                    <p class="text-xs text-talkheals-muted mt-1">Opens in new tab.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Submit -->
+                        <div class="flex items-center justify-between pt-2 border-t border-talkheals-gold/10">
+                            <p class="text-xs text-talkheals-muted">Changes go live immediately after saving.</p>
+                            <button type="submit" :disabled="aboutForm.processing"
+                                class="px-8 py-3 rounded-2xl bg-talkheals-gold text-white font-bold text-sm shadow-lg shadow-talkheals-gold/20 hover:bg-talkheals-gold/90 disabled:opacity-60 transition-all duration-200 flex items-center gap-2">
+                                <svg v-if="aboutForm.processing" class="w-4 h-4 animate-spin" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"/><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z"/></svg>
+                                {{ aboutForm.processing ? 'Saving...' : 'Save About Section' }}
                             </button>
                         </div>
                     </form>

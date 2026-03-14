@@ -25,6 +25,8 @@ class DashboardController extends Controller
         $hero     = PageContent::getSection('hero',     PageContentController::HERO_DEFAULTS);
         $sessions = PageContent::getSection('sessions', PageContentController::SESSIONS_DEFAULTS);
         $reviews  = PageContent::getSection('reviews',  PageContentController::REVIEWS_DEFAULTS);
+        $articles = PageContent::getSection('articles', PageContentController::ARTICLES_DEFAULTS);
+        $about    = PageContent::getSection('about',    PageContentController::ABOUT_DEFAULTS);
 
         $testimonials = Testimonial::active()
             ->orderBy('sort_order')
@@ -37,6 +39,8 @@ class DashboardController extends Controller
             'sessions'     => $sessions,
             'testimonials'  => $testimonials,
             'reviews'       => $reviews,
+            'articles'      => $articles,
+            'about'         => $about,
         ]);
     }
 }
