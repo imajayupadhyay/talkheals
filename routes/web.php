@@ -10,6 +10,14 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 Route::get('/', function () {
+    if (auth()->check()) {
+        return redirect()->route('dashboard');
+    }
+
+    if (auth('admin')->check()) {
+        return redirect()->route('admin.dashboard');
+    }
+
     return Inertia::render('Clients/Auth', [
         'canLogin' => Route::has('login'),
         'canRegister' => Route::has('register'),
