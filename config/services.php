@@ -34,6 +34,12 @@ return [
         'redirect_uri' => env('GOOGLE_REDIRECT_URI'),
     ],
 
+    'google_client' => [
+        'client_id' => env('GOOGLE_CLIENT_LOGIN_ID'),
+        'client_secret' => env('GOOGLE_CLIENT_LOGIN_SECRET'),
+        'redirect_uri' => env('GOOGLE_CLIENT_LOGIN_REDIRECT'),
+    ],
+
     'slack' => [
         'notifications' => [
             'bot_user_oauth_token' => env('SLACK_BOT_USER_OAUTH_TOKEN'),
