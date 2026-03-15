@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\AdminUserController;
+use App\Http\Controllers\Admin\BroadcastController;
 use App\Http\Controllers\Admin\NewsletterController as AdminNewsletterController;
 use App\Http\Controllers\Admin\PageContentController;
 use App\Http\Controllers\Admin\TestimonialController;
@@ -49,6 +50,11 @@ Route::middleware('auth:admin')->prefix('admin')->group(function () {
     Route::get('/newsletter', [AdminNewsletterController::class, 'index'])->name('admin.newsletter');
     Route::patch('/newsletter/{subscriber}/toggle', [AdminNewsletterController::class, 'toggleActive'])->name('admin.newsletter.toggle');
     Route::delete('/newsletter/{subscriber}', [AdminNewsletterController::class, 'destroy'])->name('admin.newsletter.destroy');
+
+    // Broadcasting
+    Route::get('/broadcasting', [BroadcastController::class, 'index'])->name('admin.broadcasting');
+    Route::post('/broadcasting/send', [BroadcastController::class, 'send'])->name('admin.broadcasting.send');
+    Route::post('/broadcasting/upload-image', [BroadcastController::class, 'uploadImage'])->name('admin.broadcasting.upload-image');
 
     // Testimonials CRUD
     Route::get('/testimonials', [TestimonialController::class, 'index'])->name('admin.testimonials');

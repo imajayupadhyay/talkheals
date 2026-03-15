@@ -10,6 +10,7 @@ const menuItems = [
     { name: 'Admins',       icon: '🛡️',  route: 'admin.admins'      },
     { name: 'Testimonials', icon: '💬',  route: 'admin.testimonials' },
     { name: 'Newsletter',   icon: '📧',  route: 'admin.newsletter'   },
+    { name: 'Broadcasting', icon: '📡',  route: 'admin.broadcasting' },
     { name: 'Content',      icon: '✏️',  route: 'admin.content'     },
 ];
 </script>
