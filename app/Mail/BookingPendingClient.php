@@ -1,0 +1,35 @@
+<?php
+
+namespace App\Mail;
+
+use App\Models\Booking;
+use Illuminate\Bus\Queueable;
+use Illuminate\Mail\Mailable;
+use Illuminate\Mail\Mailables\Content;
+use Illuminate\Mail\Mailables\Envelope;
+use Illuminate\Queue\SerializesModels;
+
+class BookingPendingClient extends Mailable
+{
+    use Queueable, SerializesModels;
+
+    public function __construct(public Booking $booking) {}
+
+    public function envelope(): Envelope
+    {
+        return new Envelope(
+            subject: 'Booking Received — ' . $this->booking->session_type,
+        );
+    }
+
+    public function content(): Content
+    {
+        return new Content(
+            view: 'emails.booking-pending-client',
+            with: [
+                'booking' => $this->booking,
+                'admin' => $this->booking->admin,
+            ],
+        );
+    }
+}

@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\BookingConfirmationAdmin;
+use App\Mail\BookingPendingClient;
 
 class BookingController extends Controller
 {
@@ -217,6 +218,15 @@ class BookingController extends Controller
 
         // Notify admin about the new booking request
         Mail::to($admin->email)->send(new BookingConfirmationAdmin($booking));
+
+        // Send pending acknowledgment email to the client
+        try {
+            Log::info('Sending pending email to client: ' . $client->email);
+            Mail::to($client->email)->send(new BookingPendingClient($booking));
+            Log::info('Pending email sent successfully to: ' . $client->email);
+        } catch (\Exception $e) {
+            Log::error('Failed to send pending email to client: ' . $e->getMessage());
+        }
 
         return response()->json([
             'message'      => 'Booking request submitted! You will receive a confirmation email once approved.',
