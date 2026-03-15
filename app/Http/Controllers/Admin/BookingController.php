@@ -3,10 +3,14 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Mail\BookingConfirmationClient;
 use App\Models\Booking;
+use App\Services\GoogleCalendarService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -67,6 +71,23 @@ class BookingController extends Controller
         }
 
         $booking->save();
+
+        // When admin confirms: create Google Meet link & send confirmation email to client
+        if ($validated['status'] === 'confirmed') {
+            $booking->load(['client', 'admin']);
+
+            // Generate Google Meet link if admin has connected Google Calendar
+            try {
+                app(GoogleCalendarService::class)->createMeetEvent($booking);
+                $booking->refresh();
+            } catch (\Exception $e) {
+                Log::warning('Google Meet link creation failed: ' . $e->getMessage());
+            }
+
+            Mail::to($booking->client->email)->send(new BookingConfirmationClient($booking));
+
+            return back()->with('success', 'Booking confirmed & confirmation email sent to ' . $booking->client->email);
+        }
 
         return back()->with('success', 'Booking status updated.');
     }

@@ -13,9 +13,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
-use App\Mail\BookingConfirmationClient;
 use App\Mail\BookingConfirmationAdmin;
-use App\Services\GoogleCalendarService;
 
 class BookingController extends Controller
 {
@@ -217,23 +215,11 @@ class BookingController extends Controller
 
         $booking->load(['client', 'admin']);
 
-        // Generate Google Meet link if admin has connected Google Calendar
-        $meetLink = null;
-        try {
-            $meetLink = app(GoogleCalendarService::class)->createMeetEvent($booking);
-            if ($meetLink) {
-                $booking->refresh();
-            }
-        } catch (\Exception $e) {
-            Log::warning('Google Meet link creation failed: ' . $e->getMessage());
-        }
-
-        Mail::to($client->email)->send(new BookingConfirmationClient($booking));
+        // Notify admin about the new booking request
         Mail::to($admin->email)->send(new BookingConfirmationAdmin($booking));
 
         return response()->json([
-            'message'      => 'Booking confirmed!',
-            'meet_link'    => $meetLink,
+            'message'      => 'Booking request submitted! You will receive a confirmation email once approved.',
             'booking_date' => Carbon::parse($validated['date'])->format('l, F j, Y'),
             'start_time'   => Carbon::parse($validated['date'] . ' ' . $validated['start_time'])->format('g:i A'),
             'end_time'     => Carbon::parse($validated['date'] . ' ' . $endTime)->format('g:i A'),

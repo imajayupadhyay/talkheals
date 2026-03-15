@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>New Booking</title>
+    <title>New Booking Request</title>
     <style>
         body { margin: 0; padding: 0; background-color: #f4f4f7; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; }
         .wrapper { width: 100%; background-color: #f4f4f7; padding: 40px 0; }
@@ -24,7 +24,7 @@
     <div class="wrapper">
         <div class="container">
             <div class="header">
-                <h1>New Booking Received</h1>
+                <h1>New Booking Request</h1>
             </div>
             <div class="body">
                 <p>You have a new booking from <strong>{{ $client->name }}</strong>.</p>
@@ -61,11 +61,10 @@
                     </div>
                 @endif
 
-                @if($booking->google_meet_link)
-                    <div style="text-align: center; margin: 24px 0;">
-                        <a href="{{ $booking->google_meet_link }}" style="display: inline-block; background-color: #059669; color: #ffffff; padding: 14px 32px; border-radius: 6px; text-decoration: none; font-size: 16px; font-weight: 600;">Join Google Meet</a>
-                    </div>
-                @endif
+                <div style="background-color: #fffbeb; border-radius: 6px; padding: 16px; margin: 16px 0; text-align: center;">
+                    <p style="color: #92400e; font-size: 14px; font-weight: 600; margin: 0;">This booking is pending your confirmation.</p>
+                    <p style="color: #92400e; font-size: 13px; margin: 8px 0 0;">Please review and confirm from the admin panel.</p>
+                </div>
             </div>
             <div class="footer">
                 <p>&copy; {{ date('Y') }} {{ config('app.name') }}. All rights reserved.</p>

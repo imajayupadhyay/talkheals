@@ -18,7 +18,7 @@ class BookingConfirmationAdmin extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'New Booking — ' . $this->booking->client->name,
+            subject: 'New Booking Request — ' . $this->booking->client->name,
         );
     }
 
