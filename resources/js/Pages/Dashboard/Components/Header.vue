@@ -1,10 +1,10 @@
 <script setup>
 import { Link, usePage } from '@inertiajs/vue3';
-import { ref, onMounted, onUnmounted } from 'vue';
+import { ref, computed, onMounted, onUnmounted } from 'vue';
 
 const isScrolled = ref(false);
 const isProfileOpen = ref(false);
-const user = usePage().props.auth.user;
+const user = computed(() => usePage().props.auth?.user ?? null);
 
 const handleScroll = () => {
     isScrolled.value = window.scrollY > 50;
@@ -58,9 +58,14 @@ onUnmounted(() => {
                 Book Now
             </button>
 
-            <!-- Profile Dropdown -->
-            <div class="relative profile-wrapper">
-                <div 
+            <!-- Guest: Login -->
+            <Link v-if="!user" :href="route('login')" class="px-5 py-2.5 bg-talkheals-gold text-white border-none rounded-[40px] font-sans text-[0.79rem] cursor-pointer hover:bg-talkheals-deep hover:translate-y-[-2px] transition-all duration-300">
+                Log in
+            </Link>
+
+            <!-- Authenticated: Profile Dropdown -->
+            <div v-else class="relative profile-wrapper">
+                <div
                     @click="toggleProfile"
                     class="flex items-center gap-2 p-1.5 pr-3 bg-talkheals-gold-p/70 border border-talkheals-gold-l rounded-[40px] cursor-pointer hover:bg-talkheals-gold-p transition-all duration-300"
                 >
@@ -72,7 +77,7 @@ onUnmounted(() => {
                 </div>
 
                 <!-- Dropdown Menu -->
-                <div 
+                <div
                     v-if="isProfileOpen"
                     class="absolute top-[calc(100%+9px)] right-0 w-[232px] bg-white rounded-[15px] shadow-[0_18px_52px_rgba(42,36,32,0.13)] border border-talkheals-gold-p p-[14px] z-[200] transition-all duration-300 transform origin-top-right animate-in fade-in zoom-in-95 duration-200"
                 >
@@ -85,7 +90,7 @@ onUnmounted(() => {
                             <div class="text-[0.68rem] text-talkheals-muted uppercase tracking-wider">Member</div>
                         </div>
                     </div>
-                    
+
                     <div class="flex flex-col gap-0.5">
                         <Link :href="route('client.profile.edit')" class="flex items-center gap-2.5 p-2 rounded-lg text-[0.8rem] text-talkheals-deep hover:bg-talkheals-gold-p transition-colors duration-200">
                             <span>🧘</span> Clinical Profile
@@ -94,8 +99,8 @@ onUnmounted(() => {
                             <span>📅</span> My Appointments
                         </Link>
                         <Link
-                            :href="route('logout')" 
-                            method="post" 
+                            :href="route('logout')"
+                            method="post"
                             as="button"
                             class="w-full flex items-center gap-2.5 p-2 rounded-lg text-[0.8rem] text-[#b04040] hover:bg-red-50 transition-colors duration-200 text-left"
                         >

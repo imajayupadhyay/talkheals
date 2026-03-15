@@ -137,7 +137,7 @@ onMounted(() => {
     <div class="wave"><svg viewBox="0 0 1440 52" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg"><path d="M0,26 C360,52 720,0 1080,26 C1260,40 1380,12 1440,26 L1440,52 L0,52 Z" fill="rgba(201,169,110,.07)"/></svg></div>
 
     <!-- Free Booking Modal -->
-    <BookingModal :open="showBookingModal" @close="showBookingModal = false" />
+    <BookingModal :open="showBookingModal" @close="showBookingModal = false" @restore="showBookingModal = true" />
 </template>
 
 <style scoped>
