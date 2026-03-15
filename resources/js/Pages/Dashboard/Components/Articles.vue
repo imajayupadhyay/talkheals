@@ -45,6 +45,10 @@ const nlForm = useForm({ email: '' });
 
 const newsletterSuccess = computed(() => usePage().props.flash?.newsletter_success ?? null);
 
+const openLink = (url) => {
+    if (url) window.open(url, '_blank');
+};
+
 const subscribeNl = () => {
     if (!nlForm.email || !nlForm.email.includes('@')) {
         nlForm.setError('email', 'Please enter a valid email address.');
@@ -72,23 +76,23 @@ const subscribeNl = () => {
                     <h3 class="art-title">{{ c.art_title }} <em>{{ c.art_title_highlight }}</em></h3>
                     <p class="art-desc">{{ c.art_desc }}</p>
                     <div class="art-previews">
-                        <div class="art-prev" @click="window.open('https://talkheals.ca/blog','_blank')">
+                        <div class="art-prev" @click="openLink(c.art_btn_link)">
                             <div class="art-prev-icon">{{ c.art_p1_icon }}</div>
                             <div><div class="art-prev-text">{{ c.art_p1_text }}</div><div class="art-prev-tag">{{ c.art_p1_tag }}</div></div>
                             <div class="art-prev-arr">→</div>
                         </div>
-                        <div class="art-prev" @click="window.open('https://talkheals.ca/blog','_blank')">
+                        <div class="art-prev" @click="openLink(c.art_btn_link)">
                             <div class="art-prev-icon">{{ c.art_p2_icon }}</div>
                             <div><div class="art-prev-text">{{ c.art_p2_text }}</div><div class="art-prev-tag">{{ c.art_p2_tag }}</div></div>
                             <div class="art-prev-arr">→</div>
                         </div>
-                        <div class="art-prev" @click="window.open('https://talkheals.ca/blog','_blank')">
+                        <div class="art-prev" @click="openLink(c.art_btn_link)">
                             <div class="art-prev-icon">{{ c.art_p3_icon }}</div>
                             <div><div class="art-prev-text">{{ c.art_p3_text }}</div><div class="art-prev-tag">{{ c.art_p3_tag }}</div></div>
                             <div class="art-prev-arr">→</div>
                         </div>
                     </div>
-                    <button class="btn-rose" @click="window.open(c.art_btn_link, '_blank')">{{ c.art_btn }}</button>
+                    <button class="btn-rose" @click="openLink(c.art_btn_link)">{{ c.art_btn }}</button>
                 </div>
 
                 <!-- NEWSLETTER -->
