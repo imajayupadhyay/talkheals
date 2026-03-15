@@ -51,7 +51,7 @@ import { Link } from '@inertiajs/vue3';
 ══════════════════════════════════════ */
 footer{background:var(--deep);padding:60px 48px 26px;position:relative;z-index:1}
 .fg{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:34px;max-width:1100px;margin:0 auto;padding-bottom:40px;border-bottom:1px solid rgba(255,255,255,.07)}
-.fl{font-family:'Fraunces',serif;font-size:1.4rem;font-weight:300;color:white}
+.fl{font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:400;color:white}
 .fl span{color:var(--gold);font-style:italic}
 .fl-s{font-size:.58rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.22);margin-bottom:12px;margin-top:3px}
 .fl-d{font-size:.79rem;color:rgba(255,255,255,.36);line-height:1.72;max-width:250px;font-weight:300;margin-bottom:16px}

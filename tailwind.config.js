@@ -32,8 +32,8 @@ export default {
                 }
             },
             fontFamily: {
-                sans: ['Jost', ...defaultTheme.fontFamily.sans],
-                serif: ['Fraunces', ...defaultTheme.fontFamily.serif],
+                sans: ['DM Sans', ...defaultTheme.fontFamily.sans],
+                serif: ['Playfair Display', ...defaultTheme.fontFamily.serif],
             },
         },
     },

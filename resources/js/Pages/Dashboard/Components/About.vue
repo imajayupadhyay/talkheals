@@ -189,7 +189,7 @@ onMounted(() => {
 }
 
 .bio-badge-name {
-    font-family: 'Fraunces', serif;
+    font-family: 'Playfair Display', serif;
     font-size: 1.1rem;
     color: var(--deep);
     font-weight: 300;
@@ -230,7 +230,7 @@ onMounted(() => {
 
 /* Content Styling */
 .slabel { font-size: .66rem; letter-spacing: .18em; text-transform: uppercase; color: var(--gold); margin-bottom: 12px; }
-.stitle { font-family: 'Fraunces', serif; font-size: clamp(2rem, 4vw, 3rem); font-weight: 300; line-height: 1.15; color: var(--deep); margin-bottom: 24px; }
+.stitle { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 4vw, 3rem); font-weight: 400; line-height: 1.15; color: var(--deep); margin-bottom: 24px; }
 .stitle em { font-style: italic; color: var(--rose); }
 
 .bio-p {
@@ -262,7 +262,7 @@ onMounted(() => {
     box-shadow: 0 12px 32px rgba(201,169,110,0.08);
 }
 
-.bs-num { font-family: 'Fraunces', serif; font-size: 1.6rem; font-weight: 300; color: var(--gold); }
+.bs-num { font-family: 'Playfair Display', serif; font-size: 1.6rem; font-weight: 400; color: var(--gold); }
 .bs-lbl { font-size: 0.7rem; color: var(--muted); margin-top: 2px; text-transform: uppercase; letter-spacing: 0.05em; }
 
 .bio-btns {
@@ -277,7 +277,7 @@ onMounted(() => {
     color: white;
     border: none;
     border-radius: 40px;
-    font-family: 'Jost', sans-serif;
+    font-family: 'DM Sans', sans-serif;
     font-size: 0.88rem;
     cursor: pointer;
     font-weight: 500;
@@ -296,7 +296,7 @@ onMounted(() => {
     border: 1.5px solid var(--rose-l);
     color: var(--rose);
     border-radius: 40px;
-    font-family: 'Jost', sans-serif;
+    font-family: 'DM Sans', sans-serif;
     font-size: 0.88rem;
     cursor: pointer;
     transition: all 0.3s;

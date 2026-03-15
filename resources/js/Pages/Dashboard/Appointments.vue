@@ -329,9 +329,9 @@ onMounted(() => {
     margin-bottom: 10px;
 }
 .stitle {
-    font-family: 'Fraunces', serif;
+    font-family: 'Playfair Display', serif;
     font-size: clamp(2rem, 4vw, 3rem);
-    font-weight: 200;
+    font-weight: 400;
     color: var(--deep);
     line-height: 1.1;
 }
@@ -352,9 +352,9 @@ onMounted(() => {
     text-align: center;
 }
 .appt-stat-val {
-    font-family: 'Fraunces', serif;
+    font-family: 'Playfair Display', serif;
     font-size: 1.8rem;
-    font-weight: 200;
+    font-weight: 400;
     color: var(--deep);
     line-height: 1;
 }
@@ -414,9 +414,9 @@ onMounted(() => {
     font-weight: 700;
 }
 .appt-date-num {
-    font-family: 'Fraunces', serif;
+    font-family: 'Playfair Display', serif;
     font-size: 1.1rem;
-    font-weight: 200;
+    font-weight: 400;
     color: var(--deep);
     line-height: 1.2;
     white-space: nowrap;

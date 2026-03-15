@@ -25,6 +25,7 @@ const breatheIcon = ref('🌸');
 
 // Web Audio logic
 let actx = null;
+let loopTimer = null;
 const pentatonic = [261.6, 293.7, 329.6, 392, 440, 523.3, 587.3, 659.3];
 
 const chime = (f, d = 0, vol = 0.032) => {
@@ -38,16 +39,16 @@ const chime = (f, d = 0, vol = 0.032) => {
     const t = actx.currentTime + d;
     g.gain.setValueAtTime(0, t);
     g.gain.linearRampToValueAtTime(vol, t + .06);
-    g.gain.exponentialRampToValueAtTime(.0001, t + 2.4);
+    g.gain.exponentialRampToValueAtTime(.0001, t + 3.5);
     o.start(t);
-    o.stop(t + 2.6);
+    o.stop(t + 3.8);
 };
 
 const ambientLoop = () => {
     if (!isPlaying.value) return;
     const notes = [...pentatonic].sort(() => Math.random() - .5).slice(0, 3);
-    notes.forEach((f, i) => chime(f, i * .7));
-    setTimeout(ambientLoop, 9000 + Math.random() * 6000);
+    notes.forEach((f, i) => chime(f, i * .6, 0.028 + Math.random() * 0.015));
+    loopTimer = setTimeout(ambientLoop, 2200 + Math.random() * 1800);
 };
 
 const toggleSound = () => {
@@ -65,6 +66,10 @@ const toggleSound = () => {
     } else {
         breatheLabel.value = 'Tap to begin';
         breatheIcon.value = '🌸';
+        if (loopTimer) {
+            clearTimeout(loopTimer);
+            loopTimer = null;
+        }
     }
 };
 </script>

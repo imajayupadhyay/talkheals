@@ -117,7 +117,7 @@ onMounted(() => {
 .uw-inner { max-width: 1100px; margin: 0 auto; }
 .uw-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 48px; }
 .slabel { font-size: .66rem; letter-spacing: .18em; text-transform: uppercase; color: var(--gold); margin-bottom: 10px; }
-.stitle { font-family: 'Fraunces', serif; font-size: clamp(1.8rem, 3.5vw, 2.8rem); font-weight: 300; line-height: 1.1; color: var(--deep); }
+.stitle { font-family: 'Playfair Display', serif; font-size: clamp(1.8rem, 3.5vw, 2.8rem); font-weight: 400; line-height: 1.1; color: var(--deep); }
 .stitle em { font-style: italic; color: var(--rose); }
 .view-all-btn { background: transparent; border: none; color: var(--mid); font-size: 0.85rem; font-weight: 500; cursor: pointer; display: flex; align-items: center; gap: 8px; padding-bottom: 4px; border-bottom: 1.5px solid var(--gold-l); transition: all 0.3s ease; }
 .view-all-btn:hover { color: var(--rose); border-color: var(--rose); transform: translateX(5px); }
@@ -136,7 +136,7 @@ onMounted(() => {
 .thumb-placeholder { width: 100%; height: 100%; background: linear-gradient(135deg, var(--gold-p), var(--rose-p)); display: flex; align-items: center; justify-content: center; font-size: 3rem; }
 
 .date-badge { position: absolute; top: 16px; left: 16px; background: var(--rose); color: white; padding: 10px 14px; border-radius: 16px; display: flex; flex-direction: column; align-items: center; line-height: 1; box-shadow: 0 8px 20px rgba(196,154,138,0.3); }
-.date-badge .day { font-family: 'Fraunces', serif; font-size: 1.4rem; font-weight: 300; }
+.date-badge .day { font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 400; }
 .date-badge .mon { font-size: 0.6rem; text-transform: uppercase; letter-spacing: 0.1em; margin-top: 2px; }
 
 .card-tags { position: absolute; bottom: 16px; left: 16px; display: flex; gap: 6px; }
@@ -148,10 +148,10 @@ onMounted(() => {
 
 .card-body { padding: 24px; }
 .card-time { font-size: 0.72rem; color: var(--muted); margin-bottom: 8px; letter-spacing: 0.02em; }
-.card-title { font-family: 'Fraunces', serif; font-size: 1.25rem; color: var(--deep); font-weight: 300; margin-bottom: 12px; line-height: 1.3; }
+.card-title { font-family: 'Playfair Display', serif; font-size: 1.25rem; color: var(--deep); font-weight: 400; margin-bottom: 12px; line-height: 1.3; }
 .card-desc { font-size: 0.85rem; color: var(--mid); line-height: 1.6; font-weight: 300; margin-bottom: 24px; height: 48px; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
 
-.register-btn { width: 100%; padding: 12px; background: var(--cream); color: var(--deep); border: 1.5px solid var(--gold-p); border-radius: 14px; font-family: 'Jost', sans-serif; font-size: 0.82rem; font-weight: 500; cursor: pointer; transition: all 0.3s ease; }
+.register-btn { width: 100%; padding: 12px; background: var(--cream); color: var(--deep); border: 1.5px solid var(--gold-p); border-radius: 14px; font-family: 'DM Sans', sans-serif; font-size: 0.82rem; font-weight: 500; cursor: pointer; transition: all 0.3s ease; }
 .register-btn:hover { background: var(--rose); color: white; border-color: var(--rose); box-shadow: 0 8px 24px rgba(196,154,138,0.25); }
 .register-btn.waitlist:hover { background: var(--gold); border-color: var(--gold); box-shadow: 0 8px 24px rgba(201,169,110,0.25); }
 .register-btn.cancelled { opacity: 0.4; cursor: not-allowed; }

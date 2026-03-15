@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,200;0,9..144,300;1,9..144,200;1,9..144,300&family=Jost:wght@300;400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=DM+Sans:wght@300;400;500;600;700&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -14,14 +14,14 @@
 
 @layer base {
     body {
-        font-family: 'Jost', sans-serif;
+        font-family: 'DM Sans', sans-serif;
         background: var(--cream);
         color: var(--deep);
         @apply selection:bg-talkheals-gold selection:text-white;
     }
     
     h1, h2, h3, h4, h5, h6 {
-        font-family: 'Fraunces', serif;
+        font-family: 'Playfair Display', serif;
     }
 }
 

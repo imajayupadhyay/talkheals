@@ -189,7 +189,7 @@ const submit = () => {
 }
 
 .slabel { font-size: .66rem; letter-spacing: .18em; text-transform: uppercase; color: var(--gold); margin-bottom: 10px; }
-.stitle { font-family: 'Fraunces', serif; font-size: clamp(1.7rem, 3.2vw, 2.6rem); font-weight: 300; line-height: 1.15; color: var(--deep); margin-bottom: 10px; }
+.stitle { font-family: 'Playfair Display', serif; font-size: clamp(1.7rem, 3.2vw, 2.6rem); font-weight: 400; line-height: 1.15; color: var(--deep); margin-bottom: 10px; }
 .stitle em { font-style: italic; color: var(--rose); }
 .ssub { font-size: .9rem; color: var(--muted); max-width: 520px; line-height: 1.78; font-weight: 300; }
 

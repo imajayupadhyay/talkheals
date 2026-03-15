@@ -148,7 +148,7 @@ onMounted(() => {
 .sess-inner{max-width:1100px;margin:0 auto}
 .sess-intro{text-align:center;margin-bottom:44px}
 .sess-intro-label{font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);margin-bottom:10px}
-.sess-intro-title{font-family:'Fraunces',serif;font-size:clamp(1.6rem,3vw,2.4rem);font-weight:300;color:var(--deep)}
+.sess-intro-title{font-family:'Playfair Display',serif;font-size:clamp(1.6rem,3vw,2.4rem);font-weight:400;color:var(--deep)}
 .sess-intro-title em{font-style:italic;color:var(--rose)}
 
 .sess-boxes{display:grid;grid-template-columns:1fr 1fr;gap:22px}
@@ -167,7 +167,7 @@ onMounted(() => {
 .bdot{width:5px;height:5px;border-radius:50%;background:var(--gold-l);animation:pulse 2.2s infinite}
 @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(1.6)}}
 
-.box-title{font-family:'Fraunces',serif;font-size:2.4rem;font-weight:200;color:white;line-height:1.08;margin-bottom:14px;position:relative;z-index:1}
+.box-title{font-family:'Playfair Display',serif;font-size:2.4rem;font-weight:400;color:white;line-height:1.08;margin-bottom:14px;position:relative;z-index:1}
 .box-title em{font-style:italic;color:var(--gold-l)}
 .box-desc{font-size:.85rem;color:rgba(255,255,255,.48);line-height:1.8;font-weight:300;margin-bottom:30px;position:relative;z-index:1}
 
@@ -178,9 +178,9 @@ onMounted(() => {
 .free-price-block{background:rgba(255,255,255,.055);border:1px solid rgba(255,255,255,.09);border-radius:16px;padding:24px 26px;position:relative;z-index:1;display:flex;flex-direction:column;gap:16px}
 .price-row{display:flex;align-items:baseline;justify-content:space-between}
 .price-label{font-size:.72rem;color:rgba(255,255,255,.38);letter-spacing:.06em}
-.price-big{font-family:'Fraunces',serif;font-size:2.2rem;font-weight:200;color:white}
-.price-big span{font-size:.8rem;font-family:'Jost',sans-serif;color:var(--gold-l);margin-left:5px}
-.btn-free{width:100%;padding:15px;background:var(--gold);color:white;border:none;border-radius:11px;font-family:'Jost',sans-serif;font-size:.88rem;cursor:pointer;font-weight:500;letter-spacing:.04em;transition:all .32s cubic-bezier(.34,1.56,.64,1)}
+.price-big{font-family:'Playfair Display',serif;font-size:2.2rem;font-weight:400;color:white}
+.price-big span{font-size:.8rem;font-family:'DM Sans',sans-serif;color:var(--gold-l);margin-left:5px}
+.btn-free{width:100%;padding:15px;background:var(--gold);color:white;border:none;border-radius:11px;font-family:'DM Sans',sans-serif;font-size:.88rem;cursor:pointer;font-weight:500;letter-spacing:.04em;transition:all .32s cubic-bezier(.34,1.56,.64,1)}
 .btn-free:hover{background:white;color:var(--deep);transform:translateY(-2px);box-shadow:0 10px 28px rgba(0,0,0,.18)}
 
 /* ── PAID BOX ── */
@@ -193,7 +193,7 @@ onMounted(() => {
 .box-paid::before{content:'';position:absolute;width:260px;height:260px;border-radius:50%;background:rgba(201,169,110,.045);top:-80px;left:-80px}
 .box-badge-paid{display:inline-flex;align-items:center;gap:7px;padding:5px 14px;border-radius:40px;font-size:.67rem;letter-spacing:.12em;text-transform:uppercase;border:1px solid var(--rose-l);color:var(--rose);background:var(--rose-p);margin-bottom:20px;position:relative;z-index:1}
 
-.box-paid-title{font-family:'Fraunces',serif;font-size:2.4rem;font-weight:300;color:var(--deep);line-height:1.08;margin-bottom:14px;position:relative;z-index:1}
+.box-paid-title{font-family:'Playfair Display',serif;font-size:2.4rem;font-weight:400;color:var(--deep);line-height:1.08;margin-bottom:14px;position:relative;z-index:1}
 .box-paid-title em{font-style:italic;color:var(--rose)}
 .box-paid-desc{font-size:.85rem;color:var(--muted);line-height:1.8;font-weight:300;margin-bottom:28px;position:relative;z-index:1}
 
@@ -211,10 +211,10 @@ onMounted(() => {
 .sc-name{font-size:.9rem;font-weight:500;color:var(--deep);margin-bottom:2px}
 .sc-detail{font-size:.72rem;color:var(--muted)}
 .sc-price{text-align:right;flex-shrink:0}
-.sc-amt{font-family:'Fraunces',serif;font-size:1.28rem;font-weight:300;color:var(--deep)}
+.sc-amt{font-family:'Playfair Display',serif;font-size:1.28rem;font-weight:400;color:var(--deep)}
 .sc-unit{font-size:.66rem;color:var(--muted);display:block;margin-top:1px}
 
-.btn-paid{width:100%;margin-top:18px;padding:15px;background:var(--rose);color:white;border:none;border-radius:11px;font-family:'Jost',sans-serif;font-size:.88rem;cursor:pointer;font-weight:500;letter-spacing:.04em;transition:all .32s cubic-bezier(.34,1.56,.64,1);position:relative;z-index:1}
+.btn-paid{width:100%;margin-top:18px;padding:15px;background:var(--rose);color:white;border:none;border-radius:11px;font-family:'DM Sans',sans-serif;font-size:.88rem;cursor:pointer;font-weight:500;letter-spacing:.04em;transition:all .32s cubic-bezier(.34,1.56,.64,1);position:relative;z-index:1}
 .btn-paid:hover{background:var(--deep);transform:translateY(-2px);box-shadow:0 12px 30px rgba(196,154,138,.32)}
 .paid-note{font-size:.7rem;color:var(--muted);text-align:center;margin-top:10px;position:relative;z-index:1}
 

@@ -143,7 +143,7 @@ const subscribeNl = () => {
 
 .sess-intro{ text-align:center; margin-bottom:44px }
 .sess-intro-label{ font-size:.68rem; letter-spacing:.18em; text-transform:uppercase; color:var(--gold); margin-bottom:10px }
-.sess-intro-title{ font-family:'Fraunces',serif; font-size:clamp(1.6rem,3vw,2.4rem); font-weight:300; color:var(--deep) }
+.sess-intro-title{ font-family:'Playfair Display',serif; font-size:clamp(1.6rem,3vw,2.4rem); font-weight:400; color:var(--deep) }
 .sess-intro-title em{ font-style:italic; color:var(--rose) }
 
 /* Articles card */
@@ -155,7 +155,7 @@ const subscribeNl = () => {
 .art-card:hover{ transform:translateY(-4px); box-shadow:0 18px 52px rgba(42,36,32,.08) }
 .art-card::before{ content:''; position:absolute; width:200px; height:200px; border-radius:50%; background:rgba(201,169,110,.06); top:-60px; right:-60px }
 .art-badge{ display:inline-flex; align-items:center; gap:6px; padding:5px 13px; border-radius:40px; font-size:.66rem; letter-spacing:.1em; text-transform:uppercase; border:1px solid var(--gold-l); color:var(--gold); background:var(--gold-p); margin-bottom:18px }
-.art-title{ font-family:'Fraunces',serif; font-size:1.9rem; font-weight:300; color:var(--deep); line-height:1.15; margin-bottom:12px }
+.art-title{ font-family:'Playfair Display',serif; font-size:1.9rem; font-weight:400; color:var(--deep); line-height:1.15; margin-bottom:12px }
 .art-title em{ font-style:italic; color:var(--gold) }
 .art-desc{ font-size:.84rem; color:var(--muted); line-height:1.78; font-weight:300; margin-bottom:28px }
 .art-previews{ display:flex; flex-direction:column; gap:10px; margin-bottom:28px }
@@ -174,7 +174,7 @@ const subscribeNl = () => {
 .nl-card::before{ content:''; position:absolute; width:250px; height:250px; border-radius:50%; background:rgba(201,169,110,.09); top:-70px; right:-60px; animation:orbDrift 18s ease-in-out infinite }
 .nl-card::after{ content:''; position:absolute; width:150px; height:150px; border-radius:50%; background:rgba(122,158,142,.06); bottom:-30px; left:20% }
 .nl-badge{ display:inline-flex; align-items:center; gap:6px; padding:5px 13px; border-radius:40px; font-size:.66rem; letter-spacing:.1em; text-transform:uppercase; border:1px solid rgba(201,169,110,.3); color:var(--gold-l); background:rgba(201,169,110,.08); margin-bottom:18px; position:relative; z-index:1 }
-.nl-title{ font-family:'Fraunces',serif; font-size:1.9rem; font-weight:200; color:white; line-height:1.15; margin-bottom:12px; position:relative; z-index:1 }
+.nl-title{ font-family:'Playfair Display',serif; font-size:1.9rem; font-weight:400; color:white; line-height:1.15; margin-bottom:12px; position:relative; z-index:1 }
 .nl-title em{ font-style:italic; color:var(--gold-l) }
 .nl-desc{ font-size:.84rem; color:rgba(255,255,255,.48); line-height:1.78; font-weight:300; margin-bottom:28px; position:relative; z-index:1 }
 .nl-perks{ list-style:none; margin-bottom:28px; position:relative; z-index:1; display:flex; flex-direction:column; gap:6px; padding:0 }
@@ -182,11 +182,11 @@ const subscribeNl = () => {
 .ck{ width:16px; height:16px; border-radius:50%; background:rgba(201,169,110,.18); border:1px solid rgba(201,169,110,.32); display:flex; align-items:center; justify-content:center; font-size:.5rem; color:var(--gold-l); flex-shrink:0 }
 
 .nl-input-wrap{ position:relative; z-index:1; margin-bottom:10px }
-.nl-input{ width:100%; padding:13px 16px; background:rgba(255,255,255,.07); border:1px solid rgba(255,255,255,.12); border-radius:11px; color:white; font-family:'Jost',sans-serif; font-size:.86rem; outline:none; transition:border-color .3s,background .3s; box-sizing:border-box }
+.nl-input{ width:100%; padding:13px 16px; background:rgba(255,255,255,.07); border:1px solid rgba(255,255,255,.12); border-radius:11px; color:white; font-family:'DM Sans',sans-serif; font-size:.86rem; outline:none; transition:border-color .3s,background .3s; box-sizing:border-box }
 .nl-input::placeholder{ color:rgba(255,255,255,.28) }
 .nl-input:focus{ border-color:var(--gold-l); background:rgba(255,255,255,.1) }
 .nl-error{ font-size:.72rem; color:#f99; margin-top:5px; position:relative; z-index:1 }
-.nl-btn{ width:100%; padding:14px; background:var(--gold); color:white; border:none; border-radius:11px; font-family:'Jost',sans-serif; font-size:.88rem; cursor:pointer; font-weight:500; letter-spacing:.04em; transition:all .3s; position:relative; z-index:1 }
+.nl-btn{ width:100%; padding:14px; background:var(--gold); color:white; border:none; border-radius:11px; font-family:'DM Sans',sans-serif; font-size:.88rem; cursor:pointer; font-weight:500; letter-spacing:.04em; transition:all .3s; position:relative; z-index:1 }
 .nl-btn:hover:not(:disabled){ background:white; color:var(--deep); transform:translateY(-2px) }
 .nl-btn:disabled{ opacity:.6; cursor:not-allowed }
 .nl-note{ font-size:.67rem; color:rgba(255,255,255,.3); text-align:center; margin-top:9px; position:relative; z-index:1 }
@@ -195,7 +195,7 @@ const subscribeNl = () => {
 .nl-success-icon{ font-size:1.5rem; margin-bottom:6px }
 .nl-success-text{ font-size:.84rem; color:rgba(255,255,255,.8); line-height:1.5 }
 
-.btn-rose{ padding:12px 28px; background:var(--rose); color:white; border:none; border-radius:40px; font-family:'Jost',sans-serif; font-size:.84rem; cursor:pointer; transition:all .32s cubic-bezier(.34,1.56,.64,1); font-weight:500; width: 100%; }
+.btn-rose{ padding:12px 28px; background:var(--rose); color:white; border:none; border-radius:40px; font-family:'DM Sans',sans-serif; font-size:.84rem; cursor:pointer; transition:all .32s cubic-bezier(.34,1.56,.64,1); font-weight:500; width: 100%; }
 .btn-rose:hover{ background:var(--deep); transform:translateY(-3px); box-shadow:0 10px 28px rgba(196,154,138,.28) }
 
 @keyframes orbDrift {
