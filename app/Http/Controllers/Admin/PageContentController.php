@@ -41,7 +41,7 @@ class PageContentController extends Controller
         'stat_4_value'    => 'Global',
         'stat_4_label'    => 'Online Access',
         'btn1_text'       => 'Book with Namrata',
-        'btn1_link'       => 'https://talkheals.ca/appointment-request',
+        'btn1_link'       => '',
         'btn2_text'       => 'Full Profile →',
         'btn2_link'       => 'https://talkheals.ca/about',
     ];
@@ -67,6 +67,7 @@ class PageContentController extends Controller
         'art_p3_text'           => 'What No One Tells You About Post-Partum Anxiety',
         'art_p3_tag'            => 'Post-Partum · 6 min read',
         'art_btn'               => 'Read All Articles →',
+        'art_btn_link'          => 'https://talkheals.ca/blog',
 
         // Newsletter card
         'nl_badge'              => '✦ Free · Weekly',
@@ -201,7 +202,7 @@ class PageContentController extends Controller
             'stat_4_value'    => 'required|string|max:30',
             'stat_4_label'    => 'required|string|max:50',
             'btn1_text'       => 'required|string|max:80',
-            'btn1_link'       => 'required|url|max:300',
+            'btn1_link'       => 'nullable|url|max:300',
             'btn2_text'       => 'required|string|max:80',
             'btn2_link'       => 'required|url|max:300',
         ]);
@@ -259,6 +260,7 @@ class PageContentController extends Controller
             'art_p3_text'           => 'required|string|max:150',
             'art_p3_tag'            => 'required|string|max:80',
             'art_btn'               => 'required|string|max:80',
+            'art_btn_link'          => 'required|url|max:300',
             'nl_badge'              => 'required|string|max:120',
             'nl_title'              => 'required|string|max:80',
             'nl_title_highlight'    => 'required|string|max:80',

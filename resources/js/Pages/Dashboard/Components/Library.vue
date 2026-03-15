@@ -65,9 +65,6 @@ onMounted(() => {
                 </div>
             </div>
         </div>
-        <div style="text-align:center;margin-top:28px;padding:0 48px">
-            <button class="btn-rose" @click="window.open('https://talkheals.ca/events','_blank')">View All Workshops →</button>
-        </div>
     </div>
 </template>
 
@@ -98,8 +95,6 @@ onMounted(() => {
 .pw-watch{padding:4px 12px;border:1px solid var(--gold-l);border-radius:20px;font-size:.65rem;font-family:'DM Sans',sans-serif;color:var(--gold);cursor:pointer;background:none;transition:all .2s}
 .pw-watch:hover{background:var(--gold);color:white}
 
-.btn-rose{padding:12px 28px;background:var(--rose);color:white;border:none;border-radius:40px;font-family:'DM Sans',sans-serif;font-size:.84rem;cursor:pointer;transition:all .32s cubic-bezier(.34,1.56,.64,1);font-weight:500}
-.btn-rose:hover{background:var(--deep);transform:translateY(-3px);box-shadow:0 10px 28px rgba(196,154,138,.28)}
 
 .slabel { font-size: .66rem; letter-spacing: .18em; text-transform: uppercase; color: var(--gold); margin-bottom: 10px; }
 .stitle { font-family: 'Playfair Display', serif; font-size: clamp(1.7rem, 3.2vw, 2.6rem); font-weight: 400; line-height: 1.15; color: var(--deep); margin-bottom: 10px; }

@@ -20,6 +20,10 @@ const closeProfile = (e) => {
     }
 };
 
+const scrollToSessions = () => {
+    document.getElementById('sessions')?.scrollIntoView({ behavior: 'smooth' });
+};
+
 onMounted(() => {
     window.addEventListener('scroll', handleScroll);
     window.addEventListener('click', closeProfile);
@@ -54,7 +58,7 @@ onUnmounted(() => {
 
         <!-- Right Section -->
         <div class="flex items-center gap-3 lg:gap-5">
-            <button class="px-5 py-2.5 bg-talkheals-rose text-white border-none rounded-[40px] font-sans text-[0.79rem] cursor-pointer hover:bg-talkheals-deep hover:translate-y-[-2px] transition-all duration-300 hidden sm:block">
+            <button @click="scrollToSessions" class="px-5 py-2.5 bg-talkheals-rose text-white border-none rounded-[40px] font-sans text-[0.79rem] cursor-pointer hover:bg-talkheals-deep hover:translate-y-[-2px] transition-all duration-300 hidden sm:block">
                 Book Now
             </button>
 

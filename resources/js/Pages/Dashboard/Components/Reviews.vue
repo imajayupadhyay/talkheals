@@ -65,10 +65,6 @@ onMounted(() => {
                 </div>
             </div>
         </div>
-        <div class="rv-bot">
-            <button class="btn-rose" @click="window.location='https://talkheals.ca/appointment-request'">Begin Your Story</button>
-            <button class="btn-dark-out" @click="showToast('📖 Loading reviews...')">Read All →</button>
-        </div>
     </div>
 </template>
 
@@ -94,17 +90,10 @@ onMounted(() => {
 .rv-name{font-size:.82rem;color:white;font-weight:500}
 .rv-loc{font-size:.67rem;color:rgba(255,255,255,.32);margin-top:1px}
 .rv-tag{display:inline-block;margin-top:4px;padding:2px 10px;border-radius:20px;background:rgba(201,169,110,.09);color:var(--gold-l);font-size:.64rem}
-.rv-bot{text-align:center;margin-top:42px;position:relative;z-index:1;display:flex;gap:12px;justify-content:center}
-
 .cbtns{display:flex;gap:8px}
 .cbtn{width:38px;height:38px;border-radius:50%;border:1.5px solid var(--gold-l);background:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:.92rem;color:var(--deep);transition:all .22s}
 .cbtn:hover{background:var(--rose);border-color:var(--rose);color:white}
 
-.btn-rose{padding:12px 28px;background:var(--rose);color:white;border:none;border-radius:40px;font-family:'DM Sans',sans-serif;font-size:.84rem;cursor:pointer;transition:all .32s cubic-bezier(.34,1.56,.64,1);font-weight:500}
-.btn-rose:hover{background:var(--deep);transform:translateY(-3px);box-shadow:0 10px 28px rgba(196,154,138,.28)}
-
-.btn-dark-out{padding:12px 28px;background:transparent;border:1.5px solid rgba(255,255,255,.2);color:rgba(255,255,255,.8);border-radius:40px;font-family:'DM Sans',sans-serif;font-size:.84rem;cursor:pointer;transition:all .3s}
-.btn-dark-out:hover{border-color:white;color:white}
 
 @media(max-width:900px){
   .rv-wrap{padding:10px 20px;margin:0 -20px}

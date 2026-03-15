@@ -25,17 +25,20 @@ const DEFAULTS = {
     stat_4_value:    'Global',
     stat_4_label:    'Online Access',
     btn1_text:       'Book with Namrata',
-    btn1_link:       'https://talkheals.ca/appointment-request',
+    btn1_link:       '',
     btn2_text:       'Full Profile →',
     btn2_link:       'https://talkheals.ca/about',
 };
 
 const c = computed(() => ({ ...DEFAULTS, ...props.content }));
 
-const navigate = (link, newTab = false) => {
-    if (!link) return;
-    if (newTab) window.open(link, '_blank');
-    else window.location = link;
+const navigate = (link, newTab = false, fallbackHash = null) => {
+    if (link) {
+        if (newTab) window.open(link, '_blank');
+        else window.location = link;
+    } else if (fallbackHash) {
+        document.querySelector(fallbackHash)?.scrollIntoView({ behavior: 'smooth' });
+    }
 };
 
 onMounted(() => {
@@ -98,7 +101,7 @@ onMounted(() => {
                 </div>
 
                 <div class="bio-btns">
-                    <button class="btn-rose" @click="navigate(c.btn1_link)">{{ c.btn1_text }}</button>
+                    <button class="btn-rose" @click="navigate(c.btn1_link, false, '#sessions')">{{ c.btn1_text }}</button>
                     <button class="btn-out" @click="navigate(c.btn2_link, true)">{{ c.btn2_text }}</button>
                 </div>
             </div>

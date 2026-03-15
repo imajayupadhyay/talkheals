@@ -102,6 +102,7 @@ const articlesForm = useForm({
     art_p3_text:           props.articles.art_p3_text           ?? '',
     art_p3_tag:            props.articles.art_p3_tag            ?? '',
     art_btn:               props.articles.art_btn               ?? '',
+    art_btn_link:          props.articles.art_btn_link          ?? 'https://talkheals.ca/blog',
     nl_badge:              props.articles.nl_badge              ?? '',
     nl_title:              props.articles.nl_title              ?? '',
     nl_title_highlight:    props.articles.nl_title_highlight    ?? '',
@@ -501,10 +502,17 @@ const showPreview = ref(false);
                                 </div>
                             </div>
                         </div>
-                        <div>
-                            <label class="block text-xs font-bold text-talkheals-deep uppercase tracking-widest mb-2">Button Text</label>
-                            <input v-model="articlesForm.art_btn" type="text" maxlength="80"
-                                class="w-full px-4 py-3 rounded-xl border border-talkheals-gold/30 bg-talkheals-cream/50 text-talkheals-deep text-sm focus:outline-none focus:ring-2 focus:ring-talkheals-gold/40 transition">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-xs font-bold text-talkheals-deep uppercase tracking-widest mb-2">Button Text</label>
+                                <input v-model="articlesForm.art_btn" type="text" maxlength="80"
+                                    class="w-full px-4 py-3 rounded-xl border border-talkheals-gold/30 bg-talkheals-cream/50 text-talkheals-deep text-sm focus:outline-none focus:ring-2 focus:ring-talkheals-gold/40 transition">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-talkheals-deep uppercase tracking-widest mb-2">Button Link</label>
+                                <input v-model="articlesForm.art_btn_link" type="url" maxlength="300" placeholder="https://talkheals.ca/blog"
+                                    class="w-full px-4 py-3 rounded-xl border border-talkheals-gold/30 bg-talkheals-cream/50 text-talkheals-deep text-sm focus:outline-none focus:ring-2 focus:ring-talkheals-gold/40 transition">
+                            </div>
                         </div>
 
                         <!-- Newsletter Card -->

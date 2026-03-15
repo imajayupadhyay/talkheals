@@ -24,6 +24,7 @@ const DEFAULTS = {
     art_p3_text:           'What No One Tells You About Post-Partum Anxiety',
     art_p3_tag:            'Post-Partum · 6 min read',
     art_btn:               'Read All Articles →',
+    art_btn_link:          'https://talkheals.ca/blog',
     nl_badge:              '✦ Free · Weekly',
     nl_title:              'Your weekly',
     nl_title_highlight:    'moment of calm',
@@ -87,7 +88,7 @@ const subscribeNl = () => {
                             <div class="art-prev-arr">→</div>
                         </div>
                     </div>
-                    <button class="btn-rose" @click="window.open('https://talkheals.ca/blog','_blank')">{{ c.art_btn }}</button>
+                    <button class="btn-rose" @click="window.open(c.art_btn_link, '_blank')">{{ c.art_btn }}</button>
                 </div>
 
                 <!-- NEWSLETTER -->

@@ -39,9 +39,6 @@ onMounted(() => {
                     <div class="slabel">Live &amp; Free</div>
                     <h2 class="stitle">Upcoming <em>Workshops</em></h2>
                 </div>
-                <button class="view-all-btn" @click="window.open('https://talkheals.ca/events','_blank')">
-                    View Calendar <span>→</span>
-                </button>
             </div>
 
             <!-- No workshops -->
@@ -119,8 +116,6 @@ onMounted(() => {
 .slabel { font-size: .66rem; letter-spacing: .18em; text-transform: uppercase; color: var(--gold); margin-bottom: 10px; }
 .stitle { font-family: 'Playfair Display', serif; font-size: clamp(1.8rem, 3.5vw, 2.8rem); font-weight: 400; line-height: 1.1; color: var(--deep); }
 .stitle em { font-style: italic; color: var(--rose); }
-.view-all-btn { background: transparent; border: none; color: var(--mid); font-size: 0.85rem; font-weight: 500; cursor: pointer; display: flex; align-items: center; gap: 8px; padding-bottom: 4px; border-bottom: 1.5px solid var(--gold-l); transition: all 0.3s ease; }
-.view-all-btn:hover { color: var(--rose); border-color: var(--rose); transform: translateX(5px); }
 
 .uw-empty { text-align: center; padding: 80px 20px; }
 .uw-empty-icon { font-size: 3rem; margin-bottom: 16px; opacity: 0.5; }
