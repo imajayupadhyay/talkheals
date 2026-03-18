@@ -12,6 +12,7 @@ use App\Http\Controllers\Admin\BookingController as AdminBookingController;
 use App\Http\Controllers\Admin\ClientController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\GoogleController;
+use App\Http\Controllers\Admin\SearchController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('talkheals-secure-login')->group(function () {
@@ -21,6 +22,7 @@ Route::prefix('talkheals-secure-login')->group(function () {
 
 Route::middleware('auth:admin')->prefix('admin')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
+    Route::get('/search', [SearchController::class, 'search'])->name('admin.search');
     Route::post('/logout', [LoginController::class, 'destroy'])->name('admin.logout');
 
     // Availability management
